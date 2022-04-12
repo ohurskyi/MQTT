@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using Mqtt.Library.Test.Core;
+using MQTTnet.Server;
 
 namespace MqttClientTest.Messaging.Processing;
 
@@ -36,10 +37,29 @@ public class MessageHandlerFactory : IMessageHandlerFactory
 
     private static IEnumerable<IMessageHandler> GetHandlersInternalWithHandlerFactory(string topic, HandlerFactory handlerFactory)
     {
-        if (!_handlersMap.TryGetValue(topic, out var types)) return Enumerable.Empty<IMessageHandler>();
+        // todo how to use comparer
+        //if (!_handlersMap.TryGetValue(topic, out var types)) return Enumerable.Empty<IMessageHandler>();
+
+        var instances = _handlersMap
+            .Where(k => MqttTopicFilterComparer.IsMatch(topic, k.Key))
+            .SelectMany(k => k.Value)
+            .Select(type => (IMessageHandler)handlerFactory(type))
+            .ToList();
         
-        var instances = new List<IMessageHandler>(types.Count);
-        instances.AddRange(types.Select(type => (IMessageHandler)handlerFactory(type)));
         return instances;
+    }
+}
+
+internal class MqttTopicComparer : EqualityComparer<string>
+{
+    public override bool Equals(string x, string y)
+    {
+        var match = MqttTopicFilterComparer.IsMatch(x, y);
+        return match;
+    }
+
+    public override int GetHashCode(string obj)
+    {
+        return obj.GetHashCode();
     }
 }

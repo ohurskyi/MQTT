@@ -1,7 +1,6 @@
 using MessagingClient.Mqtt;
 using Mqtt.Library.Test.Client.Configuration;
 using Mqtt.Library.Test.Core;
-using MQTTnet;
 
 namespace Mqtt.Library.Test.Client;
 
@@ -27,10 +26,5 @@ public class TopicClient<TMessagingClientOptions> : ITopicClient<TMessagingClien
     public async Task Unsubscribe<T>(string topic) where T : IMessageHandler
     {
         await _mqttMessagingClient.UnsubscribeAsync(topic);
-    }
-
-    public async Task Publish(MqttApplicationMessage mqttApplicationMessage)
-    {
-        await _mqttMessagingClient.PublishAsync(mqttApplicationMessage);
     }
 }

@@ -21,9 +21,9 @@ namespace Mqtt.Library.Test
 
         public override async Task StartAsync(CancellationToken cancellationToken)
         {
-            var topic = "some-topic";
-            await _topicClient.Subscribe<MessageHandlerTest>(topic);
-            await _topicClient.Subscribe<MessageHandlerTest2>(topic);
+            var subTopic = "device/#";
+            await _topicClient.Subscribe<MessageHandlerTest>(subTopic);
+            await _topicClient.Subscribe<MessageHandlerTest2>(subTopic);
             
             await base.StartAsync(cancellationToken);
         }
@@ -34,8 +34,8 @@ namespace Mqtt.Library.Test
             
             while (!stoppingToken.IsCancellationRequested)
             {
-                var topic = "some-topic";
-                var mqttMessage = new MqttApplicationMessageBuilder().WithTopic(topic);
+                var pubTopic = "device/1";
+                var mqttMessage = new MqttApplicationMessageBuilder().WithTopic(pubTopic);
                 await _mqttMessageBus.Publish(mqttMessage.Build());
                 await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
             }
