@@ -12,28 +12,29 @@ public class MessageHandlerFactory : IMessageHandlerFactory
         return GetHandlersInternalWithHandlerFactory(topic, handlerFactory);
     }
 
-    public void RegisterHandler<T>(string topic) where T : IMessageHandler
+    public int RegisterHandler<T>(string topic) where T : IMessageHandler
     {
-        RegisterHandlerInternal<T>(topic);
+        return RegisterHandlerInternal<T>(topic);
     }
 
-    private static void RegisterHandlerInternal<T>(string topic) where T : IMessageHandler
+    private static int RegisterHandlerInternal<T>(string topic) where T : IMessageHandler
     {
         if (!_handlersMap.TryGetValue(topic, out var handlers))
         {
             _handlersMap.TryAdd(topic, new HashSet<Type> { typeof(T) });
-            return;
+            return 1;
         }
 
         if (handlers.Contains(typeof(T)))
         {
-            return;
+            return handlers.Count;
         }
 
         handlers.Add(typeof(T));
+        return handlers.Count;
     }
 
-    private IEnumerable<IMessageHandler> GetHandlersInternalWithHandlerFactory(string topic, HandlerFactory handlerFactory)
+    private static IEnumerable<IMessageHandler> GetHandlersInternalWithHandlerFactory(string topic, HandlerFactory handlerFactory)
     {
         if (!_handlersMap.TryGetValue(topic, out var types)) return Enumerable.Empty<IMessageHandler>();
         
