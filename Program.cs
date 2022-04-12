@@ -23,6 +23,7 @@ IHost host = Host.CreateDefaultBuilder(args)
 
         services.AddMqttMessagingStartupServices();
         services.AddMqttApplicationMessageReceivedHandler();
+        services.AddMqttMessageBus<LocalMqttMessagingClientOptions>();
         services.AddTopicClient<LocalMqttMessagingClientOptions>();
         services.AddMqttMessagingClient<LocalMqttMessagingClientOptions>(hostContext.Configuration);
         

@@ -34,6 +34,14 @@ namespace MessagingClient.Mqtt
             return serviceCollection;
         }
         
+        public static IServiceCollection AddMqttMessageBus<TMessagingClientOptions>(
+            this IServiceCollection serviceCollection)
+            where TMessagingClientOptions: IMqttMessagingClientOptions
+        {
+            serviceCollection.AddSingleton<IMqttMessageBus<TMessagingClientOptions>, MqttMqttMessageBus<TMessagingClientOptions>>();
+            return serviceCollection;
+        }
+        
         public static IServiceCollection AddMqttMessagingStartupServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddHostedService<MqttMessagingHostedService>();

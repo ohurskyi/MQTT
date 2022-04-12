@@ -11,10 +11,12 @@ namespace Mqtt.Library.Test
     public class BackgroundMqttPublisher : BackgroundService
     {
         private readonly ITopicClient<LocalMqttMessagingClientOptions> _topicClient;
+        private readonly IMqttMessageBus<LocalMqttMessagingClientOptions> _mqttMessageBus;
 
-        public BackgroundMqttPublisher(ITopicClient<LocalMqttMessagingClientOptions> topicClient)
+        public BackgroundMqttPublisher(ITopicClient<LocalMqttMessagingClientOptions> topicClient, IMqttMessageBus<LocalMqttMessagingClientOptions> mqttMessageBus)
         {
             _topicClient = topicClient;
+            _mqttMessageBus = mqttMessageBus;
         }
 
         public override async Task StartAsync(CancellationToken cancellationToken)
@@ -34,7 +36,7 @@ namespace Mqtt.Library.Test
             {
                 var topic = "some-topic";
                 var mqttMessage = new MqttApplicationMessageBuilder().WithTopic(topic);
-                await _topicClient.Publish(mqttMessage.Build());
+                await _mqttMessageBus.Publish(mqttMessage.Build());
                 await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
             }
         }
