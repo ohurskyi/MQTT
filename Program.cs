@@ -10,9 +10,10 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddHostedService<BackgroundMqttPublisher>();
 
         services.AddSingleton<HandlerFactory>(provider => provider.GetRequiredService);
-        services.AddSingleton<IMqttMessageExecutor, MqttMessageExecutor>();
-        services.AddScoped<MessageHandlerWrapper>();
+        services.AddSingleton<IMqttMessageExecutor, ScopedMessageExecutor>();
         services.AddSingleton<IMessageHandlerFactory, MessageHandlerFactory>();
+        
+        services.AddScoped<MessageHandlerWrapper>();
                     
         services.AddTransient<MessageHandlerTest>();
         services.AddTransient<MessageHandlerTest2>();

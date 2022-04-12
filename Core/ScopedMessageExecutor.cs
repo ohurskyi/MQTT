@@ -3,12 +3,12 @@ using MQTTnet;
 
 namespace Mqtt.Library.Test.Core
 {
-    public class MqttMessageExecutor : IMqttMessageExecutor
+    public class ScopedMessageExecutor : IMqttMessageExecutor
     {
         private readonly IMessageHandlerFactory _messageHandlerFactory;
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public MqttMessageExecutor(IMessageHandlerFactory messageHandlerFactory, IServiceScopeFactory serviceScopeFactory)
+        public ScopedMessageExecutor(IMessageHandlerFactory messageHandlerFactory, IServiceScopeFactory serviceScopeFactory)
         {
             _messageHandlerFactory = messageHandlerFactory;
             _serviceScopeFactory = serviceScopeFactory;
@@ -19,7 +19,7 @@ namespace Mqtt.Library.Test.Core
             using var scope = _serviceScopeFactory.CreateScope();
             var messageHandlerWrapper = scope.ServiceProvider.GetRequiredService<MessageHandlerWrapper>();
             var mqttApplicationMessage = messageReceivedEventArgs.ApplicationMessage;
-            await messageHandlerWrapper.Handle(mqttApplicationMessage, _messageHandlerFactory, scope.ServiceProvider);
+            await messageHandlerWrapper.Handle(mqttApplicationMessage, _messageHandlerFactory, scope);
         }
     }
 }

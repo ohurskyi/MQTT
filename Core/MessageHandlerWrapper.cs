@@ -3,11 +3,18 @@ using MQTTnet;
 
 namespace MqttClientTest.Messaging.Processing;
 
-public class MessageHandlerWrapper
+public class MessageHandlerWrapper : IDisposable
 {
-    public async Task Handle(MqttApplicationMessage mqttApplicationMessage, IMessageHandlerFactory messageHandlerFactory, IServiceProvider scopedServiceProvider)
+    private readonly ILogger<MessageHandlerWrapper> _logger;
+
+    public MessageHandlerWrapper(ILogger<MessageHandlerWrapper> logger)
     {
-        var handlers = messageHandlerFactory.GetHandlers(mqttApplicationMessage.Topic, scopedServiceProvider);
+        _logger = logger;
+    }
+
+    public async Task Handle(MqttApplicationMessage mqttApplicationMessage, IMessageHandlerFactory messageHandlerFactory, IServiceScope serviceScope)
+    {
+        var handlers = messageHandlerFactory.GetHandlers(mqttApplicationMessage.Topic, serviceScope.ServiceProvider);
 
         var funcs = handlers.Select(h => new Func<MqttApplicationMessage, Task>(h.Handle));
 
@@ -20,5 +27,10 @@ public class MessageHandlerWrapper
         {
             await handler(mqttApplicationMessage);
         }
+    }
+
+    public void Dispose()
+    {
+        _logger.LogInformation($"{nameof(MessageHandlerWrapper)} disposed.");;
     }
 }
