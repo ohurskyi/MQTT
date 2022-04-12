@@ -5,9 +5,9 @@ namespace MqttClientTest.Messaging.Processing;
 
 public class MessageHandlerWrapper
 {
-    public async Task Handle(MqttApplicationMessage mqttApplicationMessage, IMessageHandlerFactory messageHandlerFactory)
+    public async Task Handle(MqttApplicationMessage mqttApplicationMessage, IMessageHandlerFactory messageHandlerFactory, IServiceProvider scopedServiceProvider)
     {
-        var handlers = messageHandlerFactory.GetHandlers(mqttApplicationMessage.Topic);
+        var handlers = messageHandlerFactory.GetHandlers(mqttApplicationMessage.Topic, scopedServiceProvider);
 
         var funcs = handlers.Select(h => new Func<MqttApplicationMessage, Task>(h.Handle));
 

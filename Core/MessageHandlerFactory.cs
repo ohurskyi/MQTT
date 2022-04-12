@@ -8,22 +8,25 @@ public class MessageHandlerFactory : IMessageHandlerFactory
     private static readonly ConcurrentDictionary<string, ISet<Type>> _handlersMap = new();
 
     private readonly HandlerFactory _handlerFactory;
-    private readonly IServiceProvider _serviceProvider;
 
-    public MessageHandlerFactory(HandlerFactory handlerFactory, IServiceProvider serviceProvider)
+    public MessageHandlerFactory(HandlerFactory handlerFactory)
     {
         _handlerFactory = handlerFactory;
-        _serviceProvider = serviceProvider;
     }
         
     public IEnumerable<IMessageHandler> GetHandlers(string topic)
     {
-        return GetHandlersInternal(topic);
+        return GetHandlersInternalWithHandlerFactory(topic);
     }
 
     public void RegisterHandler<T>(string topic) where T : IMessageHandler
     {
         RegisterHandlerInternal<T>(topic);
+    }
+
+    public IEnumerable<IMessageHandler> GetHandlers(string topic, IServiceProvider scopedServiceProvider)
+    {
+        return GetHandlersInternalWithScopedServiceProvider(topic, scopedServiceProvider);
     }
 
     private static void RegisterHandlerInternal<T>(string topic) where T : IMessageHandler
@@ -42,13 +45,21 @@ public class MessageHandlerFactory : IMessageHandlerFactory
         handlers.Add(typeof(T));
     }
 
-    private IEnumerable<IMessageHandler> GetHandlersInternal(string topic)
+    private IEnumerable<IMessageHandler> GetHandlersInternalWithHandlerFactory(string topic)
     {
         if (!_handlersMap.TryGetValue(topic, out var types)) return Enumerable.Empty<IMessageHandler>();
-            
+        
         var instances = new List<IMessageHandler>(types.Count);
         instances.AddRange(types.Select(type => (IMessageHandler)_handlerFactory(type)));
         return instances;
-
+    }
+    
+    private IEnumerable<IMessageHandler> GetHandlersInternalWithScopedServiceProvider(string topic, IServiceProvider scopedServiceProvider)
+    {
+        if (!_handlersMap.TryGetValue(topic, out var types)) return Enumerable.Empty<IMessageHandler>();
+        
+        var instances = new List<IMessageHandler>(types.Count);
+        instances.AddRange(types.Select(type => (IMessageHandler)scopedServiceProvider.GetRequiredService(type)));
+        return instances;
     }
 }

@@ -11,7 +11,7 @@ IHost host = Host.CreateDefaultBuilder(args)
 
         services.AddSingleton<HandlerFactory>(provider => provider.GetRequiredService);
         services.AddSingleton<IMqttMessageExecutor, MqttMessageExecutor>();
-        services.AddSingleton<MessageHandlerWrapper>();
+        services.AddScoped<MessageHandlerWrapper>();
         services.AddSingleton<IMessageHandlerFactory, MessageHandlerFactory>();
                     
         services.AddTransient<MessageHandlerTest>();

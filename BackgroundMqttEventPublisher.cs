@@ -32,7 +32,7 @@ namespace Mqtt.Library.Test
                 var topic = "some-topic";
                 var mqttMessage = new MqttApplicationMessageBuilder().WithTopic(topic);
                 await _mqttMessageExecutor.ExecuteAsync(new MqttApplicationMessageReceivedEventArgs(string.Empty, mqttMessage.Build()));
-                await Task.Delay(TimeSpan.FromSeconds(2), stoppingToken);   
+                await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
             }
         }
     }
