@@ -1,4 +1,7 @@
-﻿using Mqtt.Library.Test.Core;
+﻿using MessagingClient.Mqtt;
+using MessagingLibrary.Mqtt.Local;
+using Mqtt.Library.Test.Client;
+using Mqtt.Library.Test.Core;
 using Mqtt.Library.Test.Handlers;
 using MqttClientTest.Messaging.Processing;
 using MQTTnet;
@@ -7,20 +10,18 @@ namespace Mqtt.Library.Test
 {
     public class BackgroundMqttPublisher : BackgroundService
     {
-        private readonly IMessageHandlerFactory _messageHandlerFactory;
-        private readonly IMqttMessageExecutor _mqttMessageExecutor;
+        private readonly ITopicClient<LocalMqttMessagingClientOptions> _topicClient;
 
-        public BackgroundMqttPublisher(IMessageHandlerFactory messageHandlerFactory, IMqttMessageExecutor mqttMessageExecutor)
+        public BackgroundMqttPublisher(ITopicClient<LocalMqttMessagingClientOptions> topicClient)
         {
-            _messageHandlerFactory = messageHandlerFactory;
-            _mqttMessageExecutor = mqttMessageExecutor;
+            _topicClient = topicClient;
         }
 
         public override async Task StartAsync(CancellationToken cancellationToken)
         {
             var topic = "some-topic";
-            _messageHandlerFactory.RegisterHandler<MessageHandlerTest>(topic);
-            _messageHandlerFactory.RegisterHandler<MessageHandlerTest2>(topic);
+            await _topicClient.Subscribe<MessageHandlerTest>(topic);
+            await _topicClient.Subscribe<MessageHandlerTest2>(topic);
             
             await base.StartAsync(cancellationToken);
         }
@@ -33,7 +34,7 @@ namespace Mqtt.Library.Test
             {
                 var topic = "some-topic";
                 var mqttMessage = new MqttApplicationMessageBuilder().WithTopic(topic);
-                await _mqttMessageExecutor.ExecuteAsync(new MqttApplicationMessageReceivedEventArgs(string.Empty, mqttMessage.Build()));
+                await _topicClient.Publish(mqttMessage.Build());
                 await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
             }
         }
