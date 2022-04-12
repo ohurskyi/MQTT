@@ -14,7 +14,7 @@ public class MessageHandlerWrapper : IDisposable
 
     public async Task Handle(MqttApplicationMessage mqttApplicationMessage, IMessageHandlerFactory messageHandlerFactory, IServiceScope serviceScope)
     {
-        var handlers = messageHandlerFactory.GetHandlers(mqttApplicationMessage.Topic, serviceScope.ServiceProvider);
+        var handlers = messageHandlerFactory.GetHandlers(mqttApplicationMessage.Topic, serviceScope.ServiceProvider.GetRequiredService);
 
         var funcs = handlers.Select(h => new Func<MqttApplicationMessage, Task>(h.Handle));
 

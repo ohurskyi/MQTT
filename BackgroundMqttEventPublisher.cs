@@ -27,6 +27,8 @@ namespace Mqtt.Library.Test
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            await Task.Delay(TimeSpan.FromSeconds(3), stoppingToken);
+            
             while (!stoppingToken.IsCancellationRequested)
             {
                 var topic = "some-topic";

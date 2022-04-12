@@ -2,7 +2,6 @@
 
 public interface IMessageHandlerFactory
 {
-    IEnumerable<IMessageHandler> GetHandlers(string topic);
+    IEnumerable<IMessageHandler> GetHandlers(string topic, HandlerFactory handlerFactory);
     void RegisterHandler<T>(string topic) where T : IMessageHandler;
-    IEnumerable<IMessageHandler> GetHandlers(string topic, IServiceProvider scopedServiceProvider);
 }
