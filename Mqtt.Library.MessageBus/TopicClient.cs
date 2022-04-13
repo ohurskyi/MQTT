@@ -2,7 +2,7 @@ using Mqtt.Library.Client;
 using Mqtt.Library.Client.Configuration;
 using Mqtt.Library.Core;
 
-namespace Mqtt.Library.Test.Client;
+namespace Mqtt.Library.MessageBus;
 
 public class TopicClient<TMessagingClientOptions> : ITopicClient<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
 {

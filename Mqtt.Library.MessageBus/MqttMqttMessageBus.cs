@@ -2,12 +2,7 @@ using Mqtt.Library.Client;
 using Mqtt.Library.Client.Configuration;
 using MQTTnet;
 
-namespace Mqtt.Library.Test.Client;
-
-public interface IMqttMessageBus<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
-{
-    Task Publish(MqttApplicationMessage mqttApplicationMessage);
-}
+namespace Mqtt.Library.MessageBus;
 
 public class MqttMqttMessageBus<TMessagingClientOptions> : IMqttMessageBus<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
 {

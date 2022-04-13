@@ -1,6 +1,6 @@
-﻿using MessagingLibrary.Mqtt.Local;
-using Mqtt.Library.Test.Client;
+﻿using Mqtt.Library.MessageBus;
 using Mqtt.Library.Test.Handlers;
+using Mqtt.Library.Test.Local;
 using MQTTnet;
 
 namespace Mqtt.Library.Test

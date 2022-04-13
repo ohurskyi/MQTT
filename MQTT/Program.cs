@@ -1,10 +1,9 @@
-using MessagingClient.Mqtt;
-using MessagingLibrary.Mqtt.Local;
 using Mqtt.Library.Client;
+using Mqtt.Library.MessageBus;
 using Mqtt.Library.Processing;
 using Mqtt.Library.Test;
-using Mqtt.Library.Test.Client;
 using Mqtt.Library.Test.Handlers;
+using Mqtt.Library.Test.Local;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
@@ -18,10 +17,11 @@ IHost host = Host.CreateDefaultBuilder(args)
                     
         services.AddTransient<MessageHandlerTest>();
         services.AddTransient<MessageHandlerTest2>();
-
-        services.AddMqttMessagingStartupServices();
+        
         services.AddMqttMessageBus<LocalMqttMessagingClientOptions>();
         services.AddTopicClient<LocalMqttMessagingClientOptions>();
+
+        services.AddMqttMessagingStartupServices();
         services.AddMqttMessagingClient<LocalMqttMessagingClientOptions>(hostContext.Configuration);
         
     })

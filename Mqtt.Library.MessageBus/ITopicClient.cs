@@ -1,8 +1,7 @@
 ﻿using Mqtt.Library.Client.Configuration;
 using Mqtt.Library.Core;
-using Mqtt.Library.Processing;
 
-namespace Mqtt.Library.Test.Client
+namespace Mqtt.Library.MessageBus
 {
     public interface ITopicClient<TMessagingClientOptions>
         where TMessagingClientOptions : IMqttMessagingClientOptions
