@@ -1,5 +1,5 @@
-using MessagingClient.Mqtt;
-using Mqtt.Library.Test.Client.Configuration;
+using Mqtt.Library.Client;
+using Mqtt.Library.Client.Configuration;
 using MQTTnet;
 
 namespace Mqtt.Library.Test.Client;

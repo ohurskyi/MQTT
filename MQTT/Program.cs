@@ -1,5 +1,6 @@
 using MessagingClient.Mqtt;
 using MessagingLibrary.Mqtt.Local;
+using Mqtt.Library.Client;
 using Mqtt.Library.Test;
 using Mqtt.Library.Test.Client;
 using Mqtt.Library.Test.Core;

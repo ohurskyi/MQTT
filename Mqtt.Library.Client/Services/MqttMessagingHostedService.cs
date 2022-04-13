@@ -1,6 +1,7 @@
-﻿using MessagingClient.Mqtt;
+﻿using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
-namespace Mqtt.Library.Test.Client
+namespace Mqtt.Library.Client.Services
 {
     public class MqttMessagingHostedService : IHostedService
     {
