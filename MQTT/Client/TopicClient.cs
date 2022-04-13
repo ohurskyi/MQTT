@@ -1,7 +1,6 @@
 using Mqtt.Library.Client;
 using Mqtt.Library.Client.Configuration;
-using Mqtt.Library.Processing;
-using Mqtt.Library.Processing.Factory;
+using Mqtt.Library.Core;
 
 namespace Mqtt.Library.Test.Client;
 

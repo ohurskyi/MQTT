@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Mqtt.Library.Core;
 using Mqtt.Library.Processing.Executor;
 using Mqtt.Library.Processing.Factory;
 
@@ -13,6 +14,12 @@ public static class ServiceCollectionExtensions
         
         serviceCollection.AddScoped<MessageHandlerWrapper>();
         
+        return serviceCollection;
+    }
+    
+    public static IServiceCollection AddMqttApplicationMessageReceivedHandler(this IServiceCollection serviceCollection)
+    {
+        serviceCollection.AddSingleton<MqttReceivedMessageHandler>();
         return serviceCollection;
     }
 }

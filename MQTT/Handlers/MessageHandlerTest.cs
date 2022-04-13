@@ -1,4 +1,5 @@
-﻿using Mqtt.Library.Processing;
+﻿using Mqtt.Library.Core;
+using Mqtt.Library.Processing;
 using MQTTnet;
 
 namespace Mqtt.Library.Test.Handlers;

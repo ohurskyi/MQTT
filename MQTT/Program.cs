@@ -14,12 +14,12 @@ IHost host = Host.CreateDefaultBuilder(args)
         //services.AddSingleton<HandlerFactory>(provider => provider.GetRequiredService);
 
         services.AddMessageProcessing();
+        services.AddMqttApplicationMessageReceivedHandler();
                     
         services.AddTransient<MessageHandlerTest>();
         services.AddTransient<MessageHandlerTest2>();
 
         services.AddMqttMessagingStartupServices();
-        services.AddMqttApplicationMessageReceivedHandler();
         services.AddMqttMessageBus<LocalMqttMessagingClientOptions>();
         services.AddTopicClient<LocalMqttMessagingClientOptions>();
         services.AddMqttMessagingClient<LocalMqttMessagingClientOptions>(hostContext.Configuration);

@@ -12,8 +12,7 @@ public class MqttReceivedMessageHandler : IMqttApplicationMessageReceivedHandler
     {
         _messageExecutor = messageExecutor;
     }
-
-
+    
     public async Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs eventArgs)
     {
         await _messageExecutor.ExecuteAsync(eventArgs);

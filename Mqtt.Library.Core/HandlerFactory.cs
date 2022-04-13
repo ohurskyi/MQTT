@@ -1,4 +1,4 @@
-﻿namespace Mqtt.Library.Processing.Factory;
+﻿namespace Mqtt.Library.Core;
 
 public delegate object HandlerFactory(Type handlerType);
 

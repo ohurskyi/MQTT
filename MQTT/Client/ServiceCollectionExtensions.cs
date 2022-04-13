@@ -22,10 +22,4 @@ public static class ServiceCollectionExtensions
         serviceCollection.AddSingleton<IMqttMessageBus<TMessagingClientOptions>, MqttMqttMessageBus<TMessagingClientOptions>>();
         return serviceCollection;
     }
-
-    public static IServiceCollection AddMqttApplicationMessageReceivedHandler(this IServiceCollection serviceCollection)
-    {
-        serviceCollection.TryAddSingleton<MqttReceivedMessageHandler>();
-        return serviceCollection;
-    }
 }

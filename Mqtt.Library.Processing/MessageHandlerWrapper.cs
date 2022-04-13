@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Mqtt.Library.Processing.Factory;
+using Mqtt.Library.Core;
 using MQTTnet;
 
 namespace Mqtt.Library.Processing;

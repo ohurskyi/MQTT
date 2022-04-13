@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using Mqtt.Library.Processing.Factory;
+using Mqtt.Library.Core;
 using MQTTnet;
 
 namespace Mqtt.Library.Processing.Executor
