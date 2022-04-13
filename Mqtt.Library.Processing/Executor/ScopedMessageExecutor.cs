@@ -1,7 +1,8 @@
-using MqttClientTest.Messaging.Processing;
+using Microsoft.Extensions.DependencyInjection;
+using Mqtt.Library.Processing.Factory;
 using MQTTnet;
 
-namespace Mqtt.Library.Test.Core
+namespace Mqtt.Library.Processing.Executor
 {
     public class ScopedMessageExecutor : IMqttMessageExecutor
     {

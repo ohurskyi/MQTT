@@ -1,6 +1,6 @@
 ﻿using MQTTnet;
 
-namespace Mqtt.Library.Test.Core;
+namespace Mqtt.Library.Processing;
 
 public interface IMessageHandler
 {

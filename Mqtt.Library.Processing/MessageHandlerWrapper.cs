@@ -1,7 +1,9 @@
-﻿using Mqtt.Library.Test.Core;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Mqtt.Library.Processing.Factory;
 using MQTTnet;
 
-namespace MqttClientTest.Messaging.Processing;
+namespace Mqtt.Library.Processing;
 
 public class MessageHandlerWrapper : IDisposable
 {

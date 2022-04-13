@@ -1,8 +1,7 @@
 ﻿using System.Collections.Concurrent;
-using Mqtt.Library.Test.Core;
 using MQTTnet.Server;
 
-namespace MqttClientTest.Messaging.Processing;
+namespace Mqtt.Library.Processing.Factory;
 
 public class MessageHandlerFactory : IMessageHandlerFactory
 {

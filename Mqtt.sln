@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mqtt.Library.Test", "MQTT\M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mqtt.Library.Client", "Mqtt.Library.Client\Mqtt.Library.Client.csproj", "{03F0B56C-3EB1-4EEB-B2FB-6079A2778306}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mqtt.Library.Processing", "Mqtt.Library.Processing\Mqtt.Library.Processing.csproj", "{D144DF47-41CB-45F7-A119-B7B2C99D05F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{03F0B56C-3EB1-4EEB-B2FB-6079A2778306}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03F0B56C-3EB1-4EEB-B2FB-6079A2778306}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03F0B56C-3EB1-4EEB-B2FB-6079A2778306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D144DF47-41CB-45F7-A119-B7B2C99D05F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D144DF47-41CB-45F7-A119-B7B2C99D05F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D144DF47-41CB-45F7-A119-B7B2C99D05F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D144DF47-41CB-45F7-A119-B7B2C99D05F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

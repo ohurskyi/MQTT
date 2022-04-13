@@ -1,8 +1,8 @@
-﻿using Mqtt.Library.Client;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Mqtt.Library.Client;
 using Mqtt.Library.Client.Configuration;
-using Mqtt.Library.Test.Core;
 
-namespace Mqtt.Library.Test.Client;
+namespace Mqtt.Library.Processing;
 
 public static class ServiceProviderExtensions
 {

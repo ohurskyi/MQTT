@@ -15,9 +15,14 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Mqtt.Library.Client\Mqtt.Library.Client.csproj" />
+      <ProjectReference Include="..\Mqtt.Library.Processing\Mqtt.Library.Processing.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <ReferencePathWithRefAssemblies Update="C:\Users\deges\.nuget\packages\microsoft.extensions.options.configurationextensions\6.0.0\lib\netstandard2.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Core" />
     </ItemGroup>
 </Project>

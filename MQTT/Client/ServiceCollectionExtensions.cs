@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection.Extensions;
 using Mqtt.Library.Client.Configuration;
-using Mqtt.Library.Client.Services;
+using Mqtt.Library.Processing;
 using Mqtt.Library.Test.Client;
-using Mqtt.Library.Test.Core;
 
 namespace MessagingClient.Mqtt;
 
