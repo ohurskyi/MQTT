@@ -5,7 +5,7 @@ using MQTTnet;
 
 namespace Mqtt.Library.Processing;
 
-public class MessageHandlerWrapper : IDisposable
+public class MessageHandlerWrapper : MessageHandlerWrapperBase, IDisposable
 {
     private readonly ILogger<MessageHandlerWrapper> _logger;
 
@@ -14,7 +14,7 @@ public class MessageHandlerWrapper : IDisposable
         _logger = logger;
     }
 
-    public async Task Handle(MqttApplicationMessage mqttApplicationMessage, IMessageHandlerFactory messageHandlerFactory, IServiceScope serviceScope)
+    public override async Task Handle(MqttApplicationMessage mqttApplicationMessage, IMessageHandlerFactory messageHandlerFactory, IServiceScope serviceScope)
     {
         var handlers = messageHandlerFactory.GetHandlers(mqttApplicationMessage.Topic, serviceScope.ServiceProvider.GetRequiredService);
 
