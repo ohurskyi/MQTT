@@ -1,20 +1,19 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Mqtt.Library.Core;
 using MQTTnet;
 
-namespace Mqtt.Library.Processing;
+namespace Mqtt.Library.Core;
 
-public class MessageHandlerWrapper : MessageHandlerWrapperBase, IDisposable
+public class MessageHandlingStrategy : IMessageHandlingStrategy, IDisposable
 {
-    private readonly ILogger<MessageHandlerWrapper> _logger;
+    private readonly ILogger<MessageHandlingStrategy> _logger;
 
-    public MessageHandlerWrapper(ILogger<MessageHandlerWrapper> logger)
+    public MessageHandlingStrategy(ILogger<MessageHandlingStrategy> logger)
     {
         _logger = logger;
     }
 
-    public override async Task Handle(MqttApplicationMessage mqttApplicationMessage, IMessageHandlerFactory messageHandlerFactory, IServiceScope serviceScope)
+    public async Task Handle(MqttApplicationMessage mqttApplicationMessage, IMessageHandlerFactory messageHandlerFactory, IServiceScope serviceScope)
     {
         var handlers = messageHandlerFactory.GetHandlers(mqttApplicationMessage.Topic, serviceScope.ServiceProvider.GetRequiredService);
 
@@ -33,6 +32,6 @@ public class MessageHandlerWrapper : MessageHandlerWrapperBase, IDisposable
 
     public void Dispose()
     {
-        _logger.LogInformation($"{nameof(MessageHandlerWrapper)} disposed.");;
+        _logger.LogInformation($"{nameof(MessageHandlingStrategy)} disposed.");
     }
 }

@@ -12,7 +12,7 @@ public static class ServiceCollectionExtensions
         serviceCollection.AddSingleton<IMqttMessageExecutor, ScopedMessageExecutor>();
         serviceCollection.AddSingleton<IMessageHandlerFactory, MessageHandlerFactory>();
         
-        serviceCollection.AddScoped<MessageHandlerWrapper>();
+        serviceCollection.AddScoped<IMessageHandlingStrategy, MessageHandlingStrategy>();
         
         return serviceCollection;
     }

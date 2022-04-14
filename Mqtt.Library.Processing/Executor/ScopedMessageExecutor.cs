@@ -18,7 +18,7 @@ namespace Mqtt.Library.Processing.Executor
         public async Task ExecuteAsync(MqttApplicationMessageReceivedEventArgs messageReceivedEventArgs)
         {
             using var scope = _serviceScopeFactory.CreateScope();
-            var messageHandlerWrapper = scope.ServiceProvider.GetRequiredService<MessageHandlerWrapper>();
+            var messageHandlerWrapper = scope.ServiceProvider.GetRequiredService<IMessageHandlingStrategy>();
             var mqttApplicationMessage = messageReceivedEventArgs.ApplicationMessage;
             await messageHandlerWrapper.Handle(mqttApplicationMessage, _messageHandlerFactory, scope);
         }
