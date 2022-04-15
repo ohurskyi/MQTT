@@ -15,8 +15,8 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddMessageProcessing();
         services.AddMqttApplicationMessageReceivedHandler();
                     
-        services.AddTransient<MessageHandlerTest>();
-        services.AddTransient<MessageHandlerTest2>();
+        services.AddTransient<HandlerForDeviceNumber1>();
+        services.AddTransient<HandlerForDeviceNumber2>();
         
         services.AddMqttMessageBus<LocalMqttMessagingClientOptions>();
         services.AddMqttTopicClient<LocalMqttMessagingClientOptions>();
