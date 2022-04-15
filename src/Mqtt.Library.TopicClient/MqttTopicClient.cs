@@ -2,14 +2,14 @@ using Mqtt.Library.Client;
 using Mqtt.Library.Client.Configuration;
 using Mqtt.Library.Core;
 
-namespace Mqtt.Library.MessageBus;
+namespace Mqtt.Library.TopicClient;
 
-public class TopicClient<TMessagingClientOptions> : ITopicClient<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
+public class MqttTopicClient<TMessagingClientOptions> : IMqttTopicClient<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
 {
     private readonly IMqttMessagingClient<TMessagingClientOptions> _mqttMessagingClient;
     private readonly IMessageHandlerFactory _messageHandlerFactory;
 
-    public TopicClient(IMqttMessagingClient<TMessagingClientOptions> mqttMessagingClient, IMessageHandlerFactory messageHandlerFactory)
+    public MqttTopicClient(IMqttMessagingClient<TMessagingClientOptions> mqttMessagingClient, IMessageHandlerFactory messageHandlerFactory)
     {
         _mqttMessagingClient = mqttMessagingClient;
         _messageHandlerFactory = messageHandlerFactory;

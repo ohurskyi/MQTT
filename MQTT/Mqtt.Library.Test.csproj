@@ -11,11 +11,15 @@
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
         <PackageReference Include="MQTTnet" Version="3.0.13" />
         <PackageReference Include="MQTTnet.Extensions.ManagedClient" Version="3.0.13" />
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="4.2.0" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\src\Mqtt.Library.Core\Mqtt.Library.Core.csproj" />
       <ProjectReference Include="..\src\Mqtt.Library.MessageBus\Mqtt.Library.MessageBus.csproj" />
       <ProjectReference Include="..\src\Mqtt.Library.Processing\Mqtt.Library.Processing.csproj" />
+      <ProjectReference Include="..\src\Mqtt.Library.TopicClient\Mqtt.Library.TopicClient.csproj" />
     </ItemGroup>
 </Project>

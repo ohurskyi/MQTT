@@ -1,16 +1,17 @@
 ﻿using Mqtt.Library.MessageBus;
 using Mqtt.Library.Test.Handlers;
 using Mqtt.Library.Test.Local;
+using Mqtt.Library.TopicClient;
 using MQTTnet;
 
 namespace Mqtt.Library.Test
 {
     public class BackgroundMqttPublisher : BackgroundService
     {
-        private readonly ITopicClient<LocalMqttMessagingClientOptions> _topicClient;
+        private readonly IMqttTopicClient<LocalMqttMessagingClientOptions> _topicClient;
         private readonly IMqttMessageBus<LocalMqttMessagingClientOptions> _mqttMessageBus;
 
-        public BackgroundMqttPublisher(ITopicClient<LocalMqttMessagingClientOptions> topicClient, IMqttMessageBus<LocalMqttMessagingClientOptions> mqttMessageBus)
+        public BackgroundMqttPublisher(IMqttTopicClient<LocalMqttMessagingClientOptions> topicClient, IMqttMessageBus<LocalMqttMessagingClientOptions> mqttMessageBus)
         {
             _topicClient = topicClient;
             _mqttMessageBus = mqttMessageBus;
