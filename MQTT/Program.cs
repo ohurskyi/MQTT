@@ -9,9 +9,7 @@ IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
     {
         services.AddHostedService<BackgroundMqttPublisher>();
-
-        //services.AddSingleton<HandlerFactory>(provider => provider.GetRequiredService);
-
+        
         services.AddMessageProcessing();
         services.AddMqttApplicationMessageReceivedHandler();
                     

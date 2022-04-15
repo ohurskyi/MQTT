@@ -14,12 +14,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Mqtt.Library.Client\Mqtt.Library.Client.csproj" />
-      <ProjectReference Include="..\Mqtt.Library.MessageBus\Mqtt.Library.MessageBus.csproj" />
-      <ProjectReference Include="..\Mqtt.Library.Processing\Mqtt.Library.Processing.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ReferencePathWithRefAssemblies Update="C:\Users\deges\.nuget\packages\microsoft.extensions.options.configurationextensions\6.0.0\lib\netstandard2.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll" />
+      <ProjectReference Include="..\src\Mqtt.Library.Core\Mqtt.Library.Core.csproj" />
+      <ProjectReference Include="..\src\Mqtt.Library.MessageBus\Mqtt.Library.MessageBus.csproj" />
+      <ProjectReference Include="..\src\Mqtt.Library.Processing\Mqtt.Library.Processing.csproj" />
     </ItemGroup>
 </Project>
