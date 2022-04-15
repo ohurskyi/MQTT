@@ -36,9 +36,10 @@ namespace Mqtt.Library.Test
             while (!stoppingToken.IsCancellationRequested)
             {
                 await PublishToDevice(deviceNumber: 1);
+                
                 await PublishToDevice(deviceNumber: 2);
 
-                await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(2), stoppingToken);
             }
         }
 

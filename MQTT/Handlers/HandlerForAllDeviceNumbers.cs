@@ -15,7 +15,7 @@ public class HandlerForAllDeviceNumbers : IMessageHandler, IDisposable
     public Task Handle(MqttApplicationMessage mqttApplicationMessage)
     {
         _logger.LogInformation("Handler {handler} received message from topic = {value}", nameof(HandlerForAllDeviceNumbers), mqttApplicationMessage.Topic);
-        return Task.CompletedTask;
+        return Task.Delay(TimeSpan.FromSeconds(1));
     }
 
     public void Dispose()
