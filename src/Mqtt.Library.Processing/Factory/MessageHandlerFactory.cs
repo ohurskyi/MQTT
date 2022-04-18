@@ -37,9 +37,6 @@ public class MessageHandlerFactory : IMessageHandlerFactory
 
     private static IEnumerable<IMessageHandler> GetHandlersInternalWithHandlerFactory(string topic, HandlerFactory handlerFactory)
     {
-        // todo how to use comparer
-        //if (!_handlersMap.TryGetValue(topic, out var types)) return Enumerable.Empty<IMessageHandler>();
-
         var instances = _handlersMap
             .Where(k => MqttTopicFilterComparer.IsMatch(topic, k.Key))
             .SelectMany(k => k.Value)
@@ -47,19 +44,5 @@ public class MessageHandlerFactory : IMessageHandlerFactory
             .ToList();
         
         return instances;
-    }
-}
-
-internal class MqttTopicComparer : EqualityComparer<string>
-{
-    public override bool Equals(string x, string y)
-    {
-        var match = MqttTopicFilterComparer.IsMatch(x, y);
-        return match;
-    }
-
-    public override int GetHashCode(string obj)
-    {
-        return obj.GetHashCode();
     }
 }

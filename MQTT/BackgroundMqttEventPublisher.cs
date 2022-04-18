@@ -1,18 +1,18 @@
 ﻿using Mqtt.Library.Core;
 using Mqtt.Library.MessageBus;
+using Mqtt.Library.Test.ClientOptions;
 using Mqtt.Library.Test.Handlers;
-using Mqtt.Library.Test.Local;
 using Mqtt.Library.TopicClient;
 using MQTTnet;
 
 namespace Mqtt.Library.Test
 {
-    public class BackgroundMqttPublisher : BackgroundService
+    public class BackgroundLocalMqttPublisher : BackgroundService
     {
         private readonly IMqttTopicClient<LocalMqttMessagingClientOptions> _topicClient;
         private readonly IMqttMessageBus<LocalMqttMessagingClientOptions> _mqttMessageBus;
 
-        public BackgroundMqttPublisher(IMqttTopicClient<LocalMqttMessagingClientOptions> topicClient, IMqttMessageBus<LocalMqttMessagingClientOptions> mqttMessageBus)
+        public BackgroundLocalMqttPublisher(IMqttTopicClient<LocalMqttMessagingClientOptions> topicClient, IMqttMessageBus<LocalMqttMessagingClientOptions> mqttMessageBus)
         {
             _topicClient = topicClient;
             _mqttMessageBus = mqttMessageBus;
@@ -22,9 +22,9 @@ namespace Mqtt.Library.Test
         {
             await RegisterMessageHandler<HandlerForDeviceNumber1>(deviceNumber: 1);
             
-            await RegisterMessageHandler<HandlerForDeviceNumber2>(deviceNumber: 2);
+            //await RegisterMessageHandler<HandlerForDeviceNumber2>(deviceNumber: 2);
             
-            await RegisterMessageHandlerForAllDevices<HandlerForAllDeviceNumbers>();
+            // await RegisterMessageHandlerForAllDevices<HandlerForAllDeviceNumbers>();
             
             await base.StartAsync(cancellationToken);
         }
@@ -37,7 +37,7 @@ namespace Mqtt.Library.Test
             {
                 await PublishToDevice(deviceNumber: 1);
                 
-                await PublishToDevice(deviceNumber: 2);
+                //await PublishToDevice(deviceNumber: 2);
 
                 await Task.Delay(TimeSpan.FromSeconds(2), stoppingToken);
             }

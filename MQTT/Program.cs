@@ -2,23 +2,28 @@ using Mqtt.Library.Client;
 using Mqtt.Library.MessageBus;
 using Mqtt.Library.Processing;
 using Mqtt.Library.Test;
+using Mqtt.Library.Test.ClientOptions;
 using Mqtt.Library.Test.Handlers;
-using Mqtt.Library.Test.Local;
 using Mqtt.Library.TopicClient;
 using Serilog;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
     {
-        services.AddHostedService<BackgroundMqttPublisher>();
+        services.AddHostedService<BackgroundLocalMqttPublisher>();
+        services.AddHostedService<BackgroundTestMqttPublisher>();
         
         services.AddMqttMessagingPipeline(typeof(HandlerForDeviceNumber1).Assembly);
 
         services.AddMqttMessageBus<LocalMqttMessagingClientOptions>();
         services.AddMqttTopicClient<LocalMqttMessagingClientOptions>();
+        
+        services.AddMqttMessageBus<TestMqttMessagingClientOptions>();
+        services.AddMqttTopicClient<TestMqttMessagingClientOptions>();
 
         services.AddMqttMessagingStartupServices();
         services.AddMqttMessagingClient<LocalMqttMessagingClientOptions>(hostContext.Configuration);
+        services.AddMqttMessagingClient<TestMqttMessagingClientOptions>(hostContext.Configuration);
     })
     .UseSerilog((hostingContext, _, loggerConfiguration) => loggerConfiguration
         .ReadFrom.Configuration(hostingContext.Configuration)
@@ -27,5 +32,6 @@ IHost host = Host.CreateDefaultBuilder(args)
     .Build();
 
 host.Services.UseMqttMessageReceivedHandler<LocalMqttMessagingClientOptions>();
+host.Services.UseMqttMessageReceivedHandler<TestMqttMessagingClientOptions>();
 
 await host.RunAsync();
