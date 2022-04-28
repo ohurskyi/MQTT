@@ -20,8 +20,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         
         services.AddMqttMessageBus<TestMqttMessagingClientOptions>();
         services.AddMqttTopicClient<TestMqttMessagingClientOptions>();
-
-        services.AddMqttMessagingStartupServices();
+        
         services.AddMqttMessagingClient<LocalMqttMessagingClientOptions>(hostContext.Configuration);
         services.AddMqttMessagingClient<TestMqttMessagingClientOptions>(hostContext.Configuration);
     })

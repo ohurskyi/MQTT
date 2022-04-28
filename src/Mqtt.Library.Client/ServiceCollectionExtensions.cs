@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Mqtt.Library.Client.Configuration;
 using Mqtt.Library.Client.Services;
@@ -13,17 +14,17 @@ namespace Mqtt.Library.Client
         {
             serviceCollection.ConfigureMessagingClientOptions<TMessagingClientOptions>(configuration);
 
-            serviceCollection.AddSingleton<IMqttMessagingClient<TMessagingClientOptions>, MqttMessagingClient<TMessagingClientOptions>>();
-
-            // to get all clients in MqttMessagingHostedService
-            serviceCollection.AddSingleton<IMqttMessagingClient>(pr => pr.GetService<IMqttMessagingClient<TMessagingClientOptions>>());
+            serviceCollection.TryAddSingleton<IMqttMessagingClient<TMessagingClientOptions>, MqttMessagingClient<TMessagingClientOptions>>();
+            
+            serviceCollection.AddMqttMessagingStartupServices<TMessagingClientOptions>();
 
             return serviceCollection;
         }
-        
-        public static IServiceCollection AddMqttMessagingStartupServices(this IServiceCollection serviceCollection)
+
+        private static IServiceCollection AddMqttMessagingStartupServices<TMessagingClientOptions>(this IServiceCollection serviceCollection)
+            where TMessagingClientOptions : class, IMqttMessagingClientOptions, new()
         {
-            serviceCollection.AddHostedService<MqttMessagingHostedService>();
+            serviceCollection.AddHostedService<MqttMessagingHostedService<TMessagingClientOptions>>();
             return serviceCollection;
         }
         

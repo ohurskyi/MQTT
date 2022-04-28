@@ -2,6 +2,7 @@
 
 namespace Mqtt.Library.Test.ClientOptions;
 
-public class LocalMqttMessagingClientOptions : MqttMessagingClientOptions
+public class LocalMqttMessagingClientOptions : IMqttMessagingClientOptions
 {
+    public MqttBrokerConnectionOptions MqttBrokerConnectionOptions { get; set; } = new() { Host = "localhost", Port = 1883 };
 }

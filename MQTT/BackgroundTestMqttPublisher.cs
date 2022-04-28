@@ -20,10 +20,8 @@ public class BackgroundTestMqttPublisher : BackgroundService
 
     public override async Task StartAsync(CancellationToken cancellationToken)
     {
-        await RegisterMessageHandler<HandlerForDeviceNumber2>(deviceNumber: 2);
-            
-        // await RegisterMessageHandlerForAllDevices<HandlerForAllDeviceNumbers>();
-            
+        await RegisterMessageHandler<HandlerForDeviceNumber1ForAnotherClient>(deviceNumber: 1);
+
         await base.StartAsync(cancellationToken);
     }
 
@@ -33,9 +31,7 @@ public class BackgroundTestMqttPublisher : BackgroundService
             
         while (!stoppingToken.IsCancellationRequested)
         {
-            //await PublishToDevice(deviceNumber: 1);
-                
-            await PublishToDevice(deviceNumber: 2);
+            await PublishToDevice(deviceNumber: 1);
 
             await Task.Delay(TimeSpan.FromSeconds(2), stoppingToken);
         }
