@@ -8,23 +8,6 @@ namespace Mqtt.Library.Core
 {
     public static class MessageExtensions
     {
-        public static IMessage ToMessage(this MqttApplicationMessage mqttApplicationMessage)
-        {
-            var payloadStr = Encoding.UTF8.GetString(mqttApplicationMessage.Payload);
-            var message = new Message { Topic = mqttApplicationMessage.Topic, Payload = payloadStr };
-            return message;
-        }
-        
-        public static MqttApplicationMessage ToMqttMessage(this IMessage msg)
-        {
-            var mqttApplicationMessage = new MqttApplicationMessageBuilder()
-                .WithTopic(msg.Topic)
-                .WithPayload(msg.Payload)
-                .Build();
-
-            return mqttApplicationMessage;
-        }
-
         public static T FromJson<T>(this IMessage message)
         {
             return JsonConvert.DeserializeObject<T>(message.Payload, JsonConfigSettings.SerializerSettings());
