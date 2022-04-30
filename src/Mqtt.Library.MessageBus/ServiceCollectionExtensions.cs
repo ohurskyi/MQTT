@@ -8,7 +8,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddMqttMessageBus<TMessagingClientOptions>(this IServiceCollection serviceCollection) where TMessagingClientOptions: IMqttMessagingClientOptions
     {
-        serviceCollection.TryAddSingleton<IMqttMessageBus<TMessagingClientOptions>, MqttMqttMessageBus<TMessagingClientOptions>>();
+        serviceCollection.TryAddSingleton<IMqttMessageBus<TMessagingClientOptions>, MqttMessageBus<TMessagingClientOptions>>();
         return serviceCollection;
     }
 }

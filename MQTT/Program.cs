@@ -1,6 +1,5 @@
 using Mqtt.Library.Client;
 using Mqtt.Library.MessageBus;
-using Mqtt.Library.MessageBus.GenericTest;
 using Mqtt.Library.Processing;
 using Mqtt.Library.Test;
 using Mqtt.Library.Test.ClientOptions;
@@ -45,6 +44,6 @@ void MessagingMqttGenTest(IServiceCollection serviceCollection)
     
     serviceCollection.AddHostedService<BackgroundGenMqttPublisher>();
     
-    serviceCollection.AddMqttMessageBusGen<LocalMqttMessagingClientOptions>();
+    serviceCollection.AddMqttMessageBus<LocalMqttMessagingClientOptions>();
     serviceCollection.AddMqttTopicClient<LocalMqttMessagingClientOptions>();
 }

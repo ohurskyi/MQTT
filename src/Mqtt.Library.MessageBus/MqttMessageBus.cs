@@ -3,13 +3,13 @@ using Mqtt.Library.Client.Configuration;
 using Mqtt.Library.Core;
 using Mqtt.Library.Core.Messages;
 
-namespace Mqtt.Library.MessageBus.GenericTest;
+namespace Mqtt.Library.MessageBus;
 
-public class MqttMessageBusGen<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
+public class MqttMessageBus<TMessagingClientOptions> : IMqttMessageBus<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
 {
     private readonly IMqttMessagingClient<TMessagingClientOptions> _mqttMessagingClient;
 
-    public MqttMessageBusGen(IMqttMessagingClient<TMessagingClientOptions> mqttMessagingClient)
+    public MqttMessageBus(IMqttMessagingClient<TMessagingClientOptions> mqttMessagingClient)
     {
         _mqttMessagingClient = mqttMessagingClient;
     }

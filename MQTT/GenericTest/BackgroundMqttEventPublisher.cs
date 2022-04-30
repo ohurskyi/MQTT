@@ -1,21 +1,17 @@
 ﻿using Mqtt.Library.Core;
 using Mqtt.Library.Core.Messages;
 using Mqtt.Library.MessageBus;
-using Mqtt.Library.MessageBus.GenericTest;
 using Mqtt.Library.Test.ClientOptions;
-using Mqtt.Library.Test.Handlers;
 using Mqtt.Library.TopicClient;
-using MQTTnet;
-using Newtonsoft.Json;
 
 namespace Mqtt.Library.Test.GenericTest
 {
     public class BackgroundGenMqttPublisher : BackgroundService
     {
         private readonly IMqttTopicClient<LocalMqttMessagingClientOptions> _topicClient;
-        private readonly MqttMessageBusGen<LocalMqttMessagingClientOptions> _mqttMessageBus;
+        private readonly IMqttMessageBus<LocalMqttMessagingClientOptions> _mqttMessageBus;
 
-        public BackgroundGenMqttPublisher(IMqttTopicClient<LocalMqttMessagingClientOptions> topicClient, MqttMessageBusGen<LocalMqttMessagingClientOptions> mqttMessageBus)
+        public BackgroundGenMqttPublisher(IMqttTopicClient<LocalMqttMessagingClientOptions> topicClient, IMqttMessageBus<LocalMqttMessagingClientOptions> mqttMessageBus)
         {
             _topicClient = topicClient;
             _mqttMessageBus = mqttMessageBus;
