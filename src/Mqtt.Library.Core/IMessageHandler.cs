@@ -1,8 +1,8 @@
-﻿using MQTTnet;
+﻿using Mqtt.Library.Core.Messages;
 
 namespace Mqtt.Library.Core;
 
 public interface IMessageHandler
 {
-    Task Handle(MqttApplicationMessage mqttApplicationMessage);
+    Task Handle(IMessage message);
 }

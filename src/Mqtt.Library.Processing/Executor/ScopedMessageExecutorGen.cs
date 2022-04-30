@@ -1,15 +1,16 @@
 using Microsoft.Extensions.DependencyInjection;
-using Mqtt.Library.Core.GenericTest;
+using Mqtt.Library.Core;
+using Mqtt.Library.Core.Factory;
 using MQTTnet;
 
 namespace Mqtt.Library.Processing.Executor
 {
     public class ScopedMessageExecutorGen : IMqttMessageExecutor
     {
-        private readonly IMessageHandlerFactoryGen _messageHandlerFactory;
+        private readonly IMessageHandlerFactory _messageHandlerFactory;
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public ScopedMessageExecutorGen(IMessageHandlerFactoryGen messageHandlerFactory, IServiceScopeFactory serviceScopeFactory)
+        public ScopedMessageExecutorGen(IMessageHandlerFactory messageHandlerFactory, IServiceScopeFactory serviceScopeFactory)
         {
             _messageHandlerFactory = messageHandlerFactory;
             _serviceScopeFactory = serviceScopeFactory;
@@ -18,7 +19,7 @@ namespace Mqtt.Library.Processing.Executor
         public async Task ExecuteAsync(MqttApplicationMessageReceivedEventArgs messageReceivedEventArgs)
         {
             using var scope = _serviceScopeFactory.CreateScope();
-            var messageHandlerWrapper = scope.ServiceProvider.GetRequiredService<MessageHandlingStrategyGen>();
+            var messageHandlerWrapper = scope.ServiceProvider.GetRequiredService<IMessageHandlingStrategy>();
             var message = messageReceivedEventArgs.ApplicationMessage.ToMessage();
             await messageHandlerWrapper.Handle(message, _messageHandlerFactory, scope);
         }

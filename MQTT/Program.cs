@@ -42,7 +42,7 @@ await host.RunAsync();
 
 void MessagingMqttGenTest(IServiceCollection serviceCollection)
 {
-    serviceCollection.AddMqttMessagingPipelineGen(typeof(MessageHandlerGenTest).Assembly);
+    serviceCollection.AddMqttMessagingPipelineGen(typeof(MessageHandlerTest).Assembly);
     
     serviceCollection.AddHostedService<BackgroundGenMqttPublisher>();
     

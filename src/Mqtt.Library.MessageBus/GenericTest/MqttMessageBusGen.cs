@@ -1,6 +1,7 @@
 using Mqtt.Library.Client;
 using Mqtt.Library.Client.Configuration;
-using Mqtt.Library.Core.GenericTest;
+using Mqtt.Library.Core;
+using Mqtt.Library.Core.Messages;
 
 namespace Mqtt.Library.MessageBus.GenericTest;
 

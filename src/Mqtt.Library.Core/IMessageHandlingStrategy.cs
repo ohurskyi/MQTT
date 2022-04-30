@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using MQTTnet;
+using Mqtt.Library.Core.Factory;
+using Mqtt.Library.Core.Messages;
 
 namespace Mqtt.Library.Core;
 
 public interface IMessageHandlingStrategy
 {
-    Task Handle(MqttApplicationMessage mqttApplicationMessage, IMessageHandlerFactory messageHandlerFactory, IServiceScope serviceScope);
+    Task Handle(IMessage message, IMessageHandlerFactory messageHandlerFactory, IServiceScope serviceScope);
 }

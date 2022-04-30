@@ -1,7 +1,8 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Mqtt.Library.Core.Factory;
 
-namespace Mqtt.Library.Core.GenericTest;
+namespace Mqtt.Library.Core;
 
 public static class ServiceCollectionExtensions
 {
@@ -9,7 +10,7 @@ public static class ServiceCollectionExtensions
     {
         var implementationTypes = assemblies
             .SelectMany(a => a.GetTypes())
-            .Where(t => typeof(IMessageHandlerGen).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract)
+            .Where(t => typeof(IMessageHandler).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract)
             .ToList();
 
         foreach (var handlerType in implementationTypes)
@@ -17,8 +18,8 @@ public static class ServiceCollectionExtensions
             serviceCollection.AddTransient(handlerType);
         }
 
-        serviceCollection.AddSingleton<IMessageHandlerFactoryGen, MessageHandlerFactoryGen>();
-        serviceCollection.AddScoped<MessageHandlingStrategyGen>();
+        serviceCollection.AddSingleton<IMessageHandlerFactory, MessageHandlerFactory>();
+        serviceCollection.AddScoped<IMessageHandlingStrategy, MessageHandlingStrategy>();
         
         return serviceCollection;
     }

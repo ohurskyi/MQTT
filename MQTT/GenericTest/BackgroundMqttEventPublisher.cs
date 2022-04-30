@@ -1,5 +1,5 @@
 ﻿using Mqtt.Library.Core;
-using Mqtt.Library.Core.GenericTest;
+using Mqtt.Library.Core.Messages;
 using Mqtt.Library.MessageBus;
 using Mqtt.Library.MessageBus.GenericTest;
 using Mqtt.Library.Test.ClientOptions;
@@ -24,7 +24,7 @@ namespace Mqtt.Library.Test.GenericTest
 
         public override async Task StartAsync(CancellationToken cancellationToken)
         {
-            await RegisterMessageHandler<MessageHandlerGenTest>(deviceNumber: 1);
+            await RegisterMessageHandler<MessageHandlerTest>(deviceNumber: 1);
             
             await base.StartAsync(cancellationToken);
         }
@@ -49,7 +49,7 @@ namespace Mqtt.Library.Test.GenericTest
             await _mqttMessageBus.Publish(message);
         }
 
-        private async Task RegisterMessageHandler<T>(int deviceNumber) where T: IMessageHandlerGen
+        private async Task RegisterMessageHandler<T>(int deviceNumber) where T: IMessageHandler
         {
             var deviceTopic = $"device/{deviceNumber}";
             await _topicClient.Subscribe<T>(deviceTopic);

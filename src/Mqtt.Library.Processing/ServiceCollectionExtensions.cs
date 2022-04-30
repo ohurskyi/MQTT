@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using Mqtt.Library.Core.GenericTest;
+using Mqtt.Library.Core;
 using Mqtt.Library.Processing.Executor;
 
 namespace Mqtt.Library.Processing;

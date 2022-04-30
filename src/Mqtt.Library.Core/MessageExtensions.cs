@@ -1,10 +1,10 @@
 ﻿using System.Text;
+using Mqtt.Library.Core.Messages;
 using MQTTnet;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 
-namespace Mqtt.Library.Core.GenericTest
+namespace Mqtt.Library.Core
 {
     public static class MessageExtensions
     {

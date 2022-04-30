@@ -1,10 +1,10 @@
 ﻿using Mqtt.Library.Core;
-using Mqtt.Library.Core.GenericTest;
+using Mqtt.Library.Core.Messages;
 using MQTTnet;
 
 namespace Mqtt.Library.Test.Handlers;
 
-public class HandlerForDeviceNumber1 : IMessageHandlerGen, IDisposable
+public class HandlerForDeviceNumber1 : IMessageHandler, IDisposable
 {
     private readonly ILogger<HandlerForDeviceNumber1> _logger;
 
