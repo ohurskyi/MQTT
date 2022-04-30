@@ -2,8 +2,8 @@
 using Mqtt.Library.Core.Messages;
 using Mqtt.Library.MessageBus;
 using Mqtt.Library.Test.ClientOptions;
-using Mqtt.Library.Test.GenericTest;
 using Mqtt.Library.Test.Handlers;
+using Mqtt.Library.Test.Payloads;
 using Mqtt.Library.TopicClient;
 
 namespace Mqtt.Library.Test
@@ -13,7 +13,9 @@ namespace Mqtt.Library.Test
         private readonly IMqttTopicClient<LocalMqttMessagingClientOptions> _topicClient;
         private readonly IMqttMessageBus<LocalMqttMessagingClientOptions> _mqttMessageBus;
 
-        public BackgroundLocalMqttPublisher(IMqttTopicClient<LocalMqttMessagingClientOptions> topicClient, IMqttMessageBus<LocalMqttMessagingClientOptions> mqttMessageBus)
+        public BackgroundLocalMqttPublisher(
+            IMqttTopicClient<LocalMqttMessagingClientOptions> topicClient, 
+            IMqttMessageBus<LocalMqttMessagingClientOptions> mqttMessageBus)
         {
             _topicClient = topicClient;
             _mqttMessageBus = mqttMessageBus;
@@ -23,9 +25,9 @@ namespace Mqtt.Library.Test
         {
             await RegisterMessageHandler<HandlerForDeviceNumber1>(deviceNumber: 1);
             
-            //await RegisterMessageHandler<HandlerForDeviceNumber2>(deviceNumber: 2);
+            await RegisterMessageHandler<HandlerForDeviceNumber2>(deviceNumber: 2);
             
-            // await RegisterMessageHandlerForAllDevices<HandlerForAllDeviceNumbers>();
+            await RegisterMessageHandlerForAllDevices<HandlerForAllDeviceNumbers>();
             
             await base.StartAsync(cancellationToken);
         }
@@ -38,7 +40,7 @@ namespace Mqtt.Library.Test
             {
                 await PublishToDevice(deviceNumber: 1);
                 
-                //await PublishToDevice(deviceNumber: 2);
+                await PublishToDevice(deviceNumber: 2);
 
                 await Task.Delay(TimeSpan.FromSeconds(2), stoppingToken);
             }
@@ -47,7 +49,7 @@ namespace Mqtt.Library.Test
         private async Task PublishToDevice(int deviceNumber)
         {
             var deviceTopic = $"device/{deviceNumber}";
-            var payload = new TestMessagePayload { Name = $"device {deviceNumber}" };
+            var payload = new DeviceMessagePayload { Name = $"device {deviceNumber}" };
             var message = new Message { Topic = deviceTopic, Payload = payload.ToJson() };
             await _mqttMessageBus.Publish(message);
         }

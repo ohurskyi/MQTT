@@ -2,8 +2,8 @@
 using Mqtt.Library.Core.Messages;
 using Mqtt.Library.MessageBus;
 using Mqtt.Library.Test.ClientOptions;
-using Mqtt.Library.Test.GenericTest;
 using Mqtt.Library.Test.Handlers;
+using Mqtt.Library.Test.Payloads;
 using Mqtt.Library.TopicClient;
 
 namespace Mqtt.Library.Test;
@@ -41,7 +41,7 @@ public class BackgroundTestMqttPublisher : BackgroundService
     private async Task PublishToDevice(int deviceNumber)
     { 
         var deviceTopic = $"device/{deviceNumber}";
-        var payload = new TestMessagePayload { Name = $"device {deviceNumber}" };
+        var payload = new DeviceMessagePayload { Name = $"device {deviceNumber}" };
         var message = new Message { Topic = deviceTopic, Payload = payload.ToJson() };
         await _mqttMessageBus.Publish(message);
     }
