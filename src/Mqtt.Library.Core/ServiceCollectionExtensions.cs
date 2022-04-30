@@ -6,7 +6,7 @@ namespace Mqtt.Library.Core;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddMessagingPipelineGen(this IServiceCollection serviceCollection, params Assembly[] assemblies)
+    public static IServiceCollection AddMessagingPipeline(this IServiceCollection serviceCollection, params Assembly[] assemblies)
     {
         var implementationTypes = assemblies
             .SelectMany(a => a.GetTypes())

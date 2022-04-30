@@ -7,15 +7,15 @@ namespace Mqtt.Library.Processing;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddMqttMessagingPipelineGen(this IServiceCollection serviceCollection, params Assembly[] assemblies)
+    public static IServiceCollection AddMqttMessagingPipeline(this IServiceCollection serviceCollection, params Assembly[] assemblies)
     {
         return serviceCollection
-            .AddMessagingPipelineGen(assemblies)
+            .AddMessagingPipeline(assemblies)
             .AddMessageExecutor()
-            .AddMqttApplicationMessageReceivedHandlerGen();
+            .AddMqttApplicationMessageReceivedHandler();
     }
     
-    private static IServiceCollection AddMqttApplicationMessageReceivedHandlerGen(this IServiceCollection serviceCollection)
+    private static IServiceCollection AddMqttApplicationMessageReceivedHandler(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddSingleton<MqttReceivedMessageHandlerGen>();
         return serviceCollection;

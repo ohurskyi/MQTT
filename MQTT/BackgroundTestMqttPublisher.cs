@@ -6,17 +6,16 @@ using Mqtt.Library.Test.ClientOptions;
 using Mqtt.Library.Test.GenericTest;
 using Mqtt.Library.Test.Handlers;
 using Mqtt.Library.TopicClient;
-using Mqtt.Library.TopicClient.GenericTest;
 using MQTTnet;
 
 namespace Mqtt.Library.Test;
 
 public class BackgroundTestMqttPublisher : BackgroundService
 {
-    private readonly MqttTopicClientGen<TestMqttMessagingClientOptions> _topicClient;
+    private readonly IMqttTopicClient<TestMqttMessagingClientOptions> _topicClient;
     private readonly MqttMessageBusGen<TestMqttMessagingClientOptions> _mqttMessageBus;
 
-    public BackgroundTestMqttPublisher(MqttTopicClientGen<TestMqttMessagingClientOptions> topicClient, MqttMessageBusGen<TestMqttMessagingClientOptions> mqttMessageBus)
+    public BackgroundTestMqttPublisher(IMqttTopicClient<TestMqttMessagingClientOptions> topicClient, MqttMessageBusGen<TestMqttMessagingClientOptions> mqttMessageBus)
     {
         _topicClient = topicClient;
         _mqttMessageBus = mqttMessageBus;

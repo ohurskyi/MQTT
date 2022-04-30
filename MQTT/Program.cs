@@ -7,7 +7,6 @@ using Mqtt.Library.Test.ClientOptions;
 using Mqtt.Library.Test.GenericTest;
 using Mqtt.Library.Test.Handlers;
 using Mqtt.Library.TopicClient;
-using Mqtt.Library.TopicClient.GenericTest;
 using Serilog;
 
 IHost host = Host.CreateDefaultBuilder(args)
@@ -35,17 +34,17 @@ IHost host = Host.CreateDefaultBuilder(args)
         .WriteTo.Console())
     .Build();
 
-host.Services.UseMqttMessageReceivedHandlerGen<LocalMqttMessagingClientOptions>();
+host.Services.UseMqttMessageReceivedHandler<LocalMqttMessagingClientOptions>();
 //host.Services.UseMqttMessageReceivedHandler<TestMqttMessagingClientOptions>();
 
 await host.RunAsync();
 
 void MessagingMqttGenTest(IServiceCollection serviceCollection)
 {
-    serviceCollection.AddMqttMessagingPipelineGen(typeof(MessageHandlerTest).Assembly);
+    serviceCollection.AddMqttMessagingPipeline(typeof(MessageHandlerTest).Assembly);
     
     serviceCollection.AddHostedService<BackgroundGenMqttPublisher>();
     
     serviceCollection.AddMqttMessageBusGen<LocalMqttMessagingClientOptions>();
-    serviceCollection.AddMqttTopicClientGen<LocalMqttMessagingClientOptions>();
+    serviceCollection.AddMqttTopicClient<LocalMqttMessagingClientOptions>();
 }

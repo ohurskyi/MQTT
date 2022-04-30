@@ -3,14 +3,14 @@ using Mqtt.Library.Client.Configuration;
 using Mqtt.Library.Core;
 using Mqtt.Library.Core.Factory;
 
-namespace Mqtt.Library.TopicClient.GenericTest;
+namespace Mqtt.Library.TopicClient;
 
-public class MqttTopicClientGen<TMessagingClientOptions> : IMqttTopicClient<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
+public class MqttTopicClient<TMessagingClientOptions> : IMqttTopicClient<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
 {
     private readonly IMqttMessagingClient<TMessagingClientOptions> _mqttMessagingClient;
     private readonly IMessageHandlerFactory _messageHandlerFactory;
 
-    public MqttTopicClientGen(IMqttMessagingClient<TMessagingClientOptions> mqttMessagingClient, IMessageHandlerFactory messageHandlerFactory)
+    public MqttTopicClient(IMqttMessagingClient<TMessagingClientOptions> mqttMessagingClient, IMessageHandlerFactory messageHandlerFactory)
     {
         _mqttMessagingClient = mqttMessagingClient;
         _messageHandlerFactory = messageHandlerFactory;
