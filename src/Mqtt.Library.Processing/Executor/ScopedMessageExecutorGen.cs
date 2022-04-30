@@ -1,9 +1,10 @@
 using Microsoft.Extensions.DependencyInjection;
+using Mqtt.Library.Core.GenericTest;
 using MQTTnet;
 
-namespace Mqtt.Library.Core.GenericTest
+namespace Mqtt.Library.Processing.Executor
 {
-    public class ScopedMessageExecutorGen 
+    public class ScopedMessageExecutorGen : IMqttMessageExecutor
     {
         private readonly IMessageHandlerFactoryGen _messageHandlerFactory;
         private readonly IServiceScopeFactory _serviceScopeFactory;

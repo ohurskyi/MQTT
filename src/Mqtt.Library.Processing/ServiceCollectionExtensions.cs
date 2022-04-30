@@ -1,57 +1,28 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using Mqtt.Library.Core;
 using Mqtt.Library.Core.GenericTest;
 using Mqtt.Library.Processing.Executor;
-using Mqtt.Library.Processing.Factory;
 
 namespace Mqtt.Library.Processing;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddMessageProcessing(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddMqttMessagingPipelineGen(this IServiceCollection serviceCollection, params Assembly[] assemblies)
     {
-        serviceCollection.AddSingleton<IMqttMessageExecutor, ScopedMessageExecutor>();
-        serviceCollection.AddSingleton<IMessageHandlerFactory, MessageHandlerFactory>();
-        
-        serviceCollection.AddScoped<IMessageHandlingStrategy, MessageHandlingStrategy>();
-        
-        return serviceCollection;
+        return serviceCollection
+            .AddMessagingPipelineGen(assemblies)
+            .AddMessageExecutor()
+            .AddMqttApplicationMessageReceivedHandlerGen();
     }
     
-    public static IServiceCollection AddMqttApplicationMessageReceivedHandler(this IServiceCollection serviceCollection)
-    {
-        serviceCollection.AddSingleton<MqttReceivedMessageHandler>();
-        return serviceCollection;
-    }
-    
-    public static IServiceCollection AddMqttApplicationMessageReceivedHandlerGen(this IServiceCollection serviceCollection)
+    private static IServiceCollection AddMqttApplicationMessageReceivedHandlerGen(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddSingleton<MqttReceivedMessageHandlerGen>();
         return serviceCollection;
     }
 
-    public static IServiceCollection AddMqttMessagingPipeline(this IServiceCollection serviceCollection, params Assembly[] assemblies)
+    private static IServiceCollection AddMessageExecutor(this IServiceCollection serviceCollection)
     {
-        var implementationTypes = assemblies
-            .SelectMany(a => a.GetTypes())
-            .Where(t => typeof(IMessageHandler).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract)
-            .ToList();
-
-        foreach (var handlerType in implementationTypes)
-        {
-            serviceCollection.AddTransient(handlerType);
-        }
-            
-        serviceCollection.AddMessageProcessing();
-        serviceCollection.AddMqttApplicationMessageReceivedHandler();
-        return serviceCollection;
-    }
-
-    public static IServiceCollection AddMqttMessagingPipelineGen(this IServiceCollection serviceCollection, params Assembly[] assemblies)
-    {
-        return serviceCollection
-            .AddMessagingPipelineGen(assemblies)
-            .AddMqttApplicationMessageReceivedHandlerGen();
+        return serviceCollection.AddSingleton<IMqttMessageExecutor, ScopedMessageExecutorGen>();
     }
 }

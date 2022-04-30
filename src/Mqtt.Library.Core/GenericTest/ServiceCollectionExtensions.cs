@@ -5,15 +5,6 @@ namespace Mqtt.Library.Core.GenericTest;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddMessageProcessing(this IServiceCollection serviceCollection)
-    {
-        serviceCollection.AddSingleton<ScopedMessageExecutorGen>();
-        serviceCollection.AddSingleton<IMessageHandlerFactoryGen, MessageHandlerFactoryGen>();
-        serviceCollection.AddScoped<MessageHandlingStrategyGen>();
-        
-        return serviceCollection;
-    }
-
     public static IServiceCollection AddMessagingPipelineGen(this IServiceCollection serviceCollection, params Assembly[] assemblies)
     {
         var implementationTypes = assemblies
@@ -26,7 +17,9 @@ public static class ServiceCollectionExtensions
             serviceCollection.AddTransient(handlerType);
         }
 
-        serviceCollection.AddMessageProcessing();
+        serviceCollection.AddSingleton<IMessageHandlerFactoryGen, MessageHandlerFactoryGen>();
+        serviceCollection.AddScoped<MessageHandlingStrategyGen>();
+        
         return serviceCollection;
     }
 }

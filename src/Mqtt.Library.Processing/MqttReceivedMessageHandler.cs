@@ -5,26 +5,11 @@ using MQTTnet.Client.Receiving;
 
 namespace Mqtt.Library.Processing;
 
-public class MqttReceivedMessageHandler : IMqttApplicationMessageReceivedHandler
+public class MqttReceivedMessageHandlerGen : IMqttApplicationMessageReceivedHandler
 {
     private readonly IMqttMessageExecutor _messageExecutor;
 
-    public MqttReceivedMessageHandler(IMqttMessageExecutor messageExecutor)
-    {
-        _messageExecutor = messageExecutor;
-    }
-    
-    public async Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs eventArgs)
-    {
-        await _messageExecutor.ExecuteAsync(eventArgs);
-    }
-}
-
-public class MqttReceivedMessageHandlerGen : IMqttApplicationMessageReceivedHandler
-{
-    private readonly ScopedMessageExecutorGen _messageExecutor;
-
-    public MqttReceivedMessageHandlerGen(ScopedMessageExecutorGen messageExecutor)
+    public MqttReceivedMessageHandlerGen(IMqttMessageExecutor messageExecutor)
     {
         _messageExecutor = messageExecutor;
     }
