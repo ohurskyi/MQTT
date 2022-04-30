@@ -44,7 +44,7 @@ namespace Mqtt.Library.Test.GenericTest
         private async Task PublishToDevice(int deviceNumber)
         { 
             var deviceTopic = $"device/{deviceNumber}";
-            var payload = new TestMessagePayload { Name = "device test" };
+            var payload = new TestMessagePayload { Name = $"device {deviceNumber}" };
             var message = new Message { Topic = deviceTopic, Payload = payload.ToJson() };
             await _mqttMessageBus.Publish(message);
         }

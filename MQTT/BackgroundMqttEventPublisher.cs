@@ -1,18 +1,22 @@
 ﻿using Mqtt.Library.Core;
+using Mqtt.Library.Core.GenericTest;
 using Mqtt.Library.MessageBus;
+using Mqtt.Library.MessageBus.GenericTest;
 using Mqtt.Library.Test.ClientOptions;
+using Mqtt.Library.Test.GenericTest;
 using Mqtt.Library.Test.Handlers;
 using Mqtt.Library.TopicClient;
+using Mqtt.Library.TopicClient.GenericTest;
 using MQTTnet;
 
 namespace Mqtt.Library.Test
 {
     public class BackgroundLocalMqttPublisher : BackgroundService
     {
-        private readonly IMqttTopicClient<LocalMqttMessagingClientOptions> _topicClient;
-        private readonly IMqttMessageBus<LocalMqttMessagingClientOptions> _mqttMessageBus;
+        private readonly MqttTopicClientGen<LocalMqttMessagingClientOptions> _topicClient;
+        private readonly MqttMessageBusGen<LocalMqttMessagingClientOptions> _mqttMessageBus;
 
-        public BackgroundLocalMqttPublisher(IMqttTopicClient<LocalMqttMessagingClientOptions> topicClient, IMqttMessageBus<LocalMqttMessagingClientOptions> mqttMessageBus)
+        public BackgroundLocalMqttPublisher(MqttTopicClientGen<LocalMqttMessagingClientOptions> topicClient, MqttMessageBusGen<LocalMqttMessagingClientOptions> mqttMessageBus)
         {
             _topicClient = topicClient;
             _mqttMessageBus = mqttMessageBus;
@@ -44,19 +48,20 @@ namespace Mqtt.Library.Test
         }
 
         private async Task PublishToDevice(int deviceNumber)
-        { 
+        {
             var deviceTopic = $"device/{deviceNumber}";
-            var mqttMessage = new MqttApplicationMessageBuilder().WithTopic(deviceTopic);
-            await _mqttMessageBus.Publish(mqttMessage.Build());
+            var payload = new TestMessagePayload { Name = $"device {deviceNumber}" };
+            var message = new Message { Topic = deviceTopic, Payload = payload.ToJson() };
+            await _mqttMessageBus.Publish(message);
         }
 
-        private async Task RegisterMessageHandler<T>(int deviceNumber) where T: IMessageHandler
+        private async Task RegisterMessageHandler<T>(int deviceNumber) where T: IMessageHandlerGen
         {
             var deviceTopic = $"device/{deviceNumber}";
             await _topicClient.Subscribe<T>(deviceTopic);
         }
         
-        private async Task RegisterMessageHandlerForAllDevices<T>() where T: IMessageHandler
+        private async Task RegisterMessageHandlerForAllDevices<T>() where T: IMessageHandlerGen
         {
             const string deviceTopic = "device/#";
             await _topicClient.Subscribe<T>(deviceTopic);

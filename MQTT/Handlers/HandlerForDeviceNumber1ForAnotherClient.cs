@@ -1,9 +1,10 @@
 ﻿using Mqtt.Library.Core;
+using Mqtt.Library.Core.GenericTest;
 using MQTTnet;
 
 namespace Mqtt.Library.Test.Handlers;
 
-public class HandlerForDeviceNumber1ForAnotherClient : IMessageHandler, IDisposable
+public class HandlerForDeviceNumber1ForAnotherClient : IMessageHandlerGen, IDisposable
 {
     private readonly ILogger<HandlerForDeviceNumber1ForAnotherClient> _logger;
 
@@ -12,9 +13,9 @@ public class HandlerForDeviceNumber1ForAnotherClient : IMessageHandler, IDisposa
         _logger = logger;
     }
 
-    public Task Handle(MqttApplicationMessage mqttApplicationMessage)
+    public Task Handle(IMessage message)
     {
-        _logger.LogInformation("Handler {handler} received message from topic = {value}", nameof(HandlerForDeviceNumber1ForAnotherClient), mqttApplicationMessage.Topic);
+        _logger.LogInformation("Handler {handler} received message from topic = {value}", nameof(HandlerForDeviceNumber1ForAnotherClient), message.Topic);
         return Task.CompletedTask;
     }
 
