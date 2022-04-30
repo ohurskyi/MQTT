@@ -1,6 +1,4 @@
-﻿using System.Text;
-using Mqtt.Library.Core.Messages;
-using MQTTnet;
+﻿using Mqtt.Library.Core.Messages;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 

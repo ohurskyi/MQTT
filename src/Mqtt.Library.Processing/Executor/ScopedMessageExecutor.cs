@@ -6,13 +6,13 @@ using MQTTnet;
 
 namespace Mqtt.Library.Processing.Executor
 {
-    public class ScopedMessageExecutorGen : IMqttMessageExecutor
+    public class ScopedMessageExecutor : IMqttMessageExecutor
     {
         private readonly IMessageHandlerFactory _messageHandlerFactory;
         private readonly IServiceScopeFactory _serviceScopeFactory;
-        private readonly ILogger<ScopedMessageExecutorGen> _logger;
+        private readonly ILogger<ScopedMessageExecutor> _logger;
 
-        public ScopedMessageExecutorGen(IMessageHandlerFactory messageHandlerFactory, IServiceScopeFactory serviceScopeFactory, ILogger<ScopedMessageExecutorGen> logger)
+        public ScopedMessageExecutor(IMessageHandlerFactory messageHandlerFactory, IServiceScopeFactory serviceScopeFactory, ILogger<ScopedMessageExecutor> logger)
         {
             _messageHandlerFactory = messageHandlerFactory;
             _serviceScopeFactory = serviceScopeFactory;
