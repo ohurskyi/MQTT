@@ -13,4 +13,12 @@ public static class ServiceProviderExtensions
         var handler = serviceProvider.GetRequiredService<MqttReceivedMessageHandler>();
         mqttMessagingClient.UseMqttMessageReceivedHandler(handler);
     }
+    
+    public static void UseMqttMessageReceivedHandlerGen<TMessagingClientOptions>(this IServiceProvider serviceProvider)
+        where TMessagingClientOptions : IMqttMessagingClientOptions
+    {
+        var mqttMessagingClient = serviceProvider.GetRequiredService<IMqttMessagingClient<TMessagingClientOptions>>();
+        var handler = serviceProvider.GetRequiredService<MqttReceivedMessageHandlerGen>();
+        mqttMessagingClient.UseMqttMessageReceivedHandler(handler);
+    }
 }

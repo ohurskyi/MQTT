@@ -1,28 +1,33 @@
 using Mqtt.Library.Client;
 using Mqtt.Library.MessageBus;
+using Mqtt.Library.MessageBus.GenericTest;
 using Mqtt.Library.Processing;
 using Mqtt.Library.Test;
 using Mqtt.Library.Test.ClientOptions;
+using Mqtt.Library.Test.GenericTest;
 using Mqtt.Library.Test.Handlers;
 using Mqtt.Library.TopicClient;
+using Mqtt.Library.TopicClient.GenericTest;
 using Serilog;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
     {
-        services.AddHostedService<BackgroundLocalMqttPublisher>();
-        services.AddHostedService<BackgroundTestMqttPublisher>();
-        
-        services.AddMqttMessagingPipeline(typeof(HandlerForDeviceNumber1).Assembly);
-
-        services.AddMqttMessageBus<LocalMqttMessagingClientOptions>();
-        services.AddMqttTopicClient<LocalMqttMessagingClientOptions>();
-        
-        services.AddMqttMessageBus<TestMqttMessagingClientOptions>();
-        services.AddMqttTopicClient<TestMqttMessagingClientOptions>();
+        // services.AddHostedService<BackgroundLocalMqttPublisher>();
+        // services.AddHostedService<BackgroundTestMqttPublisher>();
+        //
+        // services.AddMqttMessagingPipeline(typeof(HandlerForDeviceNumber1).Assembly);
+        //
+        // services.AddMqttMessageBus<LocalMqttMessagingClientOptions>();
+        // services.AddMqttTopicClient<LocalMqttMessagingClientOptions>();
+        //
+        // services.AddMqttMessageBus<TestMqttMessagingClientOptions>();
+        // services.AddMqttTopicClient<TestMqttMessagingClientOptions>();
         
         services.AddMqttMessagingClient<LocalMqttMessagingClientOptions>(hostContext.Configuration);
         services.AddMqttMessagingClient<TestMqttMessagingClientOptions>(hostContext.Configuration);
+        
+        MessagingMqttGenTest(services);
     })
     .UseSerilog((hostingContext, _, loggerConfiguration) => loggerConfiguration
         .ReadFrom.Configuration(hostingContext.Configuration)
@@ -30,7 +35,17 @@ IHost host = Host.CreateDefaultBuilder(args)
         .WriteTo.Console())
     .Build();
 
-host.Services.UseMqttMessageReceivedHandler<LocalMqttMessagingClientOptions>();
-host.Services.UseMqttMessageReceivedHandler<TestMqttMessagingClientOptions>();
+host.Services.UseMqttMessageReceivedHandlerGen<LocalMqttMessagingClientOptions>();
+//host.Services.UseMqttMessageReceivedHandler<TestMqttMessagingClientOptions>();
 
 await host.RunAsync();
+
+void MessagingMqttGenTest(IServiceCollection serviceCollection)
+{
+    serviceCollection.AddMqttMessagingPipelineGen(typeof(MessageHandlerGenTest).Assembly);
+    
+    serviceCollection.AddHostedService<BackgroundGenMqttPublisher>();
+    
+    serviceCollection.AddMqttMessageBusGen<LocalMqttMessagingClientOptions>();
+    serviceCollection.AddMqttTopicClientGen<LocalMqttMessagingClientOptions>();
+}
