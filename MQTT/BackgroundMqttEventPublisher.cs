@@ -1,5 +1,4 @@
 ﻿using Mqtt.Library.Core;
-using Mqtt.Library.Core.Messages;
 using Mqtt.Library.MessageBus;
 using Mqtt.Library.Test.ClientOptions;
 using Mqtt.Library.Test.Handlers;
@@ -50,8 +49,7 @@ namespace Mqtt.Library.Test
         {
             var deviceTopic = $"device/{deviceNumber}";
             var payload = new DeviceMessagePayload { Name = $"device {deviceNumber}" };
-            var message = new Message { Topic = deviceTopic, Payload = payload.ToJson() };
-            await _mqttMessageBus.Publish(message);
+            await _mqttMessageBus.Publish(payload, deviceTopic);
         }
 
         private async Task RegisterMessageHandler<T>(int deviceNumber) where T: IMessageHandler

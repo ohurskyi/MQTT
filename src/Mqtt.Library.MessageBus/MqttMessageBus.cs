@@ -2,6 +2,7 @@ using Mqtt.Library.Client;
 using Mqtt.Library.Client.Configuration;
 using Mqtt.Library.Core;
 using Mqtt.Library.Core.Messages;
+using Newtonsoft.Json;
 
 namespace Mqtt.Library.MessageBus;
 
@@ -18,5 +19,11 @@ public class MqttMessageBus<TMessagingClientOptions> : IMqttMessageBus<TMessagin
     {
         var mqttApplicationMessage = message.ToMqttMessage();
         await _mqttMessagingClient.PublishAsync(mqttApplicationMessage);
+    }
+
+    public async Task Publish<TPayload>(TPayload payload, string topic) where TPayload : IMessagePayload
+    {
+        var message = new Message { Topic = topic, Payload = payload.ToJson() };
+        await Publish(message);
     }
 }

@@ -19,10 +19,8 @@ namespace Mqtt.Library.Core
     
     public static class JsonConfigSettings
     {
-        public static JsonSerializerSettings SerializerSettings() => new JsonSerializerSettings
+        public static JsonSerializerSettings SerializerSettings() => new()
         {
-            // TypeNameHandling = TypeNameHandling.Objects,
-            // SerializationBinder = new KnownTypesBinder { KnownTypes = new List<Type>() }
         };
     }
     

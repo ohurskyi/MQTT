@@ -43,7 +43,7 @@ public class BackgroundTestMqttPublisher : BackgroundService
         var deviceTopic = $"device/{deviceNumber}";
         var payload = new DeviceMessagePayload { Name = $"device {deviceNumber}" };
         var message = new Message { Topic = deviceTopic, Payload = payload.ToJson() };
-        await _mqttMessageBus.Publish(message);
+        //await _mqttMessageBus.Publish(message);
     }
 
     private async Task RegisterMessageHandler<T>(int deviceNumber) where T: IMessageHandler
