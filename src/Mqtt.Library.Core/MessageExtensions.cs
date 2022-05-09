@@ -8,15 +8,10 @@ namespace Mqtt.Library.Core
     {
         public static T FromJson<T>(this IMessage message)
         {
-            var jObject = message.Body as JObject;
+            var jObject = message.Body;
             return jObject.ToObject<T>();
         }
-        
-        public static string ToJson<T>(this IMessagePayload messagePayload)
-        {
-            return JsonConvert.SerializeObject(messagePayload, typeof(T), JsonConfigSettings.SerializerSettings());
-        }
-        
+
         public static string ToJson(this IMessage message)
         {
             return JsonConvert.SerializeObject(message.Body, JsonConfigSettings.SerializerSettings());

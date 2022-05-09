@@ -1,8 +1,10 @@
-﻿namespace Mqtt.Library.Core.Messages;
+﻿using Newtonsoft.Json.Linq;
+
+namespace Mqtt.Library.Core.Messages;
 
 public interface IMessage
 {
     string Topic { get; set; }
     string Payload { get; set; }
-    object Body { get; set; }
+    JObject Body { get; set; }
 }
