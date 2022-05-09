@@ -7,17 +7,19 @@ namespace Mqtt.Library.Core;
 public class MessageHandlingStrategy : IMessageHandlingStrategy, IDisposable
 {
     private readonly IMessageHandlerFactory _messageHandlerFactory;
+    private readonly HandlerFactory _handlerFactory;
     private readonly ILogger<MessageHandlingStrategy> _logger;
 
-    public MessageHandlingStrategy(IMessageHandlerFactory messageHandlerFactory, ILogger<MessageHandlingStrategy> logger)
+    public MessageHandlingStrategy(IMessageHandlerFactory messageHandlerFactory, HandlerFactory handlerFactory, ILogger<MessageHandlingStrategy> logger)
     {
         _messageHandlerFactory = messageHandlerFactory;
         _logger = logger;
+        _handlerFactory = handlerFactory;
     }
 
-    public async Task Handle(IMessage message, HandlerFactory handlerFactory)
+    public async Task Handle(IMessage message)
     {
-        var handlers = _messageHandlerFactory.GetHandlers(message.Topic, handlerFactory);
+        var handlers = _messageHandlerFactory.GetHandlers(message.Topic, _handlerFactory);
         
         var funcs = handlers.Select(h => new Func<IMessage, Task>(h.Handle));
         

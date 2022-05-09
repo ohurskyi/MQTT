@@ -1,34 +1,23 @@
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Mqtt.Library.Core;
-using Mqtt.Library.Core.Factory;
-using Mqtt.Library.Processing.Extensions;
-using MQTTnet;
+using Mqtt.Library.Core.Messages;
 
 namespace Mqtt.Library.Processing.Executor
 {
-    public class ScopedMessageExecutor : IMqttMessageExecutor
+    public class ScopedMessageExecutor : IMessageExecutor
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
-        private readonly ILogger<ScopedMessageExecutor> _logger;
 
-        public ScopedMessageExecutor(IServiceScopeFactory serviceScopeFactory, ILogger<ScopedMessageExecutor> logger)
+        public ScopedMessageExecutor(IServiceScopeFactory serviceScopeFactory)
         {
             _serviceScopeFactory = serviceScopeFactory;
-            _logger = logger;
         }
 
-        public async Task ExecuteAsync(MqttApplicationMessageReceivedEventArgs messageReceivedEventArgs)
+        public async Task ExecuteAsync(IMessage message)
         {
-            _logger.LogInformation("Begin processing mqtt message ...");
-            
             using var scope = _serviceScopeFactory.CreateScope();
-            var messageHandlerWrapper = scope.ServiceProvider.GetRequiredService<IMessageHandlingStrategy>();
-            var handlerFactory = scope.ServiceProvider.GetRequiredService<HandlerFactory>();
-            var message = messageReceivedEventArgs.ApplicationMessage.ToMessage();
-            await messageHandlerWrapper.Handle(message, handlerFactory);
-            
-            _logger.LogInformation("End processing mqtt message.");
+            var messageHandlingStrategy = scope.ServiceProvider.GetRequiredService<IMessageHandlingStrategy>();
+            await messageHandlingStrategy.Handle(message);
         }
     }
 }

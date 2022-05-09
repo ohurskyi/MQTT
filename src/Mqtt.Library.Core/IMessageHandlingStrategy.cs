@@ -1,9 +1,8 @@
-﻿using Mqtt.Library.Core.Factory;
-using Mqtt.Library.Core.Messages;
+﻿using Mqtt.Library.Core.Messages;
 
 namespace Mqtt.Library.Core;
 
 public interface IMessageHandlingStrategy
 {
-    Task Handle(IMessage message, HandlerFactory handlerFactory);
+    Task Handle(IMessage message);
 }

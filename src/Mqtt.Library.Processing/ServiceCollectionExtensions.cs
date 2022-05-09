@@ -23,6 +23,6 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddMessageExecutor(this IServiceCollection serviceCollection)
     {
-        return serviceCollection.AddSingleton<IMqttMessageExecutor, ScopedMessageExecutor>();
+        return serviceCollection.AddSingleton<IMessageExecutor, ScopedMessageExecutor>();
     }
 }
