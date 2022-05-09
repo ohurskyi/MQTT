@@ -4,4 +4,5 @@ public class Message: IMessage
 {
     public string Topic { get; set; }
     public string Payload { get; set; }
+    public object Body { get; set; }
 }

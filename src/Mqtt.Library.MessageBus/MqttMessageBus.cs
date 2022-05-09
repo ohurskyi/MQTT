@@ -23,7 +23,7 @@ public class MqttMessageBus<TMessagingClientOptions> : IMqttMessageBus<TMessagin
 
     public async Task Publish<TPayload>(TPayload payload, string topic) where TPayload : IMessagePayload
     {
-        var message = new Message { Topic = topic, Payload = payload.ToJson() };
+        var message = new Message { Topic = topic, Body = payload };
         await Publish(message);
     }
 }
