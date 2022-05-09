@@ -1,14 +1,23 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Logging;
 using Mqtt.Library.Core.Factory;
 using Mqtt.Library.Core.Messages;
 
 namespace Mqtt.Library.Core;
 
-public class MessageHandlingStrategy : IMessageHandlingStrategy
+public class MessageHandlingStrategy : IMessageHandlingStrategy, IDisposable
 {
-    public async Task Handle(IMessage message, IMessageHandlerFactory messageHandlerFactory, HandlerFactory handlerFactory)
+    private readonly IMessageHandlerFactory _messageHandlerFactory;
+    private readonly ILogger<MessageHandlingStrategy> _logger;
+
+    public MessageHandlingStrategy(IMessageHandlerFactory messageHandlerFactory, ILogger<MessageHandlingStrategy> logger)
     {
-        var handlers = messageHandlerFactory.GetHandlers(message.Topic, handlerFactory);
+        _messageHandlerFactory = messageHandlerFactory;
+        _logger = logger;
+    }
+
+    public async Task Handle(IMessage message, HandlerFactory handlerFactory)
+    {
+        var handlers = _messageHandlerFactory.GetHandlers(message.Topic, handlerFactory);
         
         var funcs = handlers.Select(h => new Func<IMessage, Task>(h.Handle));
         
@@ -21,5 +30,10 @@ public class MessageHandlingStrategy : IMessageHandlingStrategy
         {
             await handler(message);
         }
+    }
+
+    public void Dispose()
+    {
+        _logger.LogInformation($"{nameof(MessageHandlingStrategy)} disposed.");
     }
 }

@@ -9,13 +9,11 @@ namespace Mqtt.Library.Processing.Executor
 {
     public class ScopedMessageExecutor : IMqttMessageExecutor
     {
-        private readonly IMessageHandlerFactory _messageHandlerFactory;
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly ILogger<ScopedMessageExecutor> _logger;
 
-        public ScopedMessageExecutor(IMessageHandlerFactory messageHandlerFactory, IServiceScopeFactory serviceScopeFactory, ILogger<ScopedMessageExecutor> logger)
+        public ScopedMessageExecutor(IServiceScopeFactory serviceScopeFactory, ILogger<ScopedMessageExecutor> logger)
         {
-            _messageHandlerFactory = messageHandlerFactory;
             _serviceScopeFactory = serviceScopeFactory;
             _logger = logger;
         }
@@ -28,7 +26,7 @@ namespace Mqtt.Library.Processing.Executor
             var messageHandlerWrapper = scope.ServiceProvider.GetRequiredService<IMessageHandlingStrategy>();
             var handlerFactory = scope.ServiceProvider.GetRequiredService<HandlerFactory>();
             var message = messageReceivedEventArgs.ApplicationMessage.ToMessage();
-            await messageHandlerWrapper.Handle(message, _messageHandlerFactory, handlerFactory);
+            await messageHandlerWrapper.Handle(message, handlerFactory);
             
             _logger.LogInformation("End processing mqtt message.");
         }
