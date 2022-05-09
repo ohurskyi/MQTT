@@ -2,7 +2,7 @@
 using Mqtt.Library.Core.Messages;
 using MQTTnet;
 
-namespace Mqtt.Library.Processing;
+namespace Mqtt.Library.Processing.Extensions;
 
 public static class MqttApplicationMessageExtensions
 {

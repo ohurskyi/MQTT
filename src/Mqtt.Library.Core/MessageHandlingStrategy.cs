@@ -6,9 +6,9 @@ namespace Mqtt.Library.Core;
 
 public class MessageHandlingStrategy : IMessageHandlingStrategy
 {
-    public async Task Handle(IMessage message, IMessageHandlerFactory messageHandlerFactory, IServiceScope serviceScope)
+    public async Task Handle(IMessage message, IMessageHandlerFactory messageHandlerFactory, HandlerFactory handlerFactory)
     {
-        var handlers = messageHandlerFactory.GetHandlers(message.Topic, serviceScope.ServiceProvider.GetRequiredService);
+        var handlers = messageHandlerFactory.GetHandlers(message.Topic, handlerFactory);
         
         var funcs = handlers.Select(h => new Func<IMessage, Task>(h.Handle));
         

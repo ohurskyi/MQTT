@@ -1,6 +1,5 @@
 ﻿using Mqtt.Library.Core.Messages;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Mqtt.Library.Core
 {
@@ -19,24 +18,6 @@ namespace Mqtt.Library.Core
     
     public static class JsonConfigSettings
     {
-        public static JsonSerializerSettings SerializerSettings() => new()
-        {
-        };
-    }
-    
-    public class KnownTypesBinder : ISerializationBinder
-    {
-        public IList<Type> KnownTypes { get; set; }
-
-        public Type BindToType(string assemblyName, string typeName)
-        {
-            return KnownTypes.SingleOrDefault(t => t.Name == typeName);
-        }
-
-        public void BindToName(Type serializedType, out string assemblyName, out string typeName)
-        {
-            assemblyName = null;
-            typeName = serializedType.Name;
-        }
+        public static JsonSerializerSettings SerializerSettings() => new();
     }
 }

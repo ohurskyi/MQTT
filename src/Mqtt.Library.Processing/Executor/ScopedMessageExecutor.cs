@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mqtt.Library.Core;
 using Mqtt.Library.Core.Factory;
+using Mqtt.Library.Processing.Extensions;
 using MQTTnet;
 
 namespace Mqtt.Library.Processing.Executor
@@ -25,8 +26,9 @@ namespace Mqtt.Library.Processing.Executor
             
             using var scope = _serviceScopeFactory.CreateScope();
             var messageHandlerWrapper = scope.ServiceProvider.GetRequiredService<IMessageHandlingStrategy>();
+            var handlerFactory = scope.ServiceProvider.GetRequiredService<HandlerFactory>();
             var message = messageReceivedEventArgs.ApplicationMessage.ToMessage();
-            await messageHandlerWrapper.Handle(message, _messageHandlerFactory, scope);
+            await messageHandlerWrapper.Handle(message, _messageHandlerFactory, handlerFactory);
             
             _logger.LogInformation("End processing mqtt message.");
         }

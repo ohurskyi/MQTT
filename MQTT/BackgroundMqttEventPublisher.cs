@@ -26,7 +26,7 @@ namespace Mqtt.Library.Test
             
             await RegisterMessageHandler<HandlerForDeviceNumber2>(deviceNumber: 2);
             
-            await RegisterMessageHandlerForAllDevices<HandlerForAllDeviceNumbers>();
+            // await RegisterMessageHandlerForAllDevices<HandlerForAllDeviceNumbers>();
             
             await base.StartAsync(cancellationToken);
         }
@@ -39,7 +39,7 @@ namespace Mqtt.Library.Test
             {
                 await PublishToDevice(deviceNumber: 1);
                 
-                await PublishToDevice(deviceNumber: 2);
+                // await PublishToDevice(deviceNumber: 2);
 
                 await Task.Delay(TimeSpan.FromSeconds(2), stoppingToken);
             }

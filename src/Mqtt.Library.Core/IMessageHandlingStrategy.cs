@@ -6,5 +6,5 @@ namespace Mqtt.Library.Core;
 
 public interface IMessageHandlingStrategy
 {
-    Task Handle(IMessage message, IMessageHandlerFactory messageHandlerFactory, IServiceScope serviceScope);
+    Task Handle(IMessage message, IMessageHandlerFactory messageHandlerFactory, HandlerFactory handlerFactory);
 }

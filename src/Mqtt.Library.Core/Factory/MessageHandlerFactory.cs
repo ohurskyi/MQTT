@@ -29,7 +29,7 @@ public class MessageHandlerFactory : IMessageHandlerFactory
         var instances = _handlersMap
             .Where(k => MqttTopicFilterComparer.IsMatch(topic, k.Key))
             .SelectMany(k => k.Value)
-            .Select(type => (IMessageHandler)handlerFactory(type))
+            .Select(handlerFactory.GetHandler<IMessageHandler>)
             .ToList();
         
         return instances;

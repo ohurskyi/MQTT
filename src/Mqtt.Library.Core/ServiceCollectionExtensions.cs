@@ -19,8 +19,9 @@ public static class ServiceCollectionExtensions
         }
 
         serviceCollection.AddSingleton<IMessageHandlerFactory, MessageHandlerFactory>();
-        serviceCollection.AddScoped<IMessageHandlingStrategy, MessageHandlingStrategy>();
-        
+        serviceCollection.AddTransient<HandlerFactory>(p => p.GetRequiredService);
+        serviceCollection.AddTransient<IMessageHandlingStrategy, MessageHandlingStrategy>();
+
         return serviceCollection;
     }
 }
