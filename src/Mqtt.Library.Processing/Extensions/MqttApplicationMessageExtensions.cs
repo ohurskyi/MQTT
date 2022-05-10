@@ -11,9 +11,8 @@ public static class MqttApplicationMessageExtensions
     public static IMessage ToMessage(this MqttApplicationMessage mqttApplicationMessage)
     {
         var payloadStr = Encoding.UTF8.GetString(mqttApplicationMessage.Payload);
-        var test = JObject.Parse(payloadStr);
-        var body = JsonConvert.DeserializeObject(payloadStr);
-        var message = new Message { Topic = mqttApplicationMessage.Topic, Payload = payloadStr, Body = test };
+        var body = JObject.Parse(payloadStr);
+        var message = new Message { Topic = mqttApplicationMessage.Topic, Payload = payloadStr, Body = body };
         return message;
     }
 }

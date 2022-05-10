@@ -6,6 +6,5 @@ namespace Mqtt.Library.MessageBus;
 
 public interface IMqttMessageBus<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
 {
-    Task Publish(IMessage message);
     Task Publish<TPayload>(TPayload payload, string topic) where TPayload : IMessagePayload;
 }
