@@ -4,6 +4,7 @@ using Mqtt.Library.Processing;
 using Mqtt.Library.Test;
 using Mqtt.Library.Test.ClientOptions;
 using Mqtt.Library.Test.Handlers;
+using Mqtt.Library.Test.Listeners;
 using Mqtt.Library.TopicClient;
 using Serilog;
 
@@ -48,4 +49,6 @@ void MqttPipelineDeviceHandlersTest(IServiceCollection serviceCollection, IConfi
     serviceCollection.AddMqttMessageBus<LocalMqttMessagingClientOptions>();
     
     serviceCollection.AddMqttTopicClient<LocalMqttMessagingClientOptions>();
+
+    serviceCollection.AddHostedService<DeviceStartupListener>();
 }

@@ -1,5 +1,4 @@
-﻿using Mqtt.Library.Core;
-using Mqtt.Library.MessageBus;
+﻿using Mqtt.Library.MessageBus;
 using Mqtt.Library.Test.ClientOptions;
 using Mqtt.Library.Test.Handlers;
 using Mqtt.Library.Test.Payloads;
@@ -22,12 +21,6 @@ namespace Mqtt.Library.Test
 
         public override async Task StartAsync(CancellationToken cancellationToken)
         {
-            await RegisterMessageHandler<HandlerForDeviceNumber1>(deviceNumber: 1);
-            
-            await RegisterMessageHandler<HandlerForDeviceNumber2>(deviceNumber: 2);
-            
-            // await RegisterMessageHandlerForAllDevices<HandlerForAllDeviceNumbers>();
-            
             await base.StartAsync(cancellationToken);
         }
 
@@ -37,9 +30,9 @@ namespace Mqtt.Library.Test
             
             while (!stoppingToken.IsCancellationRequested)
             {
-                await PublishToDevice(deviceNumber: 1);
-                
-                // await PublishToDevice(deviceNumber: 2);
+                // await PublishToDevice(deviceNumber: 1);
+
+                await PublishToDevice(deviceNumber: 2);
 
                 await Task.Delay(TimeSpan.FromSeconds(3), stoppingToken);
             }
@@ -51,18 +44,5 @@ namespace Mqtt.Library.Test
             var payload = new DeviceMessagePayload { Name = $"device {deviceNumber}" };
             await _mqttMessageBus.Publish(payload, deviceTopic);
         }
-
-        private async Task RegisterMessageHandler<T>(int deviceNumber) where T: IMessageHandler
-        {
-            var deviceTopic = $"device/{deviceNumber}";
-            await _topicClient.Subscribe<T>(deviceTopic);
-        }
-        
-        private async Task RegisterMessageHandlerForAllDevices<T>() where T: IMessageHandler
-        {
-            const string deviceTopic = "device/#";
-            await _topicClient.Subscribe<T>(deviceTopic);
-        }
-        
     }
 }
