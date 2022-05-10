@@ -1,4 +1,5 @@
 ﻿using Mqtt.Library.Core;
+using Mqtt.Library.Core.Extensions;
 using Mqtt.Library.Core.Messages;
 using MQTTnet;
 

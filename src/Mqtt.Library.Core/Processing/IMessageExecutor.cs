@@ -1,6 +1,6 @@
 using Mqtt.Library.Core.Messages;
 
-namespace Mqtt.Library.Processing.Executor;
+namespace Mqtt.Library.Core.Processing;
 
 public interface IMessageExecutor
 {

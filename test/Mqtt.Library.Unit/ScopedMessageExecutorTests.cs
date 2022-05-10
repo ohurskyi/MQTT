@@ -5,7 +5,6 @@ using AutoFixture.AutoMoq;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Mqtt.Library.Core;
-using Mqtt.Library.Processing.Executor;
 using MQTTnet;
 using Xunit;
 

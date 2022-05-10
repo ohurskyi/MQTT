@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Mqtt.Library.Core;
-using Mqtt.Library.Processing.Executor;
+using Mqtt.Library.Core.Processing;
 
 namespace Mqtt.Library.Processing;
 
@@ -11,7 +11,6 @@ public static class ServiceCollectionExtensions
     {
         return serviceCollection
             .AddMessagingPipeline(assemblies)
-            .AddMessageExecutor()
             .AddMqttApplicationMessageReceivedHandler();
     }
     
@@ -19,10 +18,5 @@ public static class ServiceCollectionExtensions
     {
         serviceCollection.AddSingleton<MqttReceivedMessageHandlerGen>();
         return serviceCollection;
-    }
-
-    private static IServiceCollection AddMessageExecutor(this IServiceCollection serviceCollection)
-    {
-        return serviceCollection.AddSingleton<IMessageExecutor, ScopedMessageExecutor>();
     }
 }

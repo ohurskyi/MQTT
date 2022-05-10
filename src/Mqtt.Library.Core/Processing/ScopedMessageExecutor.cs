@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
-using Mqtt.Library.Core;
 using Mqtt.Library.Core.Messages;
+using Mqtt.Library.Core.Strategy;
 
-namespace Mqtt.Library.Processing.Executor
+namespace Mqtt.Library.Core.Processing
 {
     public class ScopedMessageExecutor : IMessageExecutor
     {

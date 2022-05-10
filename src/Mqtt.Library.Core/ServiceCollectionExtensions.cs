@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Mqtt.Library.Core.Factory;
+using Mqtt.Library.Core.Processing;
+using Mqtt.Library.Core.Strategy;
 
 namespace Mqtt.Library.Core;
 
@@ -21,7 +23,13 @@ public static class ServiceCollectionExtensions
         serviceCollection.AddSingleton<IMessageHandlerFactory, MessageHandlerFactory>();
         serviceCollection.AddTransient<HandlerFactory>(p => p.GetRequiredService);
         serviceCollection.AddTransient<IMessageHandlingStrategy, MessageHandlingStrategy>();
+        serviceCollection.AddMessageExecutor();
 
         return serviceCollection;
+    }
+    
+    private static IServiceCollection AddMessageExecutor(this IServiceCollection serviceCollection)
+    {
+        return serviceCollection.AddSingleton<IMessageExecutor, ScopedMessageExecutor>();
     }
 }

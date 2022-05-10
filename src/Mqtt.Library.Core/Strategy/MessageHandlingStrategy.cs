@@ -2,7 +2,7 @@
 using Mqtt.Library.Core.Factory;
 using Mqtt.Library.Core.Messages;
 
-namespace Mqtt.Library.Core;
+namespace Mqtt.Library.Core.Strategy;
 
 public class MessageHandlingStrategy : IMessageHandlingStrategy, IDisposable
 {
@@ -23,10 +23,10 @@ public class MessageHandlingStrategy : IMessageHandlingStrategy, IDisposable
         
         var funcs = handlers.Select(h => new Func<IMessage, Task>(h.Handle));
         
-        await HandleStrategy(funcs, message);
+        await HandleCore(funcs, message);
     }
 
-    protected virtual async Task HandleStrategy(IEnumerable<Func<IMessage, Task>> handlers, IMessage message)
+    protected virtual async Task HandleCore(IEnumerable<Func<IMessage, Task>> handlers, IMessage message)
     {
         foreach (var handler in handlers)
         {
