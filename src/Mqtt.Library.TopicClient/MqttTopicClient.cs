@@ -26,6 +26,9 @@ public class MqttTopicClient<TMessagingClientOptions> : IMqttTopicClient<TMessag
 
     public async Task Unsubscribe<T>(string topic) where T : IMessageHandler
     {
-        await _mqttMessagingClient.UnsubscribeAsync(topic);
+        if (_messageHandlerFactory.RemoveHandler<T>(topic) == 0)
+        {
+            await _mqttMessagingClient.UnsubscribeAsync(topic);
+        }
     }
 }

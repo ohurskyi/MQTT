@@ -5,22 +5,38 @@ namespace Mqtt.Library.Core.Factory;
 
 public class MessageHandlerFactory : IMessageHandlerFactory
 {
-    private readonly ConcurrentDictionary<string, ISet<Type>> _handlersMap = new();
+    private readonly ConcurrentDictionary<string, ConcurrentDictionary<Type, byte>> _handlersMap = new();
 
     public int RegisterHandler<THandler>(string topic) where THandler : IMessageHandler
     {
         if (!_handlersMap.TryGetValue(topic, out var handlers))
         {
-            _handlersMap.TryAdd(topic, new HashSet<Type> { typeof(THandler) });
+            _handlersMap.TryAdd(topic,
+                new ConcurrentDictionary<Type, byte>(new[]
+                    { new KeyValuePair<Type, byte>(typeof(THandler), default) })
+            );
             return 1;
         }
 
-        if (handlers.Contains(typeof(THandler)))
+        if (handlers.ContainsKey(typeof(THandler)))
         {
             return handlers.Count;
         }
 
-        handlers.Add(typeof(THandler));
+        handlers.TryAdd(typeof(THandler), default);
+        
+        return handlers.Count;
+    }
+
+    public int RemoveHandler<THandler>(string topic) where THandler : IMessageHandler
+    {
+        if (!_handlersMap.TryGetValue(topic, out var handlers))
+        {
+            return -1;
+        }
+
+        handlers.TryRemove(typeof(THandler), out _);
+        
         return handlers.Count;
     }
 
@@ -28,7 +44,7 @@ public class MessageHandlerFactory : IMessageHandlerFactory
     {
         var instances = _handlersMap
             .Where(k => MqttTopicFilterComparer.IsMatch(topic, k.Key))
-            .SelectMany(k => k.Value)
+            .SelectMany(k => k.Value.Keys)
             .Select(handlerFactory.GetHandler<IMessageHandler>)
             .ToList();
         
