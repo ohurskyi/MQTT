@@ -12,6 +12,6 @@ public abstract class BaseMqttStartupListener<TMessagingClientOptions> : IMqttSt
     {
         TopicClient = topicClient;
     }
-
-    public abstract Task CreateSubscriptions();
+    
+    public abstract IEnumerable<Task<ISubscription>> DefineSubscriptions();
 }

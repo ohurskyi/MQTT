@@ -24,6 +24,12 @@ public class MqttTopicClient<TMessagingClientOptions> : IMqttTopicClient<TMessag
         }
     }
 
+    public async Task<ISubscription> SubscribeNew<T>(string topic) where T : IMessageHandler
+    {
+        await Subscribe<T>(topic);
+        return new Subscription<T>(topic);
+    }
+
     public async Task Unsubscribe<T>(string topic) where T : IMessageHandler
     {
         if (_messageHandlerFactory.RemoveHandler<T>(topic) == 0)

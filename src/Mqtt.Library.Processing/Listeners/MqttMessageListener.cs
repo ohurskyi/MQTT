@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Hosting;
 using Mqtt.Library.Client.Configuration;
+using Mqtt.Library.TopicClient;
 
 namespace Mqtt.Library.Processing.Listeners;
 
@@ -8,6 +9,8 @@ public class MqttMessageListener<TMessagingClientOptions> : IHostedService
 {
     private readonly IMqttStartupListener<TMessagingClientOptions> _mqttStartupListener;
 
+    private ISubscription[] _subscriptions;
+    
     public MqttMessageListener(IMqttStartupListener<TMessagingClientOptions> mqttStartupListener)
     {
         _mqttStartupListener = mqttStartupListener;
@@ -15,7 +18,7 @@ public class MqttMessageListener<TMessagingClientOptions> : IHostedService
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        await _mqttStartupListener.CreateSubscriptions();
+        _subscriptions =  await Task.WhenAll(_mqttStartupListener.DefineSubscriptions());
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
