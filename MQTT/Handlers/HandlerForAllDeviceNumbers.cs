@@ -2,7 +2,6 @@
 using Mqtt.Library.Core.Extensions;
 using Mqtt.Library.Core.Messages;
 using Mqtt.Library.Test.Payloads;
-using MQTTnet;
 
 namespace Mqtt.Library.Test.Handlers;
 
@@ -15,12 +14,12 @@ public class HandlerForAllDeviceNumbers : IMessageHandler, IDisposable
         _logger = logger;
     }
 
-    public Task Handle(IMessage message)
+    public async Task Handle(IMessage message)
     {
         _logger.LogInformation("Handler {handler} received message from topic = {value}", nameof(HandlerForAllDeviceNumbers), message.Topic);
         var deviceMessagePayload = message.FromJson<DeviceMessagePayload>();
         _logger.LogInformation("Device name = {value}", deviceMessagePayload.Name);
-        return Task.Delay(TimeSpan.FromSeconds(1));
+        await Task.Delay(TimeSpan.FromSeconds(1));
     }
 
     public void Dispose()

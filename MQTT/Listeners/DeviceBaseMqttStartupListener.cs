@@ -1,17 +1,19 @@
-﻿using Mqtt.Library.Test.ClientOptions;
+﻿using Mqtt.Library.Client.Configuration;
+using Mqtt.Library.Processing.Listeners;
 using Mqtt.Library.Test.Handlers;
 using Mqtt.Library.Test.Topics;
 using Mqtt.Library.TopicClient;
 
 namespace Mqtt.Library.Test.Listeners;
 
-public class DeviceStartupListener : StartupListener
+// how to properly close generic
+public class DeviceBaseMqttStartupListener<TMessagingClientOptions> : BaseMqttStartupListener<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
 {
-    public DeviceStartupListener(IMqttTopicClient<LocalMqttMessagingClientOptions> topicClient) : base(topicClient)
+    public DeviceBaseMqttStartupListener(IMqttTopicClient<TMessagingClientOptions> topicClient) : base(topicClient)
     {
     }
-
-    protected override async Task CreateSubscriptions()
+    
+    public override async Task CreateSubscriptions()
     {
         var subscriptions = new List<Task>
         {

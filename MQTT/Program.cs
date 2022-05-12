@@ -50,5 +50,5 @@ void MqttPipelineDeviceHandlersTest(IServiceCollection serviceCollection, IConfi
     
     serviceCollection.AddMqttTopicClient<LocalMqttMessagingClientOptions>();
 
-    serviceCollection.AddHostedService<DeviceStartupListener>();
+    serviceCollection.AddMqttStartupListener<LocalMqttMessagingClientOptions, DeviceBaseMqttStartupListener<LocalMqttMessagingClientOptions>>();
 }
