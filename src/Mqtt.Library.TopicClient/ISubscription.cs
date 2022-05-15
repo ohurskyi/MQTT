@@ -1,7 +1,9 @@
-﻿namespace Mqtt.Library.TopicClient;
+﻿using Mqtt.Library.Core;
+
+namespace Mqtt.Library.TopicClient;
 
 public interface ISubscription
 {
-    Type MessageHandler { get; }
-    string Topic { get; set; }
+    Type HandlerType { get; }
+    string Topic { get;}
 }

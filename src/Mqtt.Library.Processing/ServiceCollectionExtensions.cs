@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Mqtt.Library.Client.Configuration;
 using Mqtt.Library.Core;
 using Mqtt.Library.Processing.Listeners;
@@ -15,12 +16,10 @@ public static class ServiceCollectionExtensions
             .AddMqttApplicationMessageReceivedHandler();
     }
 
-    public static IServiceCollection AddMqttStartupListener<TMessagingClientOptions, TStartupListener>(this IServiceCollection serviceCollection)
-        where TMessagingClientOptions : class, IMqttMessagingClientOptions, new()
-        where TStartupListener: class, IMqttStartupListener<TMessagingClientOptions>
+    public static IServiceCollection AddMqttStartupListener<TStartupListener>(this IServiceCollection serviceCollection)
+        where TStartupListener: class, IHostedService
     {
-        serviceCollection.AddSingleton<IMqttStartupListener<TMessagingClientOptions>, TStartupListener>();
-        serviceCollection.AddHostedService<MqttMessageListener<TMessagingClientOptions>>();
+        serviceCollection.AddHostedService<TStartupListener>();
         return serviceCollection;
     }
     

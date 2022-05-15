@@ -40,6 +40,18 @@ public class MessageHandlerFactory : IMessageHandlerFactory
         return handlers.Count;
     }
 
+    public int RemoveHandler(Type handlerType, string topic)
+    {
+        if (!_handlersMap.TryGetValue(topic, out var handlers))
+        {
+            return -1;
+        }
+
+        handlers.TryRemove(handlerType, out _);
+        
+        return handlers.Count;
+    }
+
     public IEnumerable<IMessageHandler> GetHandlers(string topic, HandlerFactory handlerFactory)
     {
         var instances = _handlersMap

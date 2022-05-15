@@ -16,25 +16,30 @@ public class MqttTopicClient<TMessagingClientOptions> : IMqttTopicClient<TMessag
         _messageHandlerFactory = messageHandlerFactory;
     }
 
-    public async Task Subscribe<T>(string topic) where T : IMessageHandler
+    public async Task<ISubscription> Subscribe<T>(string topic) where T : IMessageHandler
+    {
+        await SubscribeInner<T>(topic);
+        return new Subscription<T>(topic);
+    }
+
+    public async Task Unsubscribe(ISubscription subscription)
+    {
+        await UnsubscribeInner(subscription);
+    }
+
+    private async Task UnsubscribeInner(ISubscription subscription)
+    {
+        if (_messageHandlerFactory.RemoveHandler(subscription.HandlerType, subscription.Topic) == 0)
+        {
+            await _mqttMessagingClient.UnsubscribeAsync(subscription.Topic);
+        }
+    }
+
+    private async Task SubscribeInner<T>(string topic) where T : IMessageHandler
     {
         if (_messageHandlerFactory.RegisterHandler<T>(topic) == 1)
         {
             await _mqttMessagingClient.SubscribeAsync(topic);
-        }
-    }
-
-    public async Task<ISubscription> SubscribeNew<T>(string topic) where T : IMessageHandler
-    {
-        await Subscribe<T>(topic);
-        return new Subscription<T>(topic);
-    }
-
-    public async Task Unsubscribe<T>(string topic) where T : IMessageHandler
-    {
-        if (_messageHandlerFactory.RemoveHandler<T>(topic) == 0)
-        {
-            await _mqttMessagingClient.UnsubscribeAsync(topic);
         }
     }
 }
