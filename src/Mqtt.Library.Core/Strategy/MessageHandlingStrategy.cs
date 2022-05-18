@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Mqtt.Library.Core.Factory;
 using Mqtt.Library.Core.Messages;
+using Mqtt.Library.Core.Middleware;
 
 namespace Mqtt.Library.Core.Strategy;
 
@@ -20,10 +21,18 @@ public class MessageHandlingStrategy : IMessageHandlingStrategy, IDisposable
     public async Task Handle(IMessage message)
     {
         var handlers = _messageHandlerFactory.GetHandlers(message.Topic, _handlerFactory);
-        
+
         var funcs = handlers.Select(h => new Func<IMessage, Task>(h.Handle));
-        
-        await HandleCore(funcs, message);
+
+        Task HandlerFunc() => HandleCore(funcs, message);
+
+        var result = _handlerFactory
+            .GetInstances<IMessageMiddleware>()
+            .Reverse()
+            .Aggregate((MessageHandlerDelegate)HandlerFunc, 
+                (next, pipeline) => () => pipeline.Handle(message, next));
+
+        await result();
     }
 
     protected virtual async Task HandleCore(IEnumerable<Func<IMessage, Task>> handlers, IMessage message)
