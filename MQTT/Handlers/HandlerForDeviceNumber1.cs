@@ -2,12 +2,10 @@
 using Mqtt.Library.Core.Extensions;
 using Mqtt.Library.Core.Messages;
 using Mqtt.Library.Test.Payloads;
-using MQTTnet;
-using Serilog;
 
 namespace Mqtt.Library.Test.Handlers;
 
-public class HandlerForDeviceNumber1 : IMessageHandler, IDisposable
+public class HandlerForDeviceNumber1 : MessageHandlerBase<DeviceMessagePayload>
 {
     private readonly ILogger<HandlerForDeviceNumber1> _logger;
 
@@ -24,8 +22,10 @@ public class HandlerForDeviceNumber1 : IMessageHandler, IDisposable
         return Task.CompletedTask;
     }
 
-    public void Dispose()
+    protected override Task HandleAsync(DeviceMessagePayload payload)
     {
-        _logger.LogInformation($"{nameof(HandlerForDeviceNumber1)} disposed.");;
+        _logger.LogInformation("Handler {handler} received message", nameof(HandlerForDeviceNumber1));
+        _logger.LogInformation("Device name = {value}", payload.Name);
+        return Task.CompletedTask;
     }
 }
