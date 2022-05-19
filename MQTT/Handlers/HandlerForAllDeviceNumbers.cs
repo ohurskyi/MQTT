@@ -17,7 +17,7 @@ public class HandlerForAllDeviceNumbers : IMessageHandler, IDisposable
     public async Task Handle(IMessage message)
     {
         _logger.LogInformation("Handler {handler} received message from topic = {value}", nameof(HandlerForAllDeviceNumbers), message.Topic);
-        var deviceMessagePayload = message.FromJson<DeviceMessagePayload>();
+        var deviceMessagePayload = message.Payload.MessagePayloadFromJson<DeviceMessagePayload>();
         _logger.LogInformation("Device name = {value}", deviceMessagePayload.Name);
         await Task.Delay(TimeSpan.FromSeconds(1));
     }

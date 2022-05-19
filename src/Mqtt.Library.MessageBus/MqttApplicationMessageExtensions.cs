@@ -8,10 +8,9 @@ public static class MqttApplicationMessageExtensions
 {
     public static MqttApplicationMessage ToMqttMessage(this IMessage msg)
     {
-        var body = msg.Body.ToString(Formatting.None);
         var mqttApplicationMessage = new MqttApplicationMessageBuilder()
             .WithTopic(msg.Topic)
-            .WithPayload(body)
+            .WithPayload(msg.Payload)
             .Build();
 
         return mqttApplicationMessage;
