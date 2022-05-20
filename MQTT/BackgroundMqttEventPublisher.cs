@@ -2,21 +2,18 @@
 using Mqtt.Library.Test.ClientOptions;
 using Mqtt.Library.Test.Handlers;
 using Mqtt.Library.Test.Payloads;
-using Mqtt.Library.TopicClient;
 
 namespace Mqtt.Library.Test
 {
     public class BackgroundLocalMqttPublisher : BackgroundService
     {
-        private readonly IMqttTopicClient<LocalMqttMessagingClientOptions> _topicClient;
-        private readonly IMqttMessageBus<LocalMqttMessagingClientOptions> _mqttMessageBus;
+        private readonly IMqttMessageBus<LocalMqttMessagingClientOptions> _mqttMessageBusLocal;
+        private readonly IMqttMessageBus<TestMqttMessagingClientOptions> _mqttMessageBusTest;
 
-        public BackgroundLocalMqttPublisher(
-            IMqttTopicClient<LocalMqttMessagingClientOptions> topicClient, 
-            IMqttMessageBus<LocalMqttMessagingClientOptions> mqttMessageBus)
+        public BackgroundLocalMqttPublisher(IMqttMessageBus<LocalMqttMessagingClientOptions> mqttMessageBus)
         {
-            _topicClient = topicClient;
-            _mqttMessageBus = mqttMessageBus;
+            _mqttMessageBusLocal = mqttMessageBus;
+            _mqttMessageBusTest = null;
         }
 
         public override async Task StartAsync(CancellationToken cancellationToken)
@@ -30,7 +27,10 @@ namespace Mqtt.Library.Test
             
             while (!stoppingToken.IsCancellationRequested)
             {
-                await PublishToDevice(deviceNumber: 1);
+                await Task.WhenAll(
+                    PublishToDeviceUsingLocalClient(deviceNumber: 1)
+                    //PublishToDeviceUsingTestClient(deviceNumber: 1)
+                    );
 
                 // await PublishToDevice(deviceNumber: 2);
 
@@ -38,11 +38,18 @@ namespace Mqtt.Library.Test
             }
         }
 
-        private async Task PublishToDevice(int deviceNumber)
+        private async Task PublishToDeviceUsingLocalClient(int deviceNumber)
         {
             var deviceTopic = $"device/{deviceNumber}";
             var payload = new DeviceMessagePayload { Name = $"device {deviceNumber}" };
-            await _mqttMessageBus.Publish(payload, deviceTopic);
+            await _mqttMessageBusLocal.Publish(payload, deviceTopic);
+        }
+        
+        private async Task PublishToDeviceUsingTestClient(int deviceNumber)
+        {
+            var deviceTopic = $"device/{deviceNumber}";
+            var payload = new DeviceMessagePayload { Name = $"device {deviceNumber}" };
+            await _mqttMessageBusTest!.Publish(payload, deviceTopic);
         }
     }
 }

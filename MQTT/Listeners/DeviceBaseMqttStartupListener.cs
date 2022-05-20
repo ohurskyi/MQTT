@@ -15,7 +15,7 @@ public class DeviceBaseMqttStartupListener : BaseMqttStartupListener<LocalMqttMe
         {
             TopicClient.Subscribe<HandlerForDeviceNumber1>($"{DeviceTopics.DeviceTopic}/{1}"),
             TopicClient.Subscribe<HandlerForDeviceNumber2>($"{DeviceTopics.DeviceTopic}/{2}"),
-            TopicClient.Subscribe<HandlerForAllDeviceNumbers>($"{DeviceTopics.DeviceTopic}/#"),
+            //TopicClient.Subscribe<HandlerForAllDeviceNumbers>($"{DeviceTopics.DeviceTopic}/#"),
         };
         return subscriptions;
     }

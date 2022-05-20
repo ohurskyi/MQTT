@@ -9,11 +9,12 @@ namespace Mqtt.Library.Processing;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddMqttMessagingPipeline(this IServiceCollection serviceCollection, params Assembly[] assemblies)
+    public static IServiceCollection AddMqttMessagingPipeline<TMessagingClientOptions>(this IServiceCollection serviceCollection, params Assembly[] assemblies)
+        where TMessagingClientOptions : IMqttMessagingClientOptions
     {
         return serviceCollection
             .AddMessagingPipeline(assemblies)
-            .AddMqttApplicationMessageReceivedHandler();
+            .AddMqttApplicationMessageReceivedHandler<TMessagingClientOptions>();
     }
 
     public static IServiceCollection AddMqttStartupListener<TStartupListener>(this IServiceCollection serviceCollection)
@@ -23,9 +24,10 @@ public static class ServiceCollectionExtensions
         return serviceCollection;
     }
     
-    private static IServiceCollection AddMqttApplicationMessageReceivedHandler(this IServiceCollection serviceCollection)
+    private static IServiceCollection AddMqttApplicationMessageReceivedHandler<TMessagingClientOptions>(this IServiceCollection serviceCollection)
+        where TMessagingClientOptions : IMqttMessagingClientOptions
     {
-        serviceCollection.AddSingleton<MqttReceivedMessageHandlerGen>();
+        serviceCollection.AddSingleton<MqttReceivedMessageHandler<TMessagingClientOptions>>();
         return serviceCollection;
     }
 }

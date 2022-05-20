@@ -24,8 +24,9 @@ IHost host = Host.CreateDefaultBuilder(args)
         
         // services.AddMqttMessagingClient<LocalMqttMessagingClientOptions>(hostContext.Configuration);
         // services.AddMqttMessagingClient<TestMqttMessagingClientOptions>(hostContext.Configuration);
-        
-        MqttPipelineDeviceHandlersTest(services, hostContext.Configuration);
+
+        MqttPipelineDeviceHandlersLocal(services, hostContext.Configuration);
+        //MqttPipelineDeviceHandlersTest(services, hostContext.Configuration);
     })
     .UseSerilog((hostingContext, _, loggerConfiguration) => loggerConfiguration
         .ReadFrom.Configuration(hostingContext.Configuration)
@@ -38,11 +39,11 @@ host.Services.UseMqttMessageReceivedHandler<LocalMqttMessagingClientOptions>();
 
 await host.RunAsync();
 
-void MqttPipelineDeviceHandlersTest(IServiceCollection serviceCollection, IConfiguration configuration)
+void MqttPipelineDeviceHandlersLocal(IServiceCollection serviceCollection, IConfiguration configuration)
 {
     serviceCollection.AddMqttMessagingClient<LocalMqttMessagingClientOptions>(configuration);
-    
-    serviceCollection.AddMqttMessagingPipeline(typeof(HandlerForDeviceNumber1).Assembly);
+
+    serviceCollection.AddMqttMessagingPipeline<LocalMqttMessagingClientOptions>(typeof(HandlerForDeviceNumber1).Assembly);
 
     serviceCollection.AddHostedService<BackgroundLocalMqttPublisher>();
     
@@ -51,4 +52,19 @@ void MqttPipelineDeviceHandlersTest(IServiceCollection serviceCollection, IConfi
     serviceCollection.AddMqttTopicClient<LocalMqttMessagingClientOptions>();
 
     serviceCollection.AddMqttStartupListener<DeviceBaseMqttStartupListener>();
+}
+
+void MqttPipelineDeviceHandlersTest(IServiceCollection serviceCollection, IConfiguration configuration)
+{
+    serviceCollection.AddMqttMessagingClient<TestMqttMessagingClientOptions>(configuration);
+    
+    //serviceCollection.AddMqttMessagingPipeline(typeof(HandlerForDeviceNumber1).Assembly);
+
+    serviceCollection.AddHostedService<BackgroundLocalMqttPublisher>();
+    
+    serviceCollection.AddMqttMessageBus<TestMqttMessagingClientOptions>();
+    
+    serviceCollection.AddMqttTopicClient<TestMqttMessagingClientOptions>();
+
+    serviceCollection.AddMqttStartupListener<DeviceBaseMqttStartupListenerDevConfig>();
 }
