@@ -30,26 +30,12 @@ public class MessageHandlerFactory : IMessageHandlerFactory
 
     public int RemoveHandler<THandler>(string topic) where THandler : IMessageHandler
     {
-        if (!_handlersMap.TryGetValue(topic, out var handlers))
-        {
-            return -1;
-        }
-
-        handlers.TryRemove(typeof(THandler), out _);
-        
-        return handlers.Count;
+        return RemoveInner(typeof(THandler), topic);
     }
 
     public int RemoveHandler(Type handlerType, string topic)
     {
-        if (!_handlersMap.TryGetValue(topic, out var handlers))
-        {
-            return -1;
-        }
-
-        handlers.TryRemove(handlerType, out _);
-        
-        return handlers.Count;
+        return RemoveInner(handlerType, topic);
     }
 
     public IEnumerable<IMessageHandler> GetHandlers(string topic, HandlerFactory handlerFactory)
@@ -61,5 +47,17 @@ public class MessageHandlerFactory : IMessageHandlerFactory
             .ToList();
         
         return instances;
+    }
+    
+    private int RemoveInner(Type handlerType, string topic)
+    {
+        if (!_handlersMap.TryGetValue(topic, out var handlers))
+        {
+            return -1;
+        }
+
+        handlers.TryRemove(handlerType, out _);
+
+        return handlers.Count;
     }
 }
