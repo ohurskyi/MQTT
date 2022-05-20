@@ -10,10 +10,10 @@ namespace Mqtt.Library.Test
         private readonly IMqttMessageBus<LocalMqttMessagingClientOptions> _mqttMessageBusLocal;
         private readonly IMqttMessageBus<TestMqttMessagingClientOptions> _mqttMessageBusTest;
 
-        public BackgroundLocalMqttPublisher(IMqttMessageBus<LocalMqttMessagingClientOptions> mqttMessageBus)
+        public BackgroundLocalMqttPublisher(IMqttMessageBus<LocalMqttMessagingClientOptions> mqttMessageBus, IMqttMessageBus<TestMqttMessagingClientOptions> mqttMessageBusTest)
         {
             _mqttMessageBusLocal = mqttMessageBus;
-            _mqttMessageBusTest = null;
+            _mqttMessageBusTest = mqttMessageBusTest;
         }
 
         public override async Task StartAsync(CancellationToken cancellationToken)
@@ -28,8 +28,8 @@ namespace Mqtt.Library.Test
             while (!stoppingToken.IsCancellationRequested)
             {
                 await Task.WhenAll(
-                    PublishToDeviceUsingLocalClient(deviceNumber: 1)
-                    //PublishToDeviceUsingTestClient(deviceNumber: 1)
+                    PublishToDeviceUsingLocalClient(deviceNumber: 1),
+                    PublishToDeviceUsingTestClient(deviceNumber: 1)
                     );
 
                 // await PublishToDevice(deviceNumber: 2);
@@ -49,7 +49,7 @@ namespace Mqtt.Library.Test
         {
             var deviceTopic = $"device/{deviceNumber}";
             var payload = new DeviceMessagePayload { Name = $"device {deviceNumber}" };
-            await _mqttMessageBusTest!.Publish(payload, deviceTopic);
+            await _mqttMessageBusTest.Publish(payload, deviceTopic);
         }
     }
 }

@@ -6,7 +6,7 @@ using Mqtt.Library.TopicClient;
 namespace Mqtt.Library.Processing.Listeners;
 
 public abstract class BaseMqttStartupListener<TMessagingClientOptions> : IHostedService
-    where TMessagingClientOptions : IMqttMessagingClientOptions
+    where TMessagingClientOptions : class, IMqttMessagingClientOptions
 {
     private readonly ILogger<BaseMqttStartupListener<TMessagingClientOptions>> _logger;
     protected readonly IMqttTopicClient<TMessagingClientOptions> TopicClient;

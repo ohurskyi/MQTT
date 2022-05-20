@@ -7,11 +7,11 @@ using MQTTnet.Client.Receiving;
 namespace Mqtt.Library.Processing;
 
 public class MqttReceivedMessageHandler<TMessagingClientOptions> : IMqttApplicationMessageReceivedHandler
-    where TMessagingClientOptions : IMqttMessagingClientOptions
+    where TMessagingClientOptions : class, IMqttMessagingClientOptions
 {
-    private readonly IMessageExecutor _messageExecutor;
+    private readonly IMessageExecutor<TMessagingClientOptions> _messageExecutor;
 
-    public MqttReceivedMessageHandler(IMessageExecutor messageExecutor)
+    public MqttReceivedMessageHandler(IMessageExecutor<TMessagingClientOptions> messageExecutor)
     {
         _messageExecutor = messageExecutor;
     }

@@ -26,7 +26,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         // services.AddMqttMessagingClient<TestMqttMessagingClientOptions>(hostContext.Configuration);
 
         MqttPipelineDeviceHandlersLocal(services, hostContext.Configuration);
-        //MqttPipelineDeviceHandlersTest(services, hostContext.Configuration);
+        MqttPipelineDeviceHandlersTest(services, hostContext.Configuration);
     })
     .UseSerilog((hostingContext, _, loggerConfiguration) => loggerConfiguration
         .ReadFrom.Configuration(hostingContext.Configuration)
@@ -35,7 +35,7 @@ IHost host = Host.CreateDefaultBuilder(args)
     .Build();
 
 host.Services.UseMqttMessageReceivedHandler<LocalMqttMessagingClientOptions>();
-//host.Services.UseMqttMessageReceivedHandler<TestMqttMessagingClientOptions>();
+host.Services.UseMqttMessageReceivedHandler<TestMqttMessagingClientOptions>();
 
 await host.RunAsync();
 
@@ -57,8 +57,8 @@ void MqttPipelineDeviceHandlersLocal(IServiceCollection serviceCollection, IConf
 void MqttPipelineDeviceHandlersTest(IServiceCollection serviceCollection, IConfiguration configuration)
 {
     serviceCollection.AddMqttMessagingClient<TestMqttMessagingClientOptions>(configuration);
-    
-    //serviceCollection.AddMqttMessagingPipeline(typeof(HandlerForDeviceNumber1).Assembly);
+
+    serviceCollection.AddMqttMessagingPipeline<TestMqttMessagingClientOptions>(typeof(HandlerForDeviceNumber1).Assembly);
 
     serviceCollection.AddHostedService<BackgroundLocalMqttPublisher>();
     

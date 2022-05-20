@@ -2,7 +2,7 @@
 
 namespace Mqtt.Library.Core.Strategy;
 
-public interface IMessageHandlingStrategy
+public interface IMessageHandlingStrategy<T> where T : class
 {
     Task Handle(IMessage message);
 }

@@ -5,13 +5,13 @@ using Mqtt.Library.Core.Middleware;
 
 namespace Mqtt.Library.Core.Strategy;
 
-public class MessageHandlingStrategy : IMessageHandlingStrategy, IDisposable
+public class MessageHandlingStrategy<T> : IMessageHandlingStrategy<T>, IDisposable where T : class
 {
-    private readonly IMessageHandlerFactory _messageHandlerFactory;
+    private readonly IMessageHandlerFactory<T> _messageHandlerFactory;
     private readonly HandlerFactory _handlerFactory;
-    private readonly ILogger<MessageHandlingStrategy> _logger;
+    private readonly ILogger<MessageHandlingStrategy<T>> _logger;
 
-    public MessageHandlingStrategy(IMessageHandlerFactory messageHandlerFactory, HandlerFactory handlerFactory, ILogger<MessageHandlingStrategy> logger)
+    public MessageHandlingStrategy(IMessageHandlerFactory<T> messageHandlerFactory, HandlerFactory handlerFactory, ILogger<MessageHandlingStrategy<T>> logger)
     {
         _messageHandlerFactory = messageHandlerFactory;
         _logger = logger;
@@ -45,6 +45,6 @@ public class MessageHandlingStrategy : IMessageHandlingStrategy, IDisposable
 
     public void Dispose()
     {
-        _logger.LogInformation($"{nameof(MessageHandlingStrategy)} disposed.");
+        _logger.LogInformation($"{nameof(MessageHandlingStrategy<T>)} disposed.");
     }
 }

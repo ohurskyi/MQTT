@@ -3,7 +3,7 @@ using MQTTnet.Server;
 
 namespace Mqtt.Library.Core.Factory;
 
-public class MessageHandlerFactory : IMessageHandlerFactory
+public class MessageHandlerFactory<T> : IMessageHandlerFactory<T> where T : class
 {
     private readonly ConcurrentDictionary<string, ConcurrentDictionary<Type, byte>> _handlersMap = new();
 

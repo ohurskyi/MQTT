@@ -5,12 +5,12 @@ using Mqtt.Library.Core.Factory;
 
 namespace Mqtt.Library.TopicClient;
 
-public class MqttTopicClient<TMessagingClientOptions> : IMqttTopicClient<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
+public class MqttTopicClient<TMessagingClientOptions> : IMqttTopicClient<TMessagingClientOptions> where TMessagingClientOptions : class, IMqttMessagingClientOptions
 {
     private readonly IMqttMessagingClient<TMessagingClientOptions> _mqttMessagingClient;
-    private readonly IMessageHandlerFactory _messageHandlerFactory;
+    private readonly IMessageHandlerFactory<TMessagingClientOptions> _messageHandlerFactory;
 
-    public MqttTopicClient(IMqttMessagingClient<TMessagingClientOptions> mqttMessagingClient, IMessageHandlerFactory messageHandlerFactory)
+    public MqttTopicClient(IMqttMessagingClient<TMessagingClientOptions> mqttMessagingClient, IMessageHandlerFactory<TMessagingClientOptions> messageHandlerFactory)
     {
         _mqttMessagingClient = mqttMessagingClient;
         _messageHandlerFactory = messageHandlerFactory;

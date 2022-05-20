@@ -7,3 +7,9 @@ public interface IMessageHandlerFactory
     int RemoveHandler(Type handlerType, string topic);
     IEnumerable<IMessageHandler> GetHandlers(string topic, HandlerFactory handlerFactory);
 }
+
+public interface IMessageHandlerFactory<T> : IMessageHandlerFactory
+    where T : class
+{
+    
+}
