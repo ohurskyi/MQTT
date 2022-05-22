@@ -13,8 +13,19 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddMessagingPipeline<T>(this IServiceCollection serviceCollection, params Assembly[] assemblies)
         where T:class
     {
+        ConnectMessageHandlers(serviceCollection, assemblies);
+
+        serviceCollection.AddRequiredServices<T>();
+
+        serviceCollection.AddMiddlewareTest();
+
+        return serviceCollection;
+    }
+
+    private static void ConnectMessageHandlers(IServiceCollection serviceCollection, Assembly[] assemblies)
+    {
         var implementationTypes = assemblies
-            .SelectMany(a => a.GetTypes())
+            .SelectMany(a => a.DefinedTypes)
             .Where(t => typeof(IMessageHandler).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract)
             .ToList();
 
@@ -22,22 +33,19 @@ public static class ServiceCollectionExtensions
         {
             serviceCollection.AddTransient(handlerType);
         }
+    }
 
-        serviceCollection.AddSingleton<IMessageHandlerFactory<T>, MessageHandlerFactory<T>>();
-        
+    private static IServiceCollection AddRequiredServices<T>(this IServiceCollection serviceCollection) where T : class
+    {
+        serviceCollection.TryAddSingleton<IMessageHandlerFactory<T>, MessageHandlerFactory<T>>();
+
         serviceCollection.TryAddTransient<HandlerFactory>(p => p.GetRequiredService);
+
+        serviceCollection.TryAddTransient<IMessageHandlingStrategy<T>, MessageHandlingStrategy<T>>();
         
-        serviceCollection.AddTransient<IMessageHandlingStrategy<T>, MessageHandlingStrategy<T>>();
-        serviceCollection.AddMessageExecutor<T>();
-        serviceCollection.AddMiddlewareTest();
+        serviceCollection.TryAddSingleton<IMessageExecutor<T>, ScopedMessageExecutor<T>>();
 
         return serviceCollection;
-    }
-    
-    private static IServiceCollection AddMessageExecutor<T>(this IServiceCollection serviceCollection)
-        where T: class
-    {
-        return serviceCollection.AddSingleton<IMessageExecutor<T>, ScopedMessageExecutor<T>>();
     }
 
     private static IServiceCollection AddMiddlewareTest(this IServiceCollection serviceCollection)
