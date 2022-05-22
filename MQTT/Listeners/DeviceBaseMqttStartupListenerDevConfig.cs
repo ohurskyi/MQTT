@@ -1,8 +1,8 @@
 ﻿using Mqtt.Library.Processing.Listeners;
 using Mqtt.Library.Test.ClientOptions;
-using Mqtt.Library.Test.Handlers;
-using Mqtt.Library.Test.Topics;
 using Mqtt.Library.TopicClient;
+using MqttLibrary.Examples.Contracts.Topics;
+using MqttLibrary.Examples.Domain.Handlers;
 
 namespace Mqtt.Library.Test.Listeners;
 
@@ -13,7 +13,7 @@ public class DeviceBaseMqttStartupListenerDevConfig : BaseMqttStartupListener<Te
     {
         var subscriptions = new List<Task<ISubscription>>
         {
-            TopicClient.Subscribe<HandlerForDeviceNumber1DevConfig>($"{DeviceTopics.DeviceTopic}/{1}"),
+            TopicClient.Subscribe<HandlerForDeviceNumber1DevConfig>($"{TopicConstants.DeviceTopic}/{1}"),
         };
         return subscriptions;
     }

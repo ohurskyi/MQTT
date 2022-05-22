@@ -1,10 +1,10 @@
-﻿using Mqtt.Library.Core;
+﻿using Microsoft.Extensions.Logging;
+using Mqtt.Library.Core;
 using Mqtt.Library.Core.Extensions;
 using Mqtt.Library.Core.Messages;
-using Mqtt.Library.Test.Payloads;
-using MQTTnet;
+using MqttLibrary.Examples.Contracts.Payloads;
 
-namespace Mqtt.Library.Test.Handlers;
+namespace MqttLibrary.Examples.Domain.Handlers;
 
 public class HandlerForDeviceNumber2 : IMessageHandler, IDisposable
 {

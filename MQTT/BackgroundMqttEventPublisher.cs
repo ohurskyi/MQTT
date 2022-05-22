@@ -1,7 +1,6 @@
 ﻿using Mqtt.Library.MessageBus;
 using Mqtt.Library.Test.ClientOptions;
-using Mqtt.Library.Test.Handlers;
-using Mqtt.Library.Test.Payloads;
+using MqttLibrary.Examples.Contracts.Payloads;
 
 namespace Mqtt.Library.Test
 {

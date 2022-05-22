@@ -3,9 +3,9 @@ using Mqtt.Library.MessageBus;
 using Mqtt.Library.Processing;
 using Mqtt.Library.Test;
 using Mqtt.Library.Test.ClientOptions;
-using Mqtt.Library.Test.Handlers;
 using Mqtt.Library.Test.Listeners;
 using Mqtt.Library.TopicClient;
+using MqttLibrary.Examples.Domain.Handlers;
 using Serilog;
 
 IHost host = Host.CreateDefaultBuilder(args)
