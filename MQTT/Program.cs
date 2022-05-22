@@ -11,20 +11,6 @@ using Serilog;
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
     {
-        // services.AddHostedService<BackgroundLocalMqttPublisher>();
-        // services.AddHostedService<BackgroundTestMqttPublisher>();
-        //
-        // services.AddMqttMessagingPipeline(typeof(HandlerForDeviceNumber1).Assembly);
-        //
-        // services.AddMqttMessageBus<LocalMqttMessagingClientOptions>();
-        // services.AddMqttTopicClient<LocalMqttMessagingClientOptions>();
-        //
-        // services.AddMqttMessageBus<TestMqttMessagingClientOptions>();
-        // services.AddMqttTopicClient<TestMqttMessagingClientOptions>();
-        
-        // services.AddMqttMessagingClient<LocalMqttMessagingClientOptions>(hostContext.Configuration);
-        // services.AddMqttMessagingClient<TestMqttMessagingClientOptions>(hostContext.Configuration);
-
         MqttPipelineDeviceHandlersLocal(services, hostContext.Configuration);
         MqttPipelineDeviceHandlersTest(services, hostContext.Configuration);
     })
