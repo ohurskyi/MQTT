@@ -9,23 +9,7 @@ public class MessageHandlerFactory<T> : IMessageHandlerFactory<T> where T : clas
 
     public int RegisterHandler<THandler>(string topic) where THandler : IMessageHandler
     {
-        if (!_handlersMap.TryGetValue(topic, out var handlers))
-        {
-            _handlersMap.TryAdd(topic,
-                new ConcurrentDictionary<Type, byte>(new[]
-                    { new KeyValuePair<Type, byte>(typeof(THandler), default) })
-            );
-            return 1;
-        }
-
-        if (handlers.ContainsKey(typeof(THandler)))
-        {
-            return handlers.Count;
-        }
-
-        handlers.TryAdd(typeof(THandler), default);
-        
-        return handlers.Count;
+        return AddInner<THandler>(topic);
     }
 
     public int RemoveHandler<THandler>(string topic) where THandler : IMessageHandler
@@ -47,6 +31,27 @@ public class MessageHandlerFactory<T> : IMessageHandlerFactory<T> where T : clas
             .ToList();
         
         return instances;
+    }
+    
+    private int AddInner<THandler>(string topic) where THandler : IMessageHandler
+    {
+        if (!_handlersMap.TryGetValue(topic, out var handlers))
+        {
+            _handlersMap.TryAdd(topic,
+                new ConcurrentDictionary<Type, byte>(new[]
+                    { new KeyValuePair<Type, byte>(typeof(THandler), default) })
+            );
+            return 1;
+        }
+
+        if (handlers.ContainsKey(typeof(THandler)))
+        {
+            return handlers.Count;
+        }
+
+        handlers.TryAdd(typeof(THandler), default);
+
+        return handlers.Count;
     }
     
     private int RemoveInner(Type handlerType, string topic)
