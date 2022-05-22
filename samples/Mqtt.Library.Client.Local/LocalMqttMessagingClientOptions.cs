@@ -1,6 +1,6 @@
 ﻿using Mqtt.Library.Client.Configuration;
 
-namespace Mqtt.Library.Test.ClientOptions;
+namespace Mqtt.Library.Client.Local;
 
 public class LocalMqttMessagingClientOptions : IMqttMessagingClientOptions
 {

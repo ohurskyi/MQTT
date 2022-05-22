@@ -1,4 +1,5 @@
-﻿using Mqtt.Library.MessageBus;
+﻿using Mqtt.Library.Client.Local;
+using Mqtt.Library.MessageBus;
 using Mqtt.Library.Test.ClientOptions;
 using MqttLibrary.Examples.Contracts.Payloads;
 
