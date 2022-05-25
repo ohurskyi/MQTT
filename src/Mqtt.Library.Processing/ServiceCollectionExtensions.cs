@@ -1,9 +1,10 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Mqtt.Library.Client.Configuration;
 using Mqtt.Library.Core;
-using Mqtt.Library.Processing.Listeners;
+using Mqtt.Library.Core.Factory;
 
 namespace Mqtt.Library.Processing;
 
@@ -14,6 +15,7 @@ public static class ServiceCollectionExtensions
     {
         return serviceCollection
             .AddMessagingPipeline<TMessagingClientOptions>(assemblies)
+            .AddMqttTopicComparer()
             .AddMqttApplicationMessageReceivedHandler<TMessagingClientOptions>();
     }
 
@@ -27,7 +29,13 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddMqttApplicationMessageReceivedHandler<TMessagingClientOptions>(this IServiceCollection serviceCollection)
         where TMessagingClientOptions : class, IMqttMessagingClientOptions
     {
-        serviceCollection.AddSingleton<MqttReceivedMessageHandler<TMessagingClientOptions>>();
+        serviceCollection.TryAddSingleton<MqttReceivedMessageHandler<TMessagingClientOptions>>();
+        return serviceCollection;
+    }
+
+    private static IServiceCollection AddMqttTopicComparer(this IServiceCollection serviceCollection)
+    { 
+        serviceCollection.TryAddSingleton<ITopicFilterComparer, MqttTopicComparer>();
         return serviceCollection;
     }
 }

@@ -8,12 +8,12 @@ namespace Mqtt.Library.Test
     public class BackgroundLocalMqttPublisher : BackgroundService
     {
         private readonly IMqttMessageBus<LocalMqttMessagingClientOptions> _mqttMessageBusLocal;
-        private readonly IMqttMessageBus<TestMqttMessagingClientOptions> _mqttMessageBusTest;
+        //private readonly IMqttMessageBus<TestMqttMessagingClientOptions> _mqttMessageBusTest;
 
-        public BackgroundLocalMqttPublisher(IMqttMessageBus<LocalMqttMessagingClientOptions> mqttMessageBus, IMqttMessageBus<TestMqttMessagingClientOptions> mqttMessageBusTest)
+        public BackgroundLocalMqttPublisher(IMqttMessageBus<LocalMqttMessagingClientOptions> mqttMessageBus)
         {
             _mqttMessageBusLocal = mqttMessageBus;
-            _mqttMessageBusTest = mqttMessageBusTest;
+            //_mqttMessageBusTest = mqttMessageBusTest;
         }
 
         public override async Task StartAsync(CancellationToken cancellationToken)
@@ -47,9 +47,9 @@ namespace Mqtt.Library.Test
         
         private async Task PublishToDeviceUsingTestClient(int deviceNumber)
         {
-            var deviceTopic = $"device/{deviceNumber}";
-            var payload = new DeviceMessagePayload { Name = $"device {deviceNumber}" };
-            await _mqttMessageBusTest.Publish(payload, deviceTopic);
+            // var deviceTopic = $"device/{deviceNumber}";
+            // var payload = new DeviceMessagePayload { Name = $"device {deviceNumber}" };
+            // await _mqttMessageBusTest.Publish(payload, deviceTopic);
         }
     }
 }

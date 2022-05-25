@@ -35,7 +35,8 @@ public static class ServiceCollectionExtensions
         }
     }
 
-    private static IServiceCollection AddRequiredServices<T>(this IServiceCollection serviceCollection) where T : class
+    private static IServiceCollection AddRequiredServices<T>(this IServiceCollection serviceCollection) 
+        where T : class
     {
         serviceCollection.TryAddSingleton<IMessageHandlerFactory<T>, MessageHandlerFactory<T>>();
 

@@ -1,11 +1,18 @@
 ﻿using System.Collections.Concurrent;
-using MQTTnet.Server;
 
 namespace Mqtt.Library.Core.Factory;
 
 public class MessageHandlerFactory<T> : IMessageHandlerFactory<T> where T : class
 {
     private readonly ConcurrentDictionary<string, ConcurrentDictionary<Type, byte>> _handlersMap = new();
+    
+    private readonly ITopicFilterComparer _topicFilterComparer;
+
+    public MessageHandlerFactory(ITopicFilterComparer topicFilterComparer)
+    {
+        _topicFilterComparer = topicFilterComparer;
+    }
+
 
     public int RegisterHandler<THandler>(string topic) where THandler : IMessageHandler
     {
@@ -25,14 +32,14 @@ public class MessageHandlerFactory<T> : IMessageHandlerFactory<T> where T : clas
     public IEnumerable<IMessageHandler> GetHandlers(string topic, HandlerFactory handlerFactory)
     {
         var instances = _handlersMap
-            .Where(k => MqttTopicFilterComparer.IsMatch(topic, k.Key))
+            .Where(k => _topicFilterComparer.IsMatch(topic, k.Key))
             .SelectMany(k => k.Value.Keys)
             .Select(handlerFactory.GetInstance<IMessageHandler>)
             .ToList();
         
         return instances;
     }
-    
+
     private int AddInner<THandler>(string topic) where THandler : IMessageHandler
     {
         if (!_handlersMap.TryGetValue(topic, out var handlers))
