@@ -2,6 +2,7 @@
 using Mqtt.Library.Core.Factory;
 using Mqtt.Library.Core.Messages;
 using Mqtt.Library.Core.Middleware;
+using Mqtt.Library.Core.Results;
 
 namespace Mqtt.Library.Core.Strategy;
 
@@ -22,7 +23,7 @@ public class MessageHandlingStrategy<T> : IMessageHandlingStrategy<T>, IDisposab
     {
         var handlers = _messageHandlerFactory.GetHandlers(message.Topic, _handlerFactory);
 
-        var funcs = handlers.Select(h => new Func<IMessage, Task>(h.Handle));
+        var funcs = handlers.Select(h => new Func<IMessage, Task<IExecutionResult>>(h.Handle));
 
         Task HandlerFunc() => HandleCore(funcs, message);
 
@@ -35,11 +36,11 @@ public class MessageHandlingStrategy<T> : IMessageHandlingStrategy<T>, IDisposab
         await result();
     }
 
-    protected virtual async Task HandleCore(IEnumerable<Func<IMessage, Task>> handlers, IMessage message)
+    protected virtual async Task HandleCore(IEnumerable<Func<IMessage, Task<IExecutionResult>>> handlers, IMessage message)
     {
         foreach (var handler in handlers)
         {
-            await handler(message);
+            var result = await handler(message);
         }
     }
 
