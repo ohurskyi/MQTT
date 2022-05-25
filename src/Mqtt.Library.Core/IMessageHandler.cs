@@ -1,8 +1,9 @@
 ﻿using Mqtt.Library.Core.Messages;
+using Mqtt.Library.Core.Results;
 
 namespace Mqtt.Library.Core;
 
 public interface IMessageHandler
 {
-    Task Handle(IMessage message);
+    Task<IExecutionResult> Handle(IMessage message);
 }

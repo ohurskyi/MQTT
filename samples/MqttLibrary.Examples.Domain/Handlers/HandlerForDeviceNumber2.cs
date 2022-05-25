@@ -2,6 +2,7 @@
 using Mqtt.Library.Core;
 using Mqtt.Library.Core.Extensions;
 using Mqtt.Library.Core.Messages;
+using Mqtt.Library.Core.Results;
 using MqttLibrary.Examples.Contracts.Payloads;
 
 namespace MqttLibrary.Examples.Domain.Handlers;
@@ -15,12 +16,12 @@ public class HandlerForDeviceNumber2 : IMessageHandler, IDisposable
         _logger = logger;
     }
 
-    public Task Handle(IMessage message)
+    public async Task<IExecutionResult> Handle(IMessage message)
     {
         _logger.LogInformation("Handler {handler} received message from topic = {value}", nameof(HandlerForDeviceNumber2), message.Topic);
         var deviceMessagePayload = message.Payload.MessagePayloadFromJson<DeviceMessagePayload>();
         _logger.LogInformation("Device name = {value}", deviceMessagePayload.Name);
-        return Task.CompletedTask;
+        return await Task.FromResult(ExecutionResult.Ok());
     }
 
     public void Dispose()
