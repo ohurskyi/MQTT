@@ -18,6 +18,6 @@ public class HandlerForDeviceNumber1 : MessageHandlerBase<DeviceMessagePayload>
     {
         _logger.LogInformation("Handler {handler} received message", nameof(HandlerForDeviceNumber1));
         _logger.LogInformation("Device name = {value}", payload.Name);
-        return await Task.FromResult(ExecutionResult.Ok());
+        return await Task.FromResult(ExecutionResult.Fail("fail"));
     }
 }
