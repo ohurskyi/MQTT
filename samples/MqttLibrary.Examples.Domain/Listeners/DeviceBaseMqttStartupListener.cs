@@ -1,10 +1,11 @@
-﻿using Mqtt.Library.Client.Local;
+﻿using Microsoft.Extensions.Logging;
+using Mqtt.Library.Client.Local;
 using Mqtt.Library.Processing.Listeners;
 using Mqtt.Library.TopicClient;
 using MqttLibrary.Examples.Contracts.Topics;
 using MqttLibrary.Examples.Domain.Handlers;
 
-namespace Mqtt.Library.Test.Listeners;
+namespace MqttLibrary.Examples.Domain.Listeners;
 
 public class DeviceBaseMqttStartupListener : BaseMqttStartupListener<LocalMqttMessagingClientOptions>
 {

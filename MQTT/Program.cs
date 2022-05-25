@@ -7,7 +7,7 @@ using Mqtt.Library.Test.Listeners;
 using Mqtt.Library.TopicClient;
 using MqttLibrary.Examples.Domain.Handlers;
 using Mqtt.Library.Client.Local;
-
+using MqttLibrary.Examples.Domain;
 using Serilog;
 
 IHost host = Host.CreateDefaultBuilder(args)
@@ -30,16 +30,14 @@ await host.RunAsync();
 void MqttPipelineDeviceHandlersLocal(IServiceCollection serviceCollection, IConfiguration configuration)
 {
     serviceCollection.AddLocalMqttMessagingClient(configuration);
-
-    serviceCollection.AddMqttMessagingPipeline<LocalMqttMessagingClientOptions>(typeof(HandlerForDeviceNumber1).Assembly);
-
-    serviceCollection.AddHostedService<BackgroundLocalMqttPublisher>();
-
+    
     serviceCollection.AddLocalMqttMessageBus();
 
     serviceCollection.AddLocalMqttTopicClient();
 
-    serviceCollection.AddMqttStartupListener<DeviceBaseMqttStartupListener>();
+    serviceCollection.AddDeviceDomainServices();
+
+    serviceCollection.AddHostedService<BackgroundLocalMqttPublisher>();
 }
 
 void MqttPipelineDeviceHandlersTest(IServiceCollection serviceCollection, IConfiguration configuration)
