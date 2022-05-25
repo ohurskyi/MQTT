@@ -48,6 +48,11 @@ public class MessageHandlingStrategy<T> : IMessageHandlingStrategy<T>, IDisposab
                 failures.Add(result);
             }
         }
+
+        if (failures.Count > 0)
+        {
+            throw new AggregateException("");
+        }
     }
 
     public void Dispose()
