@@ -38,25 +38,19 @@ public class MessageHandlingStrategy<T> : IMessageHandlingStrategy<T>, IDisposab
 
     protected virtual async Task<HandlerResult> HandleCore(IEnumerable<Func<IMessage, Task<IExecutionResult>>> handlers, IMessage message)
     {
-        var failures = new List<IExecutionResult>();
+        var executionResults = new List<IExecutionResult>();
         
         foreach (var handler in handlers)
         {
             var result = await handler(message);
-            if (!result.Success)
-            {
-                failures.Add(result);
-            }
+            executionResults.Add(result);
         }
 
         var handlerResult = new HandlerResult();
-        
-        if (failures.Count > 0)
+
+        foreach (var executionResult in executionResults)
         {
-            foreach (var failure in failures)
-            {
-                handlerResult.AddError(failure.FailureReason);
-            }
+            handlerResult.AddResult(executionResult);
         }
 
         return handlerResult;
