@@ -7,7 +7,7 @@ using MqttLibrary.Examples.Domain.Handlers;
 
 namespace MqttLibrary.Examples.Domain.Listeners;
 
-public class DeviceBaseMqttStartupListener : BaseMqttStartupListener<LocalMqttMessagingClientOptions>
+public class DeviceMqttStartupListener : BaseMqttStartupListener<LocalMqttMessagingClientOptions>
 {
 
     protected override IEnumerable<Task<ISubscription>> DefineSubscriptions()
@@ -21,7 +21,7 @@ public class DeviceBaseMqttStartupListener : BaseMqttStartupListener<LocalMqttMe
         return subscriptions;
     }
 
-    public DeviceBaseMqttStartupListener(
+    public DeviceMqttStartupListener(
             IMqttTopicClient<LocalMqttMessagingClientOptions> topicClient, 
             ILogger<BaseMqttStartupListener<LocalMqttMessagingClientOptions>> logger) : base(topicClient, logger)
     {

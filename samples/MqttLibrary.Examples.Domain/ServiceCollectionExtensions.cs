@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddDeviceDomainServices(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddMqttMessagingPipeline<LocalMqttMessagingClientOptions>(typeof(HandlerForDeviceNumber1).Assembly);
-        serviceCollection.AddMqttStartupListener<DeviceBaseMqttStartupListener>();
+        serviceCollection.AddMqttStartupListener<DeviceMqttStartupListener>();
         return serviceCollection;
     }
 }

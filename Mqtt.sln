@@ -24,6 +24,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MqttLibrary.Examples.Domain
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mqtt.Library.Client.Local", "samples\Mqtt.Library.Client.Local\Mqtt.Library.Client.Local.csproj", "{36395632-9953-4016-8DD2-0428B85E96E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MqttLibrary.Examples.Pairing.Domain", "samples\MqttLibrary.Examples.Pairing.Domain\MqttLibrary.Examples.Pairing.Domain.csproj", "{ED0B52CC-5BD5-4E5C-8F50-30DEAF3D42FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MqttLibrary.Examples.Pairing.Contracts", "samples\MqttLibrary.Examples.Pairing.Contracts\MqttLibrary.Examples.Pairing.Contracts.csproj", "{C220A89F-51BD-4DB8-A436-D763C8F5379E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +74,14 @@ Global
 		{36395632-9953-4016-8DD2-0428B85E96E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36395632-9953-4016-8DD2-0428B85E96E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36395632-9953-4016-8DD2-0428B85E96E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED0B52CC-5BD5-4E5C-8F50-30DEAF3D42FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED0B52CC-5BD5-4E5C-8F50-30DEAF3D42FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED0B52CC-5BD5-4E5C-8F50-30DEAF3D42FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED0B52CC-5BD5-4E5C-8F50-30DEAF3D42FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C220A89F-51BD-4DB8-A436-D763C8F5379E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C220A89F-51BD-4DB8-A436-D763C8F5379E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C220A89F-51BD-4DB8-A436-D763C8F5379E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C220A89F-51BD-4DB8-A436-D763C8F5379E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{79ED5AF3-ACF5-4FBE-8F3B-40420C2D7FFC} = {190E30F9-5E61-4315-B8D4-F4B98A0D7CB3}
@@ -81,5 +93,7 @@ Global
 		{C97E2EB4-3519-4920-9C00-DA97FD8AD579} = {2FDF9B42-0D8C-4844-9224-0604A9941B55}
 		{8D467F0B-49A9-4B1A-AD77-C6CCEF9795A1} = {2FDF9B42-0D8C-4844-9224-0604A9941B55}
 		{36395632-9953-4016-8DD2-0428B85E96E2} = {2FDF9B42-0D8C-4844-9224-0604A9941B55}
+		{ED0B52CC-5BD5-4E5C-8F50-30DEAF3D42FF} = {2FDF9B42-0D8C-4844-9224-0604A9941B55}
+		{C220A89F-51BD-4DB8-A436-D763C8F5379E} = {2FDF9B42-0D8C-4844-9224-0604A9941B55}
 	EndGlobalSection
 EndGlobal
