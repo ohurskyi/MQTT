@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Mqtt.Library.Core.Messages;
+using Mqtt.Library.Core.Results;
 
 namespace Mqtt.Library.Core.Middleware;
 
@@ -12,10 +13,11 @@ public class LoggingMiddleware : IMessageMiddleware
         _logger = logger;
     }
 
-    public async Task Handle(IMessage message, MessageHandlerDelegate next)
+    public async Task<HandlerResult> Handle(IMessage message, MessageHandlerDelegate next)
     {
         _logger.LogInformation("Begin message handling on topic {value}", message.Topic);
-        await next();
+        var result = await next();
         _logger.LogInformation("End message handling on topic {value}", message.Topic);
+        return result;
     }
 }

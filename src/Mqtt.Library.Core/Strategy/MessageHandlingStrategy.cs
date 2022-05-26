@@ -25,7 +25,7 @@ public class MessageHandlingStrategy<T> : IMessageHandlingStrategy<T>, IDisposab
 
         var funcs = handlers.Select(h => new Func<IMessage, Task<IExecutionResult>>(h.Handle));
 
-        Task HandlerFunc() => HandleCore(funcs, message);
+        Task<HandlerResult> HandlerFunc() => HandleCore(funcs, message);
 
         var result = _handlerFactory
             .GetInstances<IMessageMiddleware>()
