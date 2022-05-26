@@ -51,6 +51,8 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddMiddlewareTest(this IServiceCollection serviceCollection)
     {
-        return serviceCollection.AddTransient<IMessageMiddleware, LoggingMiddleware>();
+        return serviceCollection
+            .AddTransient<IMessageMiddleware, LoggingMiddleware>()
+            .AddTransient<IMessageMiddleware, PublishMiddleware>();
     }
 }
