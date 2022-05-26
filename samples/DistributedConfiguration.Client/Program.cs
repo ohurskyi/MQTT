@@ -1,7 +1,15 @@
 using DistributedConfiguration.Client;
+using Mqtt.Library.Client.Local;
 
 IHost host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices(services => { services.AddHostedService<BackgroundMqttCommandPublisher>(); })
+    .ConfigureServices((hostContext, serviceCollection) =>
+    {
+        serviceCollection.AddLocalMqttMessagingClient(hostContext.Configuration);
+
+        serviceCollection.AddLocalMqttMessageBus();
+
+        serviceCollection.AddHostedService<BackgroundMqttCommandPublisher>();
+    })
     .Build();
 
 await host.RunAsync();

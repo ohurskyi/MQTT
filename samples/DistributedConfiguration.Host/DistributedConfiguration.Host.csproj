@@ -2,9 +2,9 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <Nullable>disable</Nullable>
+        <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <UserSecretsId>dotnet-DistributedConfiguration.Client-4C6147F6-62C8-461F-A41D-A7D90DD089F3</UserSecretsId>
+        <UserSecretsId>dotnet-DistributedConfiguration.Host-48997BA6-D660-468C-B2B0-BD218F7400C9</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,8 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Mqtt.Library.MessageBus\Mqtt.Library.MessageBus.csproj" />
       <ProjectReference Include="..\Mqtt.Library.Client.Local\Mqtt.Library.Client.Local.csproj" />
-      <ProjectReference Include="..\MqttLibrary.Examples.Pairing.Contracts\MqttLibrary.Examples.Pairing.Contracts.csproj" />
+      <ProjectReference Include="..\MqttLibrary.Examples.Pairing.Domain\MqttLibrary.Examples.Pairing.Domain.csproj" />
     </ItemGroup>
 </Project>
