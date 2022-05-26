@@ -1,4 +1,5 @@
 using Mqtt.Library.Client.Local;
+using Mqtt.Library.Processing;
 using MqttLibrary.Examples.Pairing.Domain;
 using Serilog;
 
@@ -19,5 +20,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         .Enrich.FromLogContext()
         .WriteTo.Console())
     .Build();
+
+host.Services.UseMqttMessageReceivedHandler<LocalMqttMessagingClientOptions>();
 
 await host.RunAsync();
