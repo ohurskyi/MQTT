@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Mqtt.Library.Client.Local;
 using Mqtt.Library.Core;
 using Mqtt.Library.Core.Results;
 using MqttLibrary.Examples.Pairing.Contracts.Payloads;
@@ -17,6 +18,14 @@ public class PairDeviceMessageHandler : MessageHandlerBase<PairDevicePayload>
     protected override async Task<IExecutionResult> HandleAsync(PairDevicePayload payload)
     {
         _logger.LogInformation("Paired with device {value}", payload.MacAddress);
-        return await Task.FromResult(ExecutionResult.Ok());
+
+        var eventPayload = new PairedDevicesConfigurationChangedEventPayload
+        {
+            PairedDevices = new PairedDevices {DeviceMacAddresses = new List<string> {payload.MacAddress}},
+        };
+        
+        var integrationEventResult = IntegrationEventResult.CreateIntegrationEventResult<LocalMqttMessagingClientOptions>(eventPayload);
+                
+        return await Task.FromResult(integrationEventResult);
     }
 }
