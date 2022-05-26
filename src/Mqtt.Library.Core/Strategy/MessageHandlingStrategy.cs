@@ -36,7 +36,7 @@ public class MessageHandlingStrategy<T> : IMessageHandlingStrategy<T>, IDisposab
         await result();
     }
 
-    protected virtual async Task HandleCore(IEnumerable<Func<IMessage, Task<IExecutionResult>>> handlers, IMessage message)
+    protected virtual async Task<HandlerResult> HandleCore(IEnumerable<Func<IMessage, Task<IExecutionResult>>> handlers, IMessage message)
     {
         var failures = new List<IExecutionResult>();
         
@@ -49,10 +49,17 @@ public class MessageHandlingStrategy<T> : IMessageHandlingStrategy<T>, IDisposab
             }
         }
 
+        var handlerResult = new HandlerResult();
+        
         if (failures.Count > 0)
         {
-            throw new AggregateException("");
+            foreach (var failure in failures)
+            {
+                handlerResult.AddError(failure.FailureReason);
+            }
         }
+
+        return handlerResult;
     }
 
     public void Dispose()
