@@ -3,6 +3,7 @@ using Mqtt.Library.Client.Local;
 using Mqtt.Library.Core;
 using Mqtt.Library.Core.Results;
 using MqttLibrary.Examples.Pairing.Contracts.Payloads;
+using MqttLibrary.Examples.Pairing.Contracts.Topics;
 
 namespace MqttLibrary.Examples.Pairing.Domain.Handlers;
 
@@ -24,7 +25,7 @@ public class PairDeviceMessageHandler : MessageHandlerBase<PairDevicePayload>
             PairedDevices = new PairedDevices {DeviceMacAddresses = new List<string> {payload.MacAddress}},
         };
         
-        var integrationEventResult = IntegrationEventResult.CreateIntegrationEventResult<LocalMqttMessagingClientOptions>(eventPayload);
+        var integrationEventResult = IntegrationEventResult.CreateIntegrationEventResult<LocalMqttMessagingClientOptions>(eventPayload, TopicConstants.CurrentConfiguration);
                 
         return await Task.FromResult(integrationEventResult);
     }
