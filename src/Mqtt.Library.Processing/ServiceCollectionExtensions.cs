@@ -5,6 +5,8 @@ using Microsoft.Extensions.Hosting;
 using Mqtt.Library.Client.Configuration;
 using Mqtt.Library.Core;
 using Mqtt.Library.Core.Factory;
+using Mqtt.Library.Core.Middleware;
+using Mqtt.Library.Processing.Middlewares;
 
 namespace Mqtt.Library.Processing;
 
@@ -13,9 +15,11 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddMqttMessagingPipeline<TMessagingClientOptions>(this IServiceCollection serviceCollection, params Assembly[] assemblies)
         where TMessagingClientOptions : class, IMqttMessagingClientOptions
     {
+        // add message bus dependency
         return serviceCollection
             .AddMessagingPipeline<TMessagingClientOptions>(assemblies)
             .AddMqttTopicComparer()
+            .AddMiddleware()
             .AddMqttApplicationMessageReceivedHandler<TMessagingClientOptions>();
     }
 
@@ -36,6 +40,17 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddMqttTopicComparer(this IServiceCollection serviceCollection)
     { 
         serviceCollection.TryAddSingleton<ITopicFilterComparer, MqttTopicComparer>();
+        return serviceCollection;
+    }
+    
+    private static IServiceCollection AddMiddleware(this IServiceCollection serviceCollection)
+    {
+        serviceCollection.TryAddEnumerable(new[]
+        {
+            ServiceDescriptor.Transient(typeof(IMessageMiddleware), typeof(LoggingMiddleware)),
+            ServiceDescriptor.Transient(typeof(IMessageMiddleware), typeof(PublishMiddleware))
+        });
+
         return serviceCollection;
     }
 }

@@ -12,6 +12,8 @@ IHost host = Host.CreateDefaultBuilder(args)
 
         serviceCollection.AddLocalMqttTopicClient();
 
+        serviceCollection.AddLocalMqttMessageBus();
+
         serviceCollection.AddPairingDomainServices();
 
     })

@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Mqtt.Library.Core.Factory;
-using Mqtt.Library.Core.Middleware;
 using Mqtt.Library.Core.Processing;
 using Mqtt.Library.Core.Strategy;
 
@@ -16,8 +15,6 @@ public static class ServiceCollectionExtensions
         ConnectMessageHandlers(serviceCollection, assemblies);
 
         serviceCollection.AddRequiredServices<T>();
-
-        serviceCollection.AddMiddlewareTest();
 
         return serviceCollection;
     }
@@ -47,12 +44,5 @@ public static class ServiceCollectionExtensions
         serviceCollection.TryAddSingleton<IMessageExecutor<T>, ScopedMessageExecutor<T>>();
 
         return serviceCollection;
-    }
-
-    private static IServiceCollection AddMiddlewareTest(this IServiceCollection serviceCollection)
-    {
-        return serviceCollection
-            .AddTransient<IMessageMiddleware, LoggingMiddleware>()
-            .AddTransient<IMessageMiddleware, PublishMiddleware>();
     }
 }

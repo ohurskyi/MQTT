@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using Mqtt.Library.Core.Messages;
+using Mqtt.Library.Core.Middleware;
 using Mqtt.Library.Core.Results;
 
-namespace Mqtt.Library.Core.Middleware;
+namespace Mqtt.Library.Processing.Middlewares;
 
 public class LoggingMiddleware : IMessageMiddleware
 {
