@@ -21,14 +21,16 @@ public class PublishMiddleware : IMessageMiddleware
     public async Task<HandlerResult> Handle(IMessage message, MessageHandlerDelegate next)
     {
         var result = await next();
-        var integrationEvents = result.ExecutionResults.Select(x => x as IntegrationEventResult).Where(x => x != null).ToList();
+        var integrationEvents = result.ExecutionResults.OfType<IntegrationEventResult>().ToList();
+        var publishTasks = new List<Task>(integrationEvents.Count);
         foreach (var integrationEvent in integrationEvents)
         {
             _logger.LogInformation("Publishing integration event {type}", integrationEvent.Payload.GetType().Name);
             var eventBusType = typeof(IMqttMessageBus<>).MakeGenericType(integrationEvent.MessagingClientOptionsType);
             var eventBus = (IMqttMessageBus)_serviceProvider.GetRequiredService(eventBusType);
-            await eventBus.Publish(integrationEvent.Payload, integrationEvent.Topic);
+            publishTasks.Add(eventBus.Publish(integrationEvent.Payload, integrationEvent.Topic));
         }
+        await Task.WhenAll(publishTasks);
         return result;
     }
 }
