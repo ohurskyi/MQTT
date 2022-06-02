@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Mqtt.Library.Client\Mqtt.Library.Client.csproj" />
+      <ProjectReference Include="..\Mqtt.Library.Core\Mqtt.Library.Core.csproj" />
+      <ProjectReference Include="..\Mqtt.Library.MessageBus\Mqtt.Library.MessageBus.csproj" />
+      <ProjectReference Include="..\Mqtt.Library.TopicClient\Mqtt.Library.TopicClient.csproj" />
+    </ItemGroup>
+
+</Project>

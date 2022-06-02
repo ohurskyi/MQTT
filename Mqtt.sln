@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedConfiguration.Cl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedConfiguration.Host", "samples\DistributedConfiguration.Host\DistributedConfiguration.Host.csproj", "{3256FAD2-DD0B-4C1B-BE3E-E0156D56F104}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mqtt.Library.RequestResponse", "src\Mqtt.Library.RequestResponse\Mqtt.Library.RequestResponse.csproj", "{64BB7B98-8E71-4FB0-A537-5088487ACEF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,10 @@ Global
 		{3256FAD2-DD0B-4C1B-BE3E-E0156D56F104}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3256FAD2-DD0B-4C1B-BE3E-E0156D56F104}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3256FAD2-DD0B-4C1B-BE3E-E0156D56F104}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64BB7B98-8E71-4FB0-A537-5088487ACEF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64BB7B98-8E71-4FB0-A537-5088487ACEF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64BB7B98-8E71-4FB0-A537-5088487ACEF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64BB7B98-8E71-4FB0-A537-5088487ACEF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{79ED5AF3-ACF5-4FBE-8F3B-40420C2D7FFC} = {190E30F9-5E61-4315-B8D4-F4B98A0D7CB3}
@@ -112,5 +118,6 @@ Global
 		{ED0B52CC-5BD5-4E5C-8F50-30DEAF3D42FF} = {5818DAC5-B3C9-42EC-88FB-94E2AC911272}
 		{C1489D0E-FD47-4656-B32B-C0A68F3543F2} = {5818DAC5-B3C9-42EC-88FB-94E2AC911272}
 		{3256FAD2-DD0B-4C1B-BE3E-E0156D56F104} = {5818DAC5-B3C9-42EC-88FB-94E2AC911272}
+		{64BB7B98-8E71-4FB0-A537-5088487ACEF6} = {190E30F9-5E61-4315-B8D4-F4B98A0D7CB3}
 	EndGlobalSection
 EndGlobal
