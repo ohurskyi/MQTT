@@ -12,4 +12,5 @@ public interface IMqttMessageBus<TMessagingClientOptions>: IMqttMessageBus
 public interface IMqttMessageBus
 {
     Task Publish(IMessagePayload payload, string topic);
+    Task Publish(IMessage message);
 }

@@ -1,7 +1,6 @@
 using Mqtt.Library.Client.Configuration;
-using Mqtt.Library.Core;
+using Mqtt.Library.Core.Extensions;
 using Mqtt.Library.Core.Messages;
-using Mqtt.Library.Core.Results;
 using Mqtt.Library.MessageBus;
 using Mqtt.Library.TopicClient;
 
@@ -11,25 +10,34 @@ public class RequestClient<TMessagingClientOptions> : IRequestClient<TMessagingC
 {
     private readonly IMqttMessageBus<TMessagingClientOptions> _mqttMessageBus;
     private readonly IMqttTopicClient<TMessagingClientOptions> _mqttTopicClient;
+    private readonly PendingResponsesTracker _pendingResponsesTracker;
 
-    public RequestClient(IMqttMessageBus<TMessagingClientOptions> mqttMessageBus, IMqttTopicClient<TMessagingClientOptions> mqttTopicClient)
+    public RequestClient(
+        IMqttMessageBus<TMessagingClientOptions> mqttMessageBus, 
+        IMqttTopicClient<TMessagingClientOptions> mqttTopicClient, 
+        PendingResponsesTracker pendingResponsesTracker)
     {
         _mqttMessageBus = mqttMessageBus;
         _mqttTopicClient = mqttTopicClient;
+        _pendingResponsesTracker = pendingResponsesTracker;
     }
 
     public async Task<TMessageResponse> SendAndWaitAsync<TMessageResponse>(string topic, string replyTopic, IMessagePayload payload, TimeSpan timeout) where TMessageResponse : class, IMessageResponse
     {
         var subscription = await _mqttTopicClient.Subscribe<ResponseHandler>(replyTopic);
+        var message = new Message { Topic = topic, ReplyTopic = replyTopic, CorrelationId = Guid.NewGuid(), Payload = payload.MessagePayloadToJson() };
+        var responseTask = await PublishAndWait(message);
+        var result = await Task.WhenAny(responseTask, Task.Delay(timeout)) == responseTask
+            ? responseTask.Result as TMessageResponse
+            : null;
         await _mqttTopicClient.Unsubscribe(subscription);
-        return null;
+        return result;
     }
-}
 
-public class ResponseHandler : IMessageHandler
-{
-    public Task<IExecutionResult> Handle(IMessage message)
+    private async Task<Task<IMessageResponse>> PublishAndWait(IMessage message)
     {
-        throw new NotImplementedException();
+        var tcs = _pendingResponsesTracker.AddCompletionSource(message.CorrelationId);
+        await _mqttMessageBus.Publish(message);
+        return tcs;
     }
 }

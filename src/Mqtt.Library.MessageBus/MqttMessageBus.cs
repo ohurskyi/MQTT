@@ -20,4 +20,9 @@ public class MqttMessageBus<TMessagingClientOptions> : IMqttMessageBus<TMessagin
         var message = new Message { Topic = topic, Payload = payload.MessagePayloadToJson() };
         await _mqttMessagingClient.PublishAsync(message.ToMqttMessage());
     }
+
+    public async Task Publish(IMessage message)
+    {
+        await _mqttMessagingClient.PublishAsync(message.ToMqttMessage());
+    }
 }
