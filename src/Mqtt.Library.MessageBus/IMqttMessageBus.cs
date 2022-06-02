@@ -4,7 +4,12 @@ using MQTTnet;
 
 namespace Mqtt.Library.MessageBus;
 
-public interface IMqttMessageBus<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
+public interface IMqttMessageBus<TMessagingClientOptions>: IMqttMessageBus
+    where TMessagingClientOptions : IMqttMessagingClientOptions
 {
-    Task Publish<TPayload>(TPayload payload, string topic) where TPayload : IMessagePayload;
+}
+
+public interface IMqttMessageBus
+{
+    Task Publish(IMessagePayload payload, string topic);
 }

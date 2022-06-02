@@ -26,9 +26,8 @@ public class PublishMiddleware : IMessageMiddleware
         {
             _logger.LogInformation("Publishing integration event {type}", integrationEvent.Payload.GetType().Name);
             var eventBusType = typeof(IMqttMessageBus<>).MakeGenericType(integrationEvent.MessagingClientOptionsType);
-            var eventBus = _serviceProvider.GetRequiredService(eventBusType);
-            var method = eventBusType.GetMethod("Publish").MakeGenericMethod(integrationEvent.Payload.GetType());
-            await (Task)method.Invoke(eventBus, new object[] { integrationEvent.Payload, integrationEvent.Topic });
+            var eventBus = (IMqttMessageBus)_serviceProvider.GetRequiredService(eventBusType);
+            await eventBus.Publish(integrationEvent.Payload, integrationEvent.Topic);
         }
         return result;
     }
