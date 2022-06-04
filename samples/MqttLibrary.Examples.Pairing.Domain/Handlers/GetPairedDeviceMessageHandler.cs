@@ -22,15 +22,13 @@ public class GetPairedDeviceMessageHandler : IMessageHandler
         var payload = message.Payload.MessagePayloadFromJson<GetPairedDevicePayload>();
         
         _logger.LogInformation("Get device with id {value}", payload.DeviceId);
-        
-        var result = ReplyResult.CreateIntegrationEventResult<LocalMqttMessagingClientOptions>(payload, message.ReplyTopic, message.CorrelationId);
-        
-        var response = new {
+
+        var response = new GetPairedDeviceResponse {
             DeviceId = payload.DeviceId, 
             DeviceName = $"{payload.DeviceId}-{Guid.NewGuid()}-D",
-            CorrelationId = message.CorrelationId,
-            Topic = message.ReplyTopic
         };
+        
+        var result = ReplyResult.CreateIntegrationEventResult<LocalMqttMessagingClientOptions>(response, message.ReplyTopic, message.CorrelationId);
         
         return await Task.FromResult(result);
     }

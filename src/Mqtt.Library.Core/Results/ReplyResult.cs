@@ -4,7 +4,7 @@ namespace Mqtt.Library.Core.Results;
 
 public class ReplyResult : ExecutionResult
 {
-    private ReplyResult(IMessagePayload messagePayload, Type messagingClientOptionsType, string replyTopic, Guid correlationId)
+    private ReplyResult(IMessageResponse messagePayload, Type messagingClientOptionsType, string replyTopic, Guid correlationId)
     {
         Payload = messagePayload;
         MessagingClientOptionsType = messagingClientOptionsType;
@@ -12,13 +12,13 @@ public class ReplyResult : ExecutionResult
         CorrelationId = correlationId;
     }
         
-    public static ReplyResult CreateIntegrationEventResult<TMessagingClientOptions>(IMessagePayload messagePayload, string replyTopic, Guid correlationId)
+    public static ReplyResult CreateIntegrationEventResult<TMessagingClientOptions>(IMessageResponse messagePayload, string replyTopic, Guid correlationId)
         where TMessagingClientOptions : class
     {
         return new ReplyResult(messagePayload, typeof(TMessagingClientOptions), replyTopic, correlationId);
     }
 
-    public IMessagePayload Payload { get; }
+    public IMessageResponse Payload { get; }
 
     public Type MessagingClientOptionsType { get; }
 

@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using Mqtt.Library.Core.Messages;
 
 namespace Mqtt.Library.RequestResponse;
 
