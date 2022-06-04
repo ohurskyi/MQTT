@@ -1,4 +1,5 @@
-﻿using Mqtt.Library.Core.Messages;
+﻿using System.Text;
+using Mqtt.Library.Core.Messages;
 using MQTTnet;
 using Newtonsoft.Json;
 
@@ -11,6 +12,8 @@ public static class MqttApplicationMessageExtensions
         var mqttApplicationMessage = new MqttApplicationMessageBuilder()
             .WithTopic(msg.Topic)
             .WithPayload(msg.Payload)
+            .WithResponseTopic(msg.ReplyTopic)
+            .WithCorrelationData(msg.CorrelationId.ToByteArray())
             .Build();
 
         return mqttApplicationMessage;

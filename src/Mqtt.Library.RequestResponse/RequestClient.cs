@@ -3,6 +3,7 @@ using Mqtt.Library.Core.Extensions;
 using Mqtt.Library.Core.Messages;
 using Mqtt.Library.MessageBus;
 using Mqtt.Library.TopicClient;
+using Newtonsoft.Json;
 
 namespace Mqtt.Library.RequestResponse;
 
@@ -27,14 +28,15 @@ public class RequestClient<TMessagingClientOptions> : IRequestClient<TMessagingC
         var subscription = await _mqttTopicClient.Subscribe<ResponseHandler>(replyTopic);
         var message = new Message { Topic = topic, ReplyTopic = replyTopic, CorrelationId = Guid.NewGuid(), Payload = payload.MessagePayloadToJson() };
         var responseTask = await PublishAndWait(message);
-        var result = await Task.WhenAny(responseTask, Task.Delay(timeout)) == responseTask
-            ? responseTask.Result as TMessageResponse
+        var response = await Task.WhenAny(responseTask, Task.Delay(timeout)) == responseTask
+            ? responseTask.Result
             : null;
+        var messagePayloadFromJson = response.MessagePayloadFromJson<TMessageResponse>();
         await _mqttTopicClient.Unsubscribe(subscription);
-        return result;
+        return messagePayloadFromJson;
     }
 
-    private async Task<Task<IMessageResponse>> PublishAndWait(IMessage message)
+    private async Task<Task<string>> PublishAndWait(IMessage message)
     {
         var tcs = _pendingResponsesTracker.AddCompletionSource(message.CorrelationId);
         await _mqttMessageBus.Publish(message);

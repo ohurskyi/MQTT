@@ -17,15 +17,10 @@ public class ResponseHandler : IMessageHandler
     {
         if (!_pendingResponsesTracker.TaskCompletionSources.TryRemove(message.CorrelationId, out var taskCompletionSource))
         {
-            return await Task.FromResult(ExecutionResult.Ok());
+            return await Task.FromResult(ExecutionResult.Fail($"Not existing correlation id {message.CorrelationId}"));
         }
 
-        if (!(message is IMessageResponse commandResponse))
-        {
-            return await Task.FromResult(ExecutionResult.Ok());
-        }
-            
-        taskCompletionSource.TrySetResult(commandResponse);
+        taskCompletionSource.TrySetResult(message.Payload);
             
         return await Task.FromResult(ExecutionResult.Ok());
     }

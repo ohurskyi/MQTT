@@ -5,11 +5,11 @@ namespace Mqtt.Library.RequestResponse;
 
 public class PendingResponsesTracker
 {
-    public readonly ConcurrentDictionary<Guid, TaskCompletionSource<IMessageResponse>> TaskCompletionSources = new();
+    public readonly ConcurrentDictionary<Guid, TaskCompletionSource<string>> TaskCompletionSources = new();
 
-    public Task<IMessageResponse> AddCompletionSource(Guid correlationId)
+    public Task<string> AddCompletionSource(Guid correlationId)
     {
-        var tcs = new TaskCompletionSource<IMessageResponse>();
+        var tcs = new TaskCompletionSource<string>();
         TaskCompletionSources.TryAdd(correlationId, tcs);
         return tcs.Task;
     }

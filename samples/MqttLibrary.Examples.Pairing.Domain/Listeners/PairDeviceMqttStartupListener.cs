@@ -14,6 +14,7 @@ public class PairDeviceMqttStartupListener : BaseMqttStartupListener<LocalMqttMe
         var subscriptions = new List<Task<ISubscription>>
         {
             TopicClient.Subscribe<PairDeviceMessageHandler>($"{TopicConstants.RequestUpdate}"),
+            TopicClient.Subscribe<GetPairedDeviceMessageHandler>($"{TopicConstants.RequestUpdate}"),
         };
         return subscriptions;
     }

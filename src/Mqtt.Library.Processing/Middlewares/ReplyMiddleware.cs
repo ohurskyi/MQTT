@@ -6,7 +6,7 @@ using Mqtt.Library.Core.Middleware;
 using Mqtt.Library.Core.Results;
 using Mqtt.Library.MessageBus;
 
-namespace Mqtt.Library.RequestResponse;
+namespace Mqtt.Library.Processing.Middlewares;
 
 public class ReplyMiddleware : IMessageMiddleware
 {
@@ -23,16 +23,16 @@ public class ReplyMiddleware : IMessageMiddleware
     {
         var result = await next();
         var replyResults = result.ExecutionResults.OfType<ReplyResult>().ToList();
-        var publishTasks = new List<Task>(replyResults.Count);
+        var replyTasks = new List<Task>(replyResults.Count);
         foreach (var replyResult in replyResults)
         {
             _logger.LogInformation("Sending reply to {topic}", replyResult.ReplyTopic);
             var eventBusType = typeof(IMqttMessageBus<>).MakeGenericType(replyResult.MessagingClientOptionsType);
             var eventBus = (IMqttMessageBus)_serviceProvider.GetRequiredService(eventBusType);
             var replyMessage = new Message { Topic = replyResult.ReplyTopic, CorrelationId = replyResult.CorrelationId, Payload = replyResult.Payload.MessagePayloadToJson() };
-            publishTasks.Add(eventBus.Publish(replyMessage));
+            replyTasks.Add(eventBus.Publish(replyMessage));
         }
-        await Task.WhenAll(publishTasks);
+        await Task.WhenAll(replyTasks);
         return result;
     }
 }
