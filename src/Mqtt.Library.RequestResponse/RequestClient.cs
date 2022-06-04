@@ -26,7 +26,8 @@ public class RequestClient<TMessagingClientOptions> : IRequestClient<TMessagingC
     public async Task<TMessageResponse> SendAndWaitAsync<TMessageResponse>(string topic, string replyTopic, IMessagePayload payload, TimeSpan timeout) where TMessageResponse : class, IMessageResponse
     {
         var subscription = await _mqttTopicClient.Subscribe<ResponseHandler>(replyTopic);
-        var message = new Message { Topic = topic, ReplyTopic = replyTopic, CorrelationId = Guid.NewGuid(), Payload = payload.MessagePayloadToJson() };
+        var correlationId = Guid.NewGuid();
+        var message = new Message { Topic = topic, ReplyTopic = $"{replyTopic}/{correlationId}", CorrelationId = correlationId, Payload = payload.MessagePayloadToJson() };
         var responseTask = await PublishAndWait(message);
         var response = await Task.WhenAny(responseTask, Task.Delay(timeout)) == responseTask
             ? responseTask.Result
