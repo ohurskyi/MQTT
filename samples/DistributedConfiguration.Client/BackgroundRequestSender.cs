@@ -30,6 +30,7 @@ public class BackgroundRequestSender : BackgroundService
     }
 }
 
+// todo decide should be IMessageResponse or IMessagePayload
 public class GetPairedDeviceResponse : IMessageResponse
 {
     public string DeviceId { get; set; }

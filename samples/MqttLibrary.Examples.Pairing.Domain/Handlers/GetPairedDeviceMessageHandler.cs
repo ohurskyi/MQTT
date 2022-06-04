@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Mqtt.Library.Client.Local;
 using Mqtt.Library.Core;
 using Mqtt.Library.Core.Extensions;
 using Mqtt.Library.Core.Messages;
@@ -22,6 +23,8 @@ public class GetPairedDeviceMessageHandler : IMessageHandler
         
         _logger.LogInformation("Get device with id {value}", payload.DeviceId);
         
+        var result = ReplyResult.CreateIntegrationEventResult<LocalMqttMessagingClientOptions>(payload, message.ReplyTopic, message.CorrelationId);
+        
         var response = new {
             DeviceId = payload.DeviceId, 
             DeviceName = $"{payload.DeviceId}-{Guid.NewGuid()}-D",
@@ -29,6 +32,6 @@ public class GetPairedDeviceMessageHandler : IMessageHandler
             Topic = message.ReplyTopic
         };
         
-        return await Task.FromResult(ExecutionResult.Ok());
+        return await Task.FromResult(result);
     }
 }
