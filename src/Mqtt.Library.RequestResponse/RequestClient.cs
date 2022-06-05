@@ -23,24 +23,10 @@ public class RequestClient<TMessagingClientOptions> : IRequestClient<TMessagingC
     }
 
     public async Task<TMessageResponse> SendAndWaitAsync<TMessageResponse>(string requestTopic, string responseTopic, IMessagePayload payload, TimeSpan timeout) where TMessageResponse : class, IMessageResponse
-    {  
-        var correlationId = Guid.NewGuid();
-        var replyTopic = $"{responseTopic}/{correlationId}";
-        var subscription = await _mqttTopicClient.Subscribe<ResponseHandler>(replyTopic);
-        var message = new Message { Topic = requestTopic, ReplyTopic = replyTopic, CorrelationId = correlationId, Payload = payload.MessagePayloadToJson() };
-        var responseTask = await PublishAndWait(message);
-        var response = await Task.WhenAny(responseTask, Task.Delay(timeout)) == responseTask
-            ? responseTask.Result
-            : null;
-        var messagePayloadFromJson = response?.MessagePayloadFromJson<TMessageResponse>();
-        await _mqttTopicClient.Unsubscribe(subscription);
-        return messagePayloadFromJson;
-    }
-
-    private async Task<Task<string>> PublishAndWait(IMessage message)
     {
-        var tcs = _pendingResponsesTracker.AddCompletionSource(message.CorrelationId);
-        await _mqttMessageBus.Publish(message);
-        return tcs;
+        var requester = new Requester<TMessagingClientOptions>(responseTopic, _mqttMessageBus, _mqttTopicClient, _pendingResponsesTracker);
+        var response = await requester.Request(requestTopic, payload, timeout);
+        var messagePayloadFromJson = response?.MessagePayloadFromJson<TMessageResponse>();
+        return messagePayloadFromJson;
     }
 }
