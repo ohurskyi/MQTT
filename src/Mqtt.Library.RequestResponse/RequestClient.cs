@@ -22,12 +22,12 @@ public class RequestClient<TMessagingClientOptions> : IRequestClient<TMessagingC
         _pendingResponsesTracker = pendingResponsesTracker;
     }
 
-    public async Task<TMessageResponse> SendAndWaitAsync<TMessageResponse>(string topic, string replyTopic, IMessagePayload payload, TimeSpan timeout) where TMessageResponse : class, IMessageResponse
+    public async Task<TMessageResponse> SendAndWaitAsync<TMessageResponse>(string requestTopic, string responseTopic, IMessagePayload payload, TimeSpan timeout) where TMessageResponse : class, IMessageResponse
     {  
         var correlationId = Guid.NewGuid();
-        var responseTopic = $"{replyTopic}/{correlationId}";
-        var subscription = await _mqttTopicClient.Subscribe<ResponseHandler>(responseTopic);
-        var message = new Message { Topic = topic, ReplyTopic = responseTopic, CorrelationId = correlationId, Payload = payload.MessagePayloadToJson() };
+        var replyTopic = $"{responseTopic}/{correlationId}";
+        var subscription = await _mqttTopicClient.Subscribe<ResponseHandler>(replyTopic);
+        var message = new Message { Topic = requestTopic, ReplyTopic = replyTopic, CorrelationId = correlationId, Payload = payload.MessagePayloadToJson() };
         var responseTask = await PublishAndWait(message);
         var response = await Task.WhenAny(responseTask, Task.Delay(timeout)) == responseTask
             ? responseTask.Result
