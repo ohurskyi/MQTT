@@ -25,7 +25,7 @@ public class PublishMiddleware : IMessageMiddleware
         var publishTasks = new List<Task>(integrationEvents.Count);
         foreach (var integrationEvent in integrationEvents)
         {
-            _logger.LogInformation("Publishing integration event {type}", integrationEvent.Payload.GetType().Name);
+            _logger.LogInformation("Publishing integration event into topic {topicValue} of payload {type}", integrationEvent.Topic, integrationEvent.Payload.GetType().Name);
             var eventBusType = typeof(IMqttMessageBus<>).MakeGenericType(integrationEvent.MessagingClientOptionsType);
             var eventBus = (IMqttMessageBus)_serviceProvider.GetRequiredService(eventBusType);
             publishTasks.Add(eventBus.Publish(integrationEvent.Payload, integrationEvent.Topic));
