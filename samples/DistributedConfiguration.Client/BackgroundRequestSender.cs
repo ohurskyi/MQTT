@@ -25,10 +25,10 @@ public class BackgroundRequestSender : BackgroundService
             var response = await _requestClient.SendAndWaitAsync<GetPairedDeviceResponse>(
                 TopicConstants.RequestUpdate,
                 TopicConstants.ResponseUpdate, payload,
-                TimeSpan.FromSeconds(15));
+                TimeSpan.FromSeconds(5));
 
             _logger.LogInformation("Received response for device with id {value}", response?.DeviceId);
-            await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
+            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
         }
     }
 }
