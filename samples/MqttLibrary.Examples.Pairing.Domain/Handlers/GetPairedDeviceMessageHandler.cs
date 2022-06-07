@@ -2,6 +2,7 @@
 using Mqtt.Library.Client.Local;
 using Mqtt.Library.Core;
 using Mqtt.Library.Core.Extensions;
+using Mqtt.Library.Core.Handlers;
 using Mqtt.Library.Core.Messages;
 using Mqtt.Library.Core.Results;
 using MqttLibrary.Examples.Pairing.Contracts.Payloads;

@@ -2,6 +2,7 @@ using Mqtt.Library.Client;
 using Mqtt.Library.Client.Configuration;
 using Mqtt.Library.Core;
 using Mqtt.Library.Core.Factory;
+using Mqtt.Library.Core.Handlers;
 
 namespace Mqtt.Library.TopicClient;
 

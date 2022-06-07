@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using Mqtt.Library.Core.Configuration;
+using Mqtt.Library.Core.Handlers;
 
 namespace Mqtt.Library.Core.Factory;
 

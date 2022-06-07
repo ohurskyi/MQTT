@@ -1,4 +1,5 @@
 ﻿using Mqtt.Library.Core;
+using Mqtt.Library.Core.Handlers;
 
 namespace Mqtt.Library.TopicClient;
 

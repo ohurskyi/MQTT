@@ -1,7 +1,7 @@
 ﻿using Mqtt.Library.Core.Messages;
 using Mqtt.Library.Core.Results;
 
-namespace Mqtt.Library.Core;
+namespace Mqtt.Library.Core.Handlers;
 
 public interface IMessageHandler
 {

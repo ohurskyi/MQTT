@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Mqtt.Library.Core;
 using Mqtt.Library.Core.Configuration;
 using Mqtt.Library.Core.Factory;
+using Mqtt.Library.Core.Handlers;
 
 namespace MessagingLibrary.Processing;
 
