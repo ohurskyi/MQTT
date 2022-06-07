@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
+using MessagingLibrary.Processing;
+using MessagingLibrary.Processing.Middlewares;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Mqtt.Library.Client.Configuration;
-using Mqtt.Library.Core;
 using Mqtt.Library.Core.Factory;
-using Mqtt.Library.Core.Middleware;
 using Mqtt.Library.Processing.Middlewares;
 
 namespace Mqtt.Library.Processing;

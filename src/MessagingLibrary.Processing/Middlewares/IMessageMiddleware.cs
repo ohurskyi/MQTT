@@ -1,7 +1,7 @@
 ﻿using Mqtt.Library.Core.Messages;
 using Mqtt.Library.Core.Results;
 
-namespace Mqtt.Library.Core.Middleware;
+namespace MessagingLibrary.Processing.Middlewares;
 
 public delegate Task<HandlerResult> MessageHandlerDelegate();
 

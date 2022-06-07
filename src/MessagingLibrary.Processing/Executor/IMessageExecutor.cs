@@ -1,7 +1,7 @@
 using Mqtt.Library.Core.Configuration;
 using Mqtt.Library.Core.Messages;
 
-namespace Mqtt.Library.Core.Processing;
+namespace MessagingLibrary.Processing.Executor;
 
 public interface IMessageExecutor<TMessagingClientOptions> where TMessagingClientOptions: IMessagingClientOptions
 {

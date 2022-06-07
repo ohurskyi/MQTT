@@ -1,12 +1,13 @@
 ﻿using System.Reflection;
+using MessagingLibrary.Processing.Executor;
+using MessagingLibrary.Processing.Strategy;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Mqtt.Library.Core;
 using Mqtt.Library.Core.Configuration;
 using Mqtt.Library.Core.Factory;
-using Mqtt.Library.Core.Processing;
-using Mqtt.Library.Core.Strategy;
 
-namespace Mqtt.Library.Core;
+namespace MessagingLibrary.Processing;
 
 public static class ServiceCollectionExtensions
 {

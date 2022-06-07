@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using MessagingLibrary.Processing.Middlewares;
+using Microsoft.Extensions.Logging;
 using Mqtt.Library.Core.Configuration;
 using Mqtt.Library.Core.Factory;
 using Mqtt.Library.Core.Messages;
-using Mqtt.Library.Core.Middleware;
 using Mqtt.Library.Core.Results;
 
-namespace Mqtt.Library.Core.Strategy;
+namespace MessagingLibrary.Processing.Strategy;
 
 public class MessageHandlingStrategy<TMessagingClientOptions> : IMessageHandlingStrategy<TMessagingClientOptions>, IDisposable
     where TMessagingClientOptions: IMessagingClientOptions

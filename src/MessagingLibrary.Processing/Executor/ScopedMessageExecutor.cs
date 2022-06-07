@@ -1,9 +1,9 @@
+using MessagingLibrary.Processing.Strategy;
 using Microsoft.Extensions.DependencyInjection;
 using Mqtt.Library.Core.Configuration;
 using Mqtt.Library.Core.Messages;
-using Mqtt.Library.Core.Strategy;
 
-namespace Mqtt.Library.Core.Processing
+namespace MessagingLibrary.Processing.Executor
 {
     public class ScopedMessageExecutor<TMessagingClientOptions> : IMessageExecutor<TMessagingClientOptions> 
         where TMessagingClientOptions: IMessagingClientOptions
