@@ -1,4 +1,6 @@
-﻿namespace Mqtt.Library.Core.Factory;
+﻿using Mqtt.Library.Core.Configuration;
+
+namespace Mqtt.Library.Core.Factory;
 
 public interface IMessageHandlerFactory
 {
@@ -8,8 +10,8 @@ public interface IMessageHandlerFactory
     IEnumerable<IMessageHandler> GetHandlers(string topic, HandlerFactory handlerFactory);
 }
 
-public interface IMessageHandlerFactory<T> : IMessageHandlerFactory
-    where T : class
+public interface IMessageHandlerFactory<TMessagingClientOptions> : IMessageHandlerFactory
+    where TMessagingClientOptions: IMessagingClientOptions
 {
     
 }

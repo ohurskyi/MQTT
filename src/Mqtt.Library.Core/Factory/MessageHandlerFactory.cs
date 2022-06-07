@@ -1,8 +1,10 @@
 ﻿using System.Collections.Concurrent;
+using Mqtt.Library.Core.Configuration;
 
 namespace Mqtt.Library.Core.Factory;
 
-public class MessageHandlerFactory<T> : IMessageHandlerFactory<T> where T : class
+public class MessageHandlerFactory<TMessagingClientOptions> : IMessageHandlerFactory<TMessagingClientOptions>
+    where TMessagingClientOptions: IMessagingClientOptions
 {
     private readonly ConcurrentDictionary<string, ConcurrentDictionary<Type, byte>> _handlersMap = new();
     

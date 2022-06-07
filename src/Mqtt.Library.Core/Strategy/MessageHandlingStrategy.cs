@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Mqtt.Library.Core.Configuration;
 using Mqtt.Library.Core.Factory;
 using Mqtt.Library.Core.Messages;
 using Mqtt.Library.Core.Middleware;
@@ -6,13 +7,14 @@ using Mqtt.Library.Core.Results;
 
 namespace Mqtt.Library.Core.Strategy;
 
-public class MessageHandlingStrategy<T> : IMessageHandlingStrategy<T>, IDisposable where T : class
+public class MessageHandlingStrategy<TMessagingClientOptions> : IMessageHandlingStrategy<TMessagingClientOptions>, IDisposable
+    where TMessagingClientOptions: IMessagingClientOptions
 {
-    private readonly IMessageHandlerFactory<T> _messageHandlerFactory;
+    private readonly IMessageHandlerFactory<TMessagingClientOptions> _messageHandlerFactory;
     private readonly HandlerFactory _handlerFactory;
-    private readonly ILogger<MessageHandlingStrategy<T>> _logger;
+    private readonly ILogger<MessageHandlingStrategy<TMessagingClientOptions>> _logger;
 
-    public MessageHandlingStrategy(IMessageHandlerFactory<T> messageHandlerFactory, HandlerFactory handlerFactory, ILogger<MessageHandlingStrategy<T>> logger)
+    public MessageHandlingStrategy(IMessageHandlerFactory<TMessagingClientOptions> messageHandlerFactory, HandlerFactory handlerFactory, ILogger<MessageHandlingStrategy<TMessagingClientOptions>> logger)
     {
         _messageHandlerFactory = messageHandlerFactory;
         _logger = logger;
@@ -58,6 +60,6 @@ public class MessageHandlingStrategy<T> : IMessageHandlingStrategy<T>, IDisposab
 
     public void Dispose()
     {
-        _logger.LogInformation($"{nameof(MessageHandlingStrategy<T>)} disposed.");
+        _logger.LogInformation($"{nameof(MessageHandlingStrategy<TMessagingClientOptions>)} disposed.");
     }
 }

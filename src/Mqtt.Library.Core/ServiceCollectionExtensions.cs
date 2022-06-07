@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Mqtt.Library.Core.Configuration;
 using Mqtt.Library.Core.Factory;
 using Mqtt.Library.Core.Processing;
 using Mqtt.Library.Core.Strategy;
@@ -9,12 +10,12 @@ namespace Mqtt.Library.Core;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddMessagingPipeline<T>(this IServiceCollection serviceCollection, params Assembly[] assemblies)
-        where T:class
+    public static IServiceCollection AddMessagingPipeline<TMessagingClientOptions>(this IServiceCollection serviceCollection, params Assembly[] assemblies)
+        where TMessagingClientOptions: IMessagingClientOptions
     {
         ConnectMessageHandlers(serviceCollection, assemblies);
 
-        serviceCollection.AddRequiredServices<T>();
+        serviceCollection.AddRequiredServices<TMessagingClientOptions>();
 
         return serviceCollection;
     }
@@ -32,16 +33,16 @@ public static class ServiceCollectionExtensions
         }
     }
 
-    private static IServiceCollection AddRequiredServices<T>(this IServiceCollection serviceCollection) 
-        where T : class
+    private static IServiceCollection AddRequiredServices<TMessagingClientOptions>(this IServiceCollection serviceCollection) 
+        where TMessagingClientOptions: IMessagingClientOptions
     {
-        serviceCollection.TryAddSingleton<IMessageHandlerFactory<T>, MessageHandlerFactory<T>>();
+        serviceCollection.TryAddSingleton<IMessageHandlerFactory<TMessagingClientOptions>, MessageHandlerFactory<TMessagingClientOptions>>();
 
         serviceCollection.TryAddTransient<HandlerFactory>(p => p.GetRequiredService);
 
-        serviceCollection.TryAddTransient<IMessageHandlingStrategy<T>, MessageHandlingStrategy<T>>();
+        serviceCollection.TryAddTransient<IMessageHandlingStrategy<TMessagingClientOptions>, MessageHandlingStrategy<TMessagingClientOptions>>();
         
-        serviceCollection.TryAddSingleton<IMessageExecutor<T>, ScopedMessageExecutor<T>>();
+        serviceCollection.TryAddSingleton<IMessageExecutor<TMessagingClientOptions>, ScopedMessageExecutor<TMessagingClientOptions>>();
 
         return serviceCollection;
     }

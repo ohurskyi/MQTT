@@ -16,4 +16,8 @@
       <PackageReference Include="MQTTnet.Extensions.ManagedClient" Version="3.0.13" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Mqtt.Library.Core\Mqtt.Library.Core.csproj" />
+    </ItemGroup>
+
 </Project>

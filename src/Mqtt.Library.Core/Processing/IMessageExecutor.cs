@@ -1,8 +1,9 @@
+using Mqtt.Library.Core.Configuration;
 using Mqtt.Library.Core.Messages;
 
 namespace Mqtt.Library.Core.Processing;
 
-public interface IMessageExecutor<T> where T: class
+public interface IMessageExecutor<TMessagingClientOptions> where TMessagingClientOptions: IMessagingClientOptions
 {
     Task ExecuteAsync(IMessage message);
 }
