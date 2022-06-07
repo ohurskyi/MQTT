@@ -1,5 +1,5 @@
-using Mqtt.Library.Core.Configuration;
-using Mqtt.Library.Core.Messages;
+using MessagingLibrary.Core.Configuration;
+using MessagingLibrary.Core.Messages;
 
 namespace MessagingLibrary.Processing.Executor;
 

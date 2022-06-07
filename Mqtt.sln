@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mqtt.Library.Test", "MQTT\Mqtt.Library.Test.csproj", "{85A80407-2BBF-419C-8AA8-27445227ADA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mqtt.Library.Core", "src\Mqtt.Library.Core\Mqtt.Library.Core.csproj", "{53D8C093-EECF-4BB6-B6E0-3F9119924A80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingLibrary.Core", "src\MessagingLibrary.Core\MessagingLibrary.Core.csproj", "{53D8C093-EECF-4BB6-B6E0-3F9119924A80}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mqtt.Library.Client", "src\Mqtt.Library.Client\Mqtt.Library.Client.csproj", "{79ED5AF3-ACF5-4FBE-8F3B-40420C2D7FFC}"
 EndProject

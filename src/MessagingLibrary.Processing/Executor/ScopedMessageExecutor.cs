@@ -1,7 +1,7 @@
+using MessagingLibrary.Core.Configuration;
+using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Processing.Strategy;
 using Microsoft.Extensions.DependencyInjection;
-using Mqtt.Library.Core.Configuration;
-using Mqtt.Library.Core.Messages;
 
 namespace MessagingLibrary.Processing.Executor
 {

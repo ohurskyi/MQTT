@@ -1,8 +1,8 @@
-﻿using Mqtt.Library.Core.Extensions;
-using Mqtt.Library.Core.Messages;
-using Mqtt.Library.Core.Results;
+﻿using MessagingLibrary.Core.Extensions;
+using MessagingLibrary.Core.Messages;
+using MessagingLibrary.Core.Results;
 
-namespace Mqtt.Library.Core.Handlers;
+namespace MessagingLibrary.Core.Handlers;
 
 public abstract class MessageHandlerBase<T> : IMessageHandler
     where T: IMessagePayload

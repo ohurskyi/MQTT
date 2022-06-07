@@ -1,8 +1,8 @@
 ﻿using System.Collections.Concurrent;
-using Mqtt.Library.Core.Configuration;
-using Mqtt.Library.Core.Handlers;
+using MessagingLibrary.Core.Configuration;
+using MessagingLibrary.Core.Handlers;
 
-namespace Mqtt.Library.Core.Factory;
+namespace MessagingLibrary.Core.Factory;
 
 public class MessageHandlerFactory<TMessagingClientOptions> : IMessageHandlerFactory<TMessagingClientOptions>
     where TMessagingClientOptions: IMessagingClientOptions

@@ -1,7 +1,7 @@
-﻿using Mqtt.Library.Core.Configuration;
-using Mqtt.Library.Core.Messages;
+﻿using MessagingLibrary.Core.Configuration;
+using MessagingLibrary.Core.Messages;
 
-namespace Mqtt.Library.Core.Results
+namespace MessagingLibrary.Core.Results
 {
     public class IntegrationEventResult : ExecutionResult
     {

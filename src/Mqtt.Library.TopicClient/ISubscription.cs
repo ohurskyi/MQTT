@@ -1,6 +1,4 @@
-﻿using Mqtt.Library.Core;
-
-namespace Mqtt.Library.TopicClient;
+﻿namespace Mqtt.Library.TopicClient;
 
 public interface ISubscription
 {

@@ -25,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Mqtt.Library.Core\Mqtt.Library.Core.csproj" />
+      <ProjectReference Include="..\..\src\MessagingLibrary.Core\MessagingLibrary.Core.csproj" />
       <ProjectReference Include="..\..\src\Mqtt.Library.Processing\Mqtt.Library.Processing.csproj" />
     </ItemGroup>
 

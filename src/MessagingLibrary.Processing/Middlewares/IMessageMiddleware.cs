@@ -1,5 +1,5 @@
-﻿using Mqtt.Library.Core.Messages;
-using Mqtt.Library.Core.Results;
+﻿using MessagingLibrary.Core.Messages;
+using MessagingLibrary.Core.Results;
 
 namespace MessagingLibrary.Processing.Middlewares;
 

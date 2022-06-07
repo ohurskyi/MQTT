@@ -1,4 +1,4 @@
-﻿namespace Mqtt.Library.Core.Messages;
+﻿namespace MessagingLibrary.Core.Messages;
 
 public class Message: IMessage
 {

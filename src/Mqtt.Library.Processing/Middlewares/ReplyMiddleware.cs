@@ -1,9 +1,9 @@
-﻿using MessagingLibrary.Processing.Middlewares;
+﻿using MessagingLibrary.Core.Extensions;
+using MessagingLibrary.Core.Messages;
+using MessagingLibrary.Core.Results;
+using MessagingLibrary.Processing.Middlewares;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Mqtt.Library.Core.Extensions;
-using Mqtt.Library.Core.Messages;
-using Mqtt.Library.Core.Results;
 using Mqtt.Library.MessageBus;
 
 namespace Mqtt.Library.Processing.Middlewares;

@@ -1,4 +1,4 @@
-namespace Mqtt.Library.Core.Factory;
+namespace MessagingLibrary.Core.Factory;
 
 public interface ITopicFilterComparer
 {

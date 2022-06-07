@@ -1,9 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
-using Mqtt.Library.Core;
-using Mqtt.Library.Core.Extensions;
-using Mqtt.Library.Core.Handlers;
-using Mqtt.Library.Core.Messages;
-using Mqtt.Library.Core.Results;
+﻿using MessagingLibrary.Core.Extensions;
+using MessagingLibrary.Core.Handlers;
+using MessagingLibrary.Core.Messages;
+using MessagingLibrary.Core.Results;
+using Microsoft.Extensions.Logging;
 using MqttLibrary.Examples.Contracts.Payloads;
 
 namespace MqttLibrary.Examples.Domain.Handlers;

@@ -1,4 +1,4 @@
-﻿namespace Mqtt.Library.Core.Results;
+﻿namespace MessagingLibrary.Core.Results;
 
 public class HandlerResult
 {

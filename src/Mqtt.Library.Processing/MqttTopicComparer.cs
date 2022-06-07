@@ -1,4 +1,4 @@
-using Mqtt.Library.Core.Factory;
+using MessagingLibrary.Core.Factory;
 
 namespace Mqtt.Library.Processing;
 

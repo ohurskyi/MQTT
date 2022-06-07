@@ -1,9 +1,9 @@
-﻿using MessagingLibrary.Processing.Middlewares;
+﻿using MessagingLibrary.Core.Configuration;
+using MessagingLibrary.Core.Factory;
+using MessagingLibrary.Core.Messages;
+using MessagingLibrary.Core.Results;
+using MessagingLibrary.Processing.Middlewares;
 using Microsoft.Extensions.Logging;
-using Mqtt.Library.Core.Configuration;
-using Mqtt.Library.Core.Factory;
-using Mqtt.Library.Core.Messages;
-using Mqtt.Library.Core.Results;
 
 namespace MessagingLibrary.Processing.Strategy;
 

@@ -1,12 +1,11 @@
 ﻿using System.Reflection;
+using MessagingLibrary.Core.Configuration;
+using MessagingLibrary.Core.Factory;
+using MessagingLibrary.Core.Handlers;
 using MessagingLibrary.Processing.Executor;
 using MessagingLibrary.Processing.Strategy;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Mqtt.Library.Core;
-using Mqtt.Library.Core.Configuration;
-using Mqtt.Library.Core.Factory;
-using Mqtt.Library.Core.Handlers;
 
 namespace MessagingLibrary.Processing;
 

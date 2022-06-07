@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using Mqtt.Library.Core.Messages;
+using MessagingLibrary.Core.Messages;
 using MQTTnet;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

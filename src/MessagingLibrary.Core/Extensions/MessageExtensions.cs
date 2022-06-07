@@ -1,8 +1,8 @@
-﻿using Mqtt.Library.Core.Messages;
+﻿using MessagingLibrary.Core.Messages;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Mqtt.Library.Core.Extensions
+namespace MessagingLibrary.Core.Extensions
 {
     public static class MessageExtensions
     {

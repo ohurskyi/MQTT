@@ -1,4 +1,4 @@
-using Mqtt.Library.Core.Messages;
+using MessagingLibrary.Core.Messages;
 
 namespace MqttLibrary.Examples.Pairing.Contracts.Payloads;
 

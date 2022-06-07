@@ -1,5 +1,5 @@
+using MessagingLibrary.Core.Messages;
 using Mqtt.Library.Client.Configuration;
-using Mqtt.Library.Core.Messages;
 using MQTTnet;
 
 namespace Mqtt.Library.MessageBus;

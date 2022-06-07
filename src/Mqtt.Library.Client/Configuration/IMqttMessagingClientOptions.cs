@@ -1,4 +1,4 @@
-﻿using Mqtt.Library.Core.Configuration;
+﻿using MessagingLibrary.Core.Configuration;
 
 namespace Mqtt.Library.Client.Configuration
 {
