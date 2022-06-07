@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-
-namespace Mqtt.Library.Core.Messages;
+﻿namespace Mqtt.Library.Core.Messages;
 
 public class Message: IMessage
 {
@@ -8,5 +6,4 @@ public class Message: IMessage
     public string ReplyTopic { get; set; }
     public string Payload { get; set; }
     public Guid CorrelationId { get; set; }
-    public JObject Body { get; set; }
 }
