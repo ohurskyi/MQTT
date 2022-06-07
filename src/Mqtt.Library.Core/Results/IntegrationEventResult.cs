@@ -1,4 +1,5 @@
-﻿using Mqtt.Library.Core.Messages;
+﻿using Mqtt.Library.Core.Configuration;
+using Mqtt.Library.Core.Messages;
 
 namespace Mqtt.Library.Core.Results
 {
@@ -12,7 +13,7 @@ namespace Mqtt.Library.Core.Results
         }
         
         public static IntegrationEventResult CreateIntegrationEventResult<TMessagingClientOptions>(IMessagePayload messagePayload, string topic)
-            where TMessagingClientOptions : class
+            where TMessagingClientOptions: IMessagingClientOptions
         {
             return new IntegrationEventResult(messagePayload, typeof(TMessagingClientOptions), topic);
         }
