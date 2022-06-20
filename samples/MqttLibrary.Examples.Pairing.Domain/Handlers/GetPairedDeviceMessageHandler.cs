@@ -1,5 +1,4 @@
-﻿using MessagingLibrary.Core.Extensions;
-using MessagingLibrary.Core.Handlers;
+﻿using MessagingLibrary.Core.Handlers;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Core.Results;
 using Microsoft.Extensions.Logging;
@@ -8,7 +7,7 @@ using MqttLibrary.Examples.Pairing.Contracts.Payloads;
 
 namespace MqttLibrary.Examples.Pairing.Domain.Handlers;
 
-public class GetPairedDeviceMessageHandler : IMessageHandler
+public class GetPairedDeviceMessageHandler : MessageHandlerBase<GetPairedDevicePayload>
 {
     private readonly ILogger<PairDeviceMessageHandler> _logger;
 
@@ -17,9 +16,9 @@ public class GetPairedDeviceMessageHandler : IMessageHandler
         _logger = logger;
     }
 
-    public async Task<IExecutionResult> Handle(IMessage message)
+    protected override async Task<IExecutionResult> HandleAsync(MessagingContext<GetPairedDevicePayload> messagingContext)
     {
-        var payload = message.Payload.MessagePayloadFromJson<GetPairedDevicePayload>();
+        var payload = messagingContext.Payload;
         
         _logger.LogInformation("Get device with id {value}", payload.DeviceId);
 
@@ -27,8 +26,8 @@ public class GetPairedDeviceMessageHandler : IMessageHandler
             DeviceId = payload.DeviceId, 
             DeviceName = $"{payload.DeviceId}-{Guid.NewGuid()}-D",
         };
-        
-        var result = ReplyResult.CreateIntegrationEventResult<LocalMqttMessagingClientOptions>(response, message.ReplyTopic, message.CorrelationId);
+
+        var result = ReplyResult.CreateIntegrationEventResult<LocalMqttMessagingClientOptions>(response, messagingContext.ReplyTopic, messagingContext.CorrelationId);
         
         return await Task.FromResult(result);
     }

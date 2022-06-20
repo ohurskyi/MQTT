@@ -9,8 +9,15 @@ public abstract class MessageHandlerBase<T> : IMessageHandler
 {
     public Task<IExecutionResult> Handle(IMessage message)
     {
-        return HandleAsync(message.Payload.MessagePayloadFromJson<T>());
+        var context = new MessagingContext<T>
+        {
+            Topic = message.Topic,
+            Payload = message.Payload.MessagePayloadFromJson<T>(),
+            ReplyTopic = message.ReplyTopic,
+            CorrelationId = message.CorrelationId
+        };
+        return HandleAsync(context);
     }
-
-    protected abstract Task<IExecutionResult> HandleAsync(T payload);
+    
+    protected abstract Task<IExecutionResult> HandleAsync(MessagingContext<T> messagingContext);
 }
