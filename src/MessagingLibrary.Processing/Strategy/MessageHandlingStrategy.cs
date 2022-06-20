@@ -14,7 +14,10 @@ public class MessageHandlingStrategy<TMessagingClientOptions> : IMessageHandling
     private readonly HandlerFactory _handlerFactory;
     private readonly ILogger<MessageHandlingStrategy<TMessagingClientOptions>> _logger;
 
-    public MessageHandlingStrategy(IMessageHandlerFactory<TMessagingClientOptions> messageHandlerFactory, HandlerFactory handlerFactory, ILogger<MessageHandlingStrategy<TMessagingClientOptions>> logger)
+    public MessageHandlingStrategy(
+        IMessageHandlerFactory<TMessagingClientOptions> messageHandlerFactory, 
+        HandlerFactory handlerFactory, 
+        ILogger<MessageHandlingStrategy<TMessagingClientOptions>> logger)
     {
         _messageHandlerFactory = messageHandlerFactory;
         _logger = logger;
@@ -33,7 +36,7 @@ public class MessageHandlingStrategy<TMessagingClientOptions> : IMessageHandling
             .GetInstances<IMessageMiddleware>()
             .Reverse()
             .Aggregate((MessageHandlerDelegate)HandlerFunc, 
-                (next, pipeline) => () => pipeline.Handle(message, next));
+                (next, pipeline) => () => pipeline.Handle<TMessagingClientOptions>(message, next));
 
         await result();
     }

@@ -2,7 +2,6 @@
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Core.Results;
 using Microsoft.Extensions.Logging;
-using Mqtt.Library.Client.Local;
 using MqttLibrary.Examples.Pairing.Contracts.Payloads;
 
 namespace MqttLibrary.Examples.Pairing.Domain.Handlers;
@@ -27,7 +26,7 @@ public class GetPairedDeviceMessageHandler : MessageHandlerBase<GetPairedDeviceP
             DeviceName = $"{payload.DeviceId}-{Guid.NewGuid()}-D",
         };
 
-        var result = ReplyResult.CreateIntegrationEventResult<LocalMqttMessagingClientOptions>(response, messagingContext.ReplyTopic, messagingContext.CorrelationId);
+        var result = new ReplyResult(response, messagingContext.ReplyTopic, messagingContext.CorrelationId);
         
         return await Task.FromResult(result);
     }

@@ -28,8 +28,8 @@ public class PairDeviceMessageHandler : MessageHandlerBase<PairDevicePayload>
             PairedDevices = new PairedDevices {DeviceMacAddresses = new List<string> {payload.MacAddress}},
         };
         
-        var integrationEventResult = IntegrationEventResult.CreateIntegrationEventResult<LocalMqttMessagingClientOptions>(eventPayload, TopicConstants.CurrentConfiguration);
-                
+        var integrationEventResult = new IntegrationEventResult(eventPayload, TopicConstants.CurrentConfiguration);
+
         return await Task.FromResult(integrationEventResult);
     }
 }

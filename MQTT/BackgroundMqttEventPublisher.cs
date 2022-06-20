@@ -1,16 +1,15 @@
-﻿using Mqtt.Library.Client.Local;
-using Mqtt.Library.MessageBus;
-using Mqtt.Library.Test.ClientOptions;
+﻿using MessagingLibrary.Core.Messages;
+using Mqtt.Library.Client.Local;
 using MqttLibrary.Examples.Contracts.Payloads;
 
 namespace Mqtt.Library.Test
 {
     public class BackgroundLocalMqttPublisher : BackgroundService
     {
-        private readonly IMqttMessageBus<LocalMqttMessagingClientOptions> _mqttMessageBusLocal;
+        private readonly IMessageBus<LocalMqttMessagingClientOptions> _mqttMessageBusLocal;
         //private readonly IMqttMessageBus<TestMqttMessagingClientOptions> _mqttMessageBusTest;
 
-        public BackgroundLocalMqttPublisher(IMqttMessageBus<LocalMqttMessagingClientOptions> mqttMessageBus)
+        public BackgroundLocalMqttPublisher(IMessageBus<LocalMqttMessagingClientOptions> mqttMessageBus)
         {
             _mqttMessageBusLocal = mqttMessageBus;
             //_mqttMessageBusTest = mqttMessageBusTest;

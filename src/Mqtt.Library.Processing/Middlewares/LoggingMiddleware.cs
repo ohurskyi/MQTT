@@ -1,4 +1,5 @@
-﻿using MessagingLibrary.Core.Messages;
+﻿using MessagingLibrary.Core.Configuration;
+using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Core.Results;
 using MessagingLibrary.Processing.Middlewares;
 using Microsoft.Extensions.Logging;
@@ -14,7 +15,7 @@ public class LoggingMiddleware : IMessageMiddleware
         _logger = logger;
     }
 
-    public async Task<HandlerResult> Handle(IMessage message, MessageHandlerDelegate next)
+    public async Task<HandlerResult> Handle<TMessagingClientOptions>(IMessage message, MessageHandlerDelegate next) where TMessagingClientOptions : IMessagingClientOptions
     {
         _logger.LogInformation("Begin message handling on topic {value}", message.Topic);
         var result = await next();

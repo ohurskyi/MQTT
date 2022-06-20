@@ -2,11 +2,10 @@ using MessagingLibrary.Core.Extensions;
 using MessagingLibrary.Core.Messages;
 using Mqtt.Library.Client;
 using Mqtt.Library.Client.Configuration;
-using Newtonsoft.Json.Linq;
 
 namespace Mqtt.Library.MessageBus;
 
-public class MqttMessageBus<TMessagingClientOptions> : IMqttMessageBus<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
+public class MqttMessageBus<TMessagingClientOptions> : IMessageBus<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
 {
     private readonly IMqttMessagingClient<TMessagingClientOptions> _mqttMessagingClient;
 

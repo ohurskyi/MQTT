@@ -1,9 +1,9 @@
-﻿using MessagingLibrary.Core.Messages;
+﻿using MessagingLibrary.Core.Configuration;
+using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Core.Results;
 using MessagingLibrary.Processing.Middlewares;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Mqtt.Library.MessageBus;
 
 namespace Mqtt.Library.Processing.Middlewares;
 
@@ -18,7 +18,8 @@ public class PublishMiddleware : IMessageMiddleware
         _serviceProvider = serviceProvider;
     }
 
-    public async Task<HandlerResult> Handle(IMessage message, MessageHandlerDelegate next)
+    public async Task<HandlerResult> Handle<TMessagingClientOptions>(IMessage message, MessageHandlerDelegate next)
+        where TMessagingClientOptions : IMessagingClientOptions
     {
         var result = await next();
         var integrationEvents = result.ExecutionResults.OfType<IntegrationEventResult>().ToList();
@@ -26,10 +27,10 @@ public class PublishMiddleware : IMessageMiddleware
         foreach (var integrationEvent in integrationEvents)
         {
             _logger.LogInformation("Publishing integration event into topic {topicValue} of payload {type}", integrationEvent.Topic, integrationEvent.Payload.GetType().Name);
-            var eventBusType = typeof(IMqttMessageBus<>).MakeGenericType(integrationEvent.MessagingClientOptionsType);
-            var eventBus = (IMqttMessageBus)_serviceProvider.GetRequiredService(eventBusType);
-            publishTasks.Add(eventBus.Publish(integrationEvent.Payload, integrationEvent.Topic));
+            var messageBus = _serviceProvider.GetRequiredService<IMessageBus<TMessagingClientOptions>>();
+            publishTasks.Add(messageBus.Publish(integrationEvent.Payload, integrationEvent.Topic));
         }
+
         await Task.WhenAll(publishTasks);
         return result;
     }

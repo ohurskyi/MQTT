@@ -9,12 +9,12 @@ namespace Mqtt.Library.RequestResponse;
 public class Requester<TMessagingClientOptions> : IRequester<TMessagingClientOptions>
     where TMessagingClientOptions : IMqttMessagingClientOptions
 {
-    private readonly IMqttMessageBus<TMessagingClientOptions> _mqttMessageBus;
+    private readonly IMessageBus<TMessagingClientOptions> _mqttMessageBus;
     private readonly IMqttTopicClient<TMessagingClientOptions> _mqttTopicClient;
     private readonly PendingResponsesTracker _pendingResponsesTracker;
 
     public Requester(
-        IMqttMessageBus<TMessagingClientOptions> mqttMessageBus, 
+        IMessageBus<TMessagingClientOptions> mqttMessageBus, 
         IMqttTopicClient<TMessagingClientOptions> mqttTopicClient, 
         PendingResponsesTracker pendingResponsesTracker)
     {

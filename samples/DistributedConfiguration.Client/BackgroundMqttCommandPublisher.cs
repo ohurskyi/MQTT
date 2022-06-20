@@ -1,5 +1,5 @@
-﻿using Mqtt.Library.Client.Local;
-using Mqtt.Library.MessageBus;
+﻿using MessagingLibrary.Core.Messages;
+using Mqtt.Library.Client.Local;
 using MqttLibrary.Examples.Pairing.Contracts.Payloads;
 using MqttLibrary.Examples.Pairing.Contracts.Topics;
 
@@ -9,9 +9,9 @@ namespace DistributedConfiguration.Client
     {
         private int _msgSendCount = 0;
         
-        private readonly IMqttMessageBus<LocalMqttMessagingClientOptions> _mqttMessageBusLocal;
+        private readonly IMessageBus<LocalMqttMessagingClientOptions> _mqttMessageBusLocal;
 
-        public BackgroundMqttCommandPublisher(IMqttMessageBus<LocalMqttMessagingClientOptions> mqttMessageBusLocal)
+        public BackgroundMqttCommandPublisher(IMessageBus<LocalMqttMessagingClientOptions> mqttMessageBusLocal)
         {
             _mqttMessageBusLocal = mqttMessageBusLocal;
         }

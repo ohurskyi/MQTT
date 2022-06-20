@@ -1,10 +1,10 @@
-﻿using MessagingLibrary.Core.Extensions;
+﻿using MessagingLibrary.Core.Configuration;
+using MessagingLibrary.Core.Extensions;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Core.Results;
 using MessagingLibrary.Processing.Middlewares;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Mqtt.Library.MessageBus;
 
 namespace Mqtt.Library.Processing.Middlewares;
 
@@ -19,7 +19,7 @@ public class ReplyMiddleware : IMessageMiddleware
         _serviceProvider = serviceProvider;
     }
 
-    public async Task<HandlerResult> Handle(IMessage message, MessageHandlerDelegate next)
+    public async Task<HandlerResult> Handle<TMessagingClientOptions>(IMessage message, MessageHandlerDelegate next) where TMessagingClientOptions : IMessagingClientOptions
     {
         var result = await next();
         var replyResults = result.ExecutionResults.OfType<ReplyResult>().ToList();
@@ -27,10 +27,9 @@ public class ReplyMiddleware : IMessageMiddleware
         foreach (var replyResult in replyResults)
         {
             _logger.LogInformation("Sending reply to topic {topicValue} of payload {type}", replyResult.ReplyTopic,  replyResult.Payload.GetType().Name);
-            var eventBusType = typeof(IMqttMessageBus<>).MakeGenericType(replyResult.MessagingClientOptionsType);
-            var eventBus = (IMqttMessageBus)_serviceProvider.GetRequiredService(eventBusType);
+            var messageBus = _serviceProvider.GetRequiredService<IMessageBus<TMessagingClientOptions>>();
             var replyMessage = new Message { Topic = replyResult.ReplyTopic, CorrelationId = replyResult.CorrelationId, Payload = replyResult.Payload.MessagePayloadToJson() };
-            replyTasks.Add(eventBus.Publish(replyMessage));
+            replyTasks.Add(messageBus.Publish(replyMessage));
         }
         await Task.WhenAll(replyTasks);
         return result;
