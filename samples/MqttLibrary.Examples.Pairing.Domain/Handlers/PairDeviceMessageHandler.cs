@@ -2,7 +2,6 @@
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Core.Results;
 using Microsoft.Extensions.Logging;
-using Mqtt.Library.Client.Local;
 using MqttLibrary.Examples.Pairing.Contracts.Payloads;
 using MqttLibrary.Examples.Pairing.Contracts.Topics;
 
