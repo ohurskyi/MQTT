@@ -9,7 +9,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddMqttRequestClient<TMessagingClientOptions>(this IServiceCollection serviceCollection) 
         where TMessagingClientOptions: class, IMqttMessagingClientOptions
     {
-        serviceCollection.TryAddSingleton<PendingResponsesTracker>();
+        serviceCollection.TryAddSingleton<PendingResponseTracker>();
         serviceCollection.TryAddSingleton<IRequester<TMessagingClientOptions>, Requester<TMessagingClientOptions>>();
         serviceCollection.TryAddSingleton<IRequestClient<TMessagingClientOptions>, RequestClient<TMessagingClientOptions>>();
         return serviceCollection;

@@ -11,15 +11,15 @@ public class Requester<TMessagingClientOptions> : IRequester<TMessagingClientOpt
 {
     private readonly IMessageBus<TMessagingClientOptions> _mqttMessageBus;
     private readonly IMqttTopicClient<TMessagingClientOptions> _mqttTopicClient;
-    private readonly PendingResponsesTracker _pendingResponsesTracker;
+    private readonly PendingResponseTracker _pendingResponseTracker;
 
     public Requester(
         IMessageBus<TMessagingClientOptions> mqttMessageBus, 
         IMqttTopicClient<TMessagingClientOptions> mqttTopicClient, 
-        PendingResponsesTracker pendingResponsesTracker)
+        PendingResponseTracker pendingResponseTracker)
     {
         _mqttMessageBus = mqttMessageBus;
-        _pendingResponsesTracker = pendingResponsesTracker;
+        _pendingResponseTracker = pendingResponseTracker;
         _mqttTopicClient = mqttTopicClient;
     }
 
@@ -39,7 +39,7 @@ public class Requester<TMessagingClientOptions> : IRequester<TMessagingClientOpt
     
     private async Task<Task<string>> PublishAndWait(IMessage message)
     {
-        var tcs = _pendingResponsesTracker.AddCompletionSource(message.CorrelationId);
+        var tcs = _pendingResponseTracker.AddCompletionSource(message.CorrelationId);
         await _mqttMessageBus.Publish(message);
         return tcs;
     }

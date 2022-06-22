@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 
 namespace Mqtt.Library.RequestResponse;
 
-public class PendingResponsesTracker
+public class PendingResponseTracker
 {
     public readonly ConcurrentDictionary<Guid, TaskCompletionSource<string>> TaskCompletionSources = new();
 

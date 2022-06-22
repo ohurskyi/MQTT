@@ -6,16 +6,16 @@ namespace Mqtt.Library.RequestResponse;
 
 public class ResponseHandler : IMessageHandler
 {
-    private readonly PendingResponsesTracker _pendingResponsesTracker;
+    private readonly PendingResponseTracker _pendingResponseTracker;
 
-    public ResponseHandler(PendingResponsesTracker pendingResponsesTracker)
+    public ResponseHandler(PendingResponseTracker pendingResponseTracker)
     {
-        _pendingResponsesTracker = pendingResponsesTracker;
+        _pendingResponseTracker = pendingResponseTracker;
     }
 
     public async Task<IExecutionResult> Handle(IMessage message)
     {
-        if (!_pendingResponsesTracker.TaskCompletionSources.TryRemove(message.CorrelationId, out var taskCompletionSource))
+        if (!_pendingResponseTracker.TaskCompletionSources.TryRemove(message.CorrelationId, out var taskCompletionSource))
         {
             return await Task.FromResult(ExecutionResult.Fail($"Not existing correlation id {message.CorrelationId}"));
         }
