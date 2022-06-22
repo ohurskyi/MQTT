@@ -24,7 +24,8 @@ public abstract class BaseMqttStartupListener<TMessagingClientOptions> : IHosted
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         _subscriptions = await Task.WhenAll(DefineSubscriptions());
-        _logger.LogInformation("Created subscriptions {count}", _subscriptions.Length);
+        _logger.LogInformation("{count} subscriptions created.", _subscriptions.Length);
+        _logger.LogInformation("Subscribed topics {value}", _subscriptions.Select(s => s.Topic));
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)

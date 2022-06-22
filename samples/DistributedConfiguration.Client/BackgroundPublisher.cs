@@ -5,13 +5,13 @@ using MqttLibrary.Examples.Pairing.Contracts.Topics;
 
 namespace DistributedConfiguration.Client
 {
-    public class BackgroundMqttCommandPublisher : BackgroundService
+    public class BackgroundPublisher : BackgroundService
     {
         private int _msgSendCount = 0;
         
         private readonly IMessageBus<LocalMqttMessagingClientOptions> _mqttMessageBusLocal;
 
-        public BackgroundMqttCommandPublisher(IMessageBus<LocalMqttMessagingClientOptions> mqttMessageBusLocal)
+        public BackgroundPublisher(IMessageBus<LocalMqttMessagingClientOptions> mqttMessageBusLocal)
         {
             _mqttMessageBusLocal = mqttMessageBusLocal;
         }
