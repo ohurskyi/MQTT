@@ -70,6 +70,11 @@ public class MessageHandlerFactory<TMessagingClientOptions> : IMessageHandlerFac
 
         handlers.TryRemove(handlerType, out _);
 
+        if (handlers.IsEmpty)
+        {
+            _handlersMap.TryRemove(topic, out _);
+        }
+
         return handlers.Count;
     }
 }
