@@ -18,7 +18,7 @@ public class UpdateLocalConfigurationMessageHandler : MessageHandlerBase<PairedD
     {
         var payload = messagingContext.Payload;
         var newConfiguration = payload.PairedDevices;
-        _logger.LogInformation("New Configuration received {value}. Update local configuration after distributed config change", newConfiguration);
+        _logger.LogInformation("New Configuration received with devices count: {value}. Update local configuration after distributed config change", newConfiguration.DeviceMacAddresses.Count);
         return await Task.FromResult(ExecutionResult.Ok());
     }
 }

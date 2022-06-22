@@ -13,6 +13,7 @@ public class PairedDevicesConfigurationChangedMqttStartupListener : BaseMqttStar
         var subscriptions = new List<Task<ISubscription>>
         {
             TopicClient.Subscribe<UpdateLocalConfigurationMessageHandler>($"{TopicConstants.CurrentConfiguration}"),
+            TopicClient.Subscribe<NotifyUsersMessageHandler>($"{TopicConstants.CurrentConfiguration}")
         };
         return subscriptions;
     }
