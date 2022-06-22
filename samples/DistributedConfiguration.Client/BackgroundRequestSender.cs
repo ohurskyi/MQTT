@@ -21,13 +21,20 @@ public class BackgroundRequestSender : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            var payload = new GetPairedDevicePayload { DeviceId = $"Device: {++_requestCount}"};
-            var response = await _requestClient.SendAndWaitAsync<GetPairedDeviceResponse>(
-                TopicConstants.RequestUpdate,
-                TopicConstants.ResponseUpdate, payload,
-                TimeSpan.FromSeconds(5));
-
-            _logger.LogInformation("Received response for device with id {value}", response?.DeviceId);
+            try
+            {
+                var payload = new GetPairedDevicePayload { DeviceId = $"Device: {++_requestCount}"};
+                var response = await _requestClient.SendAndWaitAsync<GetPairedDeviceResponse>(
+                    TopicConstants.RequestUpdate,
+                    TopicConstants.ResponseUpdate, payload,
+                    TimeSpan.FromSeconds(2));
+                _logger.LogInformation("Received response for device with id {value}", response?.DeviceId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Error while sending sending {type} request.", typeof(GetPairedDevicePayload));
+            }
+            
             await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
         }
     }
