@@ -15,12 +15,14 @@ public class ResponseHandler : IMessageHandler
 
     public async Task<IExecutionResult> Handle(IMessage message)
     {
-        if (!_pendingResponseTracker.TaskCompletionSources.TryRemove(message.CorrelationId, out var taskCompletionSource))
+        var taskCompletionSource = _pendingResponseTracker.GetCompletion(message.CorrelationId);
+
+        if (taskCompletionSource == null)
         {
-            return await Task.FromResult(ExecutionResult.Fail($"Not existing correlation id {message.CorrelationId}"));
+            return await Task.FromResult(ExecutionResult.Fail($"Cannot complete the response. Non existing correlation id {message.CorrelationId}"));
         }
 
-        taskCompletionSource.TrySetResult(message.Payload);
+        taskCompletionSource.SetResult(message.Payload);
             
         return await Task.FromResult(ExecutionResult.Ok());
     }

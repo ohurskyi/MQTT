@@ -28,18 +28,30 @@ public class Requester<TMessagingClientOptions> : IRequester<TMessagingClientOpt
         var correlationId = Guid.NewGuid();
         var replyTopic = $"{responseTopic}/{correlationId}";
         var subscription = await _mqttTopicClient.Subscribe<ResponseHandler>(replyTopic);
-        var message = new Message { Topic = requestTopic, ReplyTopic = replyTopic, CorrelationId = correlationId, Payload = payload.MessagePayloadToJson() };
-        var responseTask = await PublishAndWait(message);
-        var response = await Task.WhenAny(responseTask, Task.Delay(timeout)) == responseTask
-            ? responseTask.Result
-            : null;
-        await _mqttTopicClient.Unsubscribe(subscription);
-        return response;
+        
+        try
+        {
+            var message = new Message { Topic = requestTopic, ReplyTopic = replyTopic, CorrelationId = correlationId, Payload = payload.MessagePayloadToJson() };
+            var responseTask = await PublishAndWaitForCompletion(message);
+            var delayTask = Task.Delay(timeout);
+            
+            if (await Task.WhenAny(responseTask, delayTask) == delayTask)
+            {
+                throw new OperationCanceledException();
+            }
+
+            return responseTask.Result;
+        }
+        finally
+        {
+            await _mqttTopicClient.Unsubscribe(subscription);
+            _pendingResponseTracker.RemoveCompletion(correlationId);
+        }
     }
     
-    private async Task<Task<string>> PublishAndWait(IMessage message)
+    private async Task<Task<string>> PublishAndWaitForCompletion(IMessage message)
     {
-        var tcs = _pendingResponseTracker.AddCompletionSource(message.CorrelationId);
+        var tcs = _pendingResponseTracker.AddCompletion(message.CorrelationId);
         await _mqttMessageBus.Publish(message);
         return tcs;
     }

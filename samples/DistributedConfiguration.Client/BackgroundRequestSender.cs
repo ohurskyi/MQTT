@@ -28,7 +28,7 @@ public class BackgroundRequestSender : BackgroundService
                 TimeSpan.FromSeconds(5));
 
             _logger.LogInformation("Received response for device with id {value}", response?.DeviceId);
-            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+            await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
         }
     }
 }

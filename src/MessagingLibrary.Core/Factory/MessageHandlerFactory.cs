@@ -47,10 +47,7 @@ public class MessageHandlerFactory<TMessagingClientOptions> : IMessageHandlerFac
     {
         if (!_handlersMap.TryGetValue(topic, out var handlers))
         {
-            _handlersMap.TryAdd(topic,
-                new ConcurrentDictionary<Type, byte>(new[]
-                    { new KeyValuePair<Type, byte>(typeof(THandler), default) })
-            );
+            _handlersMap.TryAdd(topic, new ConcurrentDictionary<Type, byte>(new[] { new KeyValuePair<Type, byte>(typeof(THandler), default) }));
             return 1;
         }
 
