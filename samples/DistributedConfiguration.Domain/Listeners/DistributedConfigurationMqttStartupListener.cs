@@ -1,5 +1,6 @@
 ﻿using DistributedConfiguration.Contracts.Topics;
 using DistributedConfiguration.Domain.Handlers;
+using MessagingLibrary.Core.Handlers;
 using Microsoft.Extensions.Logging;
 using Mqtt.Library.Client.Local;
 using Mqtt.Library.Processing.Listeners;
@@ -24,4 +25,9 @@ public class DistributedConfigurationMqttStartupListener : BaseMqttStartupListen
             ILogger<BaseMqttStartupListener<LocalMqttMessagingClientOptions>> logger) : base(topicClient, logger)
     {
     }
+}
+
+public class PairDeviceMessageHandlerDefinition : MessageHandlerDefinition<PairDeviceMessageHandler>
+{
+    public override string Topic => $"{TopicConstants.PairDevice}";
 }
