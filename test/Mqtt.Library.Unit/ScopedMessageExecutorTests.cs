@@ -10,6 +10,7 @@ using MessagingLibrary.Processing.Executor;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using Mqtt.Library.Processing;
 using Mqtt.Library.Unit.Handlers;
 using Mqtt.Library.Unit.Payloads;
 using Xunit;
@@ -39,8 +40,8 @@ public class UnitTest1
         var result = builder.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
         // assert
-        Assert.Contains("Device Handler 1", result);
-        Assert.Contains("Device Handler All", result);
+        Assert.Contains("Device " + nameof(HandlerForDeviceNumber1), result);
+        Assert.Contains("Device " + nameof(HandlerForAllDeviceNumbers), result);
     }
     
     private static IServiceProvider BuildContainer(TextWriter textWriter)
@@ -50,7 +51,7 @@ public class UnitTest1
         serviceCollection.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
         
         serviceCollection.AddMessagingPipeline<TestMessagingClientOptions>(typeof(HandlerForDeviceNumber1).Assembly);
-        serviceCollection.AddSingleton<ITopicFilterComparer, MqttTopicComparer>();
+        serviceCollection.AddMqttTopicComparer();
         serviceCollection.AddSingleton(textWriter);
         return serviceCollection.BuildServiceProvider();
     }

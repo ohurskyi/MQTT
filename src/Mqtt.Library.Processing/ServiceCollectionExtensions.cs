@@ -37,7 +37,7 @@ public static class ServiceCollectionExtensions
         return serviceCollection;
     }
 
-    private static IServiceCollection AddMqttTopicComparer(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddMqttTopicComparer(this IServiceCollection serviceCollection)
     { 
         serviceCollection.TryAddSingleton<ITopicFilterComparer, MqttTopicComparer>();
         return serviceCollection;

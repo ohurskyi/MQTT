@@ -19,7 +19,7 @@ public class HandlerForDeviceNumber1 : MessageHandlerBase<DeviceMessagePayload>
     protected override async Task<IExecutionResult> HandleAsync(MessagingContext<DeviceMessagePayload> messagingContext)
     {
         var payload = messagingContext.Payload;
-        await _textWriter.WriteLineAsync(payload.Name + " Handler 1");
+        await _textWriter.WriteLineAsync(payload.Name + " " + nameof(HandlerForDeviceNumber1));
         return ExecutionResult.Ok();
     }
 }
