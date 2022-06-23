@@ -1,6 +1,6 @@
 ﻿using MessagingLibrary.Core.Messages;
 
-namespace MqttLibrary.Examples.Pairing.Contracts.Payloads;
+namespace DistributedConfiguration.Contracts.Payloads;
 
 public class GetPairedDeviceResponse : IMessageResponse
 {

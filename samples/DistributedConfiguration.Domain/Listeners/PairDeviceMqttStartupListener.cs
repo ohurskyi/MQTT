@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DistributedConfiguration.Contracts.Topics;
+using DistributedConfiguration.Domain.Handlers;
+using Microsoft.Extensions.Logging;
 using Mqtt.Library.Client.Local;
 using Mqtt.Library.Processing.Listeners;
 using Mqtt.Library.TopicClient;
-using MqttLibrary.Examples.Pairing.Contracts.Topics;
-using MqttLibrary.Examples.Pairing.Domain.Handlers;
 
-namespace MqttLibrary.Examples.Pairing.Domain.Listeners;
+namespace DistributedConfiguration.Domain.Listeners;
 
 public class PairDeviceMqttStartupListener : BaseMqttStartupListener<LocalMqttMessagingClientOptions>
 {

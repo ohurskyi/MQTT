@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DistributedConfiguration.Domain.Handlers;
+using DistributedConfiguration.Domain.Listeners;
+using Microsoft.Extensions.DependencyInjection;
 using Mqtt.Library.Client.Local;
 using Mqtt.Library.Processing;
-using MqttLibrary.Examples.Pairing.Domain.Handlers;
-using MqttLibrary.Examples.Pairing.Domain.Listeners;
 
-namespace MqttLibrary.Examples.Pairing.Domain;
+namespace DistributedConfiguration.Domain;
 
 public static class ServiceCollectionExtensions
 {

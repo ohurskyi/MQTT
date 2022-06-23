@@ -18,9 +18,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{2FDF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mqtt.Library.Client.Local", "samples\Mqtt.Library.Client.Local\Mqtt.Library.Client.Local.csproj", "{36395632-9953-4016-8DD2-0428B85E96E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MqttLibrary.Examples.Pairing.Domain", "samples\MqttLibrary.Examples.Pairing.Domain\MqttLibrary.Examples.Pairing.Domain.csproj", "{ED0B52CC-5BD5-4E5C-8F50-30DEAF3D42FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedConfiguration.Domain", "samples\DistributedConfiguration.Domain\DistributedConfiguration.Domain.csproj", "{ED0B52CC-5BD5-4E5C-8F50-30DEAF3D42FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MqttLibrary.Examples.Pairing.Contracts", "samples\MqttLibrary.Examples.Pairing.Contracts\MqttLibrary.Examples.Pairing.Contracts.csproj", "{C220A89F-51BD-4DB8-A436-D763C8F5379E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedConfiguration.Contracts", "samples\DistributedConfiguration.Contracts\DistributedConfiguration.Contracts.csproj", "{C220A89F-51BD-4DB8-A436-D763C8F5379E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "distributedconfiguration", "distributedconfiguration", "{5818DAC5-B3C9-42EC-88FB-94E2AC911272}"
 EndProject

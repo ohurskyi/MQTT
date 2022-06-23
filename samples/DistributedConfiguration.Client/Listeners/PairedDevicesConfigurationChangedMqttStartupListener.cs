@@ -1,8 +1,8 @@
 ﻿using DistributedConfiguration.Client.IntegrationEvents.PairedDevicesConfigurationChanged;
+using DistributedConfiguration.Contracts.Topics;
 using Mqtt.Library.Client.Local;
 using Mqtt.Library.Processing.Listeners;
 using Mqtt.Library.TopicClient;
-using MqttLibrary.Examples.Pairing.Contracts.Topics;
 
 namespace DistributedConfiguration.Client.Listeners;
 

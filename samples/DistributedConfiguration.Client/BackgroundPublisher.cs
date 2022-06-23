@@ -1,7 +1,7 @@
-﻿using MessagingLibrary.Core.Messages;
+﻿using DistributedConfiguration.Contracts.Payloads;
+using DistributedConfiguration.Contracts.Topics;
+using MessagingLibrary.Core.Messages;
 using Mqtt.Library.Client.Local;
-using MqttLibrary.Examples.Pairing.Contracts.Payloads;
-using MqttLibrary.Examples.Pairing.Contracts.Topics;
 
 namespace DistributedConfiguration.Client
 {

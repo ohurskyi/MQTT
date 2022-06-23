@@ -1,4 +1,4 @@
-namespace MqttLibrary.Examples.Pairing.Contracts.Payloads;
+namespace DistributedConfiguration.Contracts.Payloads;
 
 public class PairedDevices
 {

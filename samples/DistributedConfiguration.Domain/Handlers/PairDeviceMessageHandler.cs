@@ -1,11 +1,11 @@
-﻿using MessagingLibrary.Core.Handlers;
+﻿using DistributedConfiguration.Contracts.Payloads;
+using DistributedConfiguration.Contracts.Topics;
+using MessagingLibrary.Core.Handlers;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Core.Results;
 using Microsoft.Extensions.Logging;
-using MqttLibrary.Examples.Pairing.Contracts.Payloads;
-using MqttLibrary.Examples.Pairing.Contracts.Topics;
 
-namespace MqttLibrary.Examples.Pairing.Domain.Handlers;
+namespace DistributedConfiguration.Domain.Handlers;
 
 public class PairDeviceMessageHandler : MessageHandlerBase<PairDevicePayload>
 {

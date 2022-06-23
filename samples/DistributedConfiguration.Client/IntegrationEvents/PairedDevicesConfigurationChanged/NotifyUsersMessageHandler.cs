@@ -1,7 +1,7 @@
-﻿using MessagingLibrary.Core.Handlers;
+﻿using DistributedConfiguration.Contracts.Payloads;
+using MessagingLibrary.Core.Handlers;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Core.Results;
-using MqttLibrary.Examples.Pairing.Contracts.Payloads;
 
 namespace DistributedConfiguration.Client.IntegrationEvents.PairedDevicesConfigurationChanged;
 

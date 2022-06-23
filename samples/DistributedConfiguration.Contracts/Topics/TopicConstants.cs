@@ -1,4 +1,4 @@
-﻿namespace MqttLibrary.Examples.Pairing.Contracts.Topics
+﻿namespace DistributedConfiguration.Contracts.Topics
 {
     public static class TopicConstants
     {

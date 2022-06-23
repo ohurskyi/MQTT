@@ -16,6 +16,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Mqtt.Library.Client.Local\Mqtt.Library.Client.Local.csproj" />
-      <ProjectReference Include="..\MqttLibrary.Examples.Pairing.Domain\MqttLibrary.Examples.Pairing.Domain.csproj" />
+      <ProjectReference Include="..\DistributedConfiguration.Domain\DistributedConfiguration.Domain.csproj" />
     </ItemGroup>
 </Project>
