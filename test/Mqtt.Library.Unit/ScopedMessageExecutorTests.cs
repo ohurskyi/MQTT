@@ -20,19 +20,19 @@ namespace Mqtt.Library.Unit;
 public class UnitTest1
 {
     [Fact]
-    public async Task ExecuteAsync_For_Device_Number_One_Topic_Calls_HandlerForOneAndForAll()
+    public async Task ExecuteAsync_ForDeviceNumberOneTopic_CallsHandlerForOneAndForAll()
     {
         // arrange
         var builder = new StringBuilder();
         await using var writer = new StringWriter(builder);
-
+        
         var deviceMessagePayload = new DeviceMessagePayload { Name = "Device" };
         var serviceProvider = BuildContainer(writer);
 
         var factory = serviceProvider.GetRequiredService<IMessageHandlerFactory<TestMessagingClientOptions>>();
-        factory.RegisterHandler<HandlerForDeviceNumber1>($"{TopicConstants.DeviceTopic}/{1}");
-        factory.RegisterHandler<HandlerForDeviceNumber2>($"{TopicConstants.DeviceTopic}/{2}");
-        factory.RegisterHandler<HandlerForAllDeviceNumbers>($"{TopicConstants.DeviceTopic}/#");
+        factory.RegisterHandler<HandlerForDeviceNumber1>(BuildDeviceTopic(1));
+        factory.RegisterHandler<HandlerForDeviceNumber2>(BuildDeviceTopic(1));
+        factory.RegisterHandler<HandlerForAllDeviceNumbers>(GetAllDevicesTopic());
         
         // act
         var sut = new ScopedMessageExecutor<TestMessagingClientOptions>(serviceProvider.GetRequiredService<IServiceScopeFactory>());
@@ -54,5 +54,15 @@ public class UnitTest1
         serviceCollection.AddMqttTopicComparer();
         serviceCollection.AddSingleton(textWriter);
         return serviceCollection.BuildServiceProvider();
+    }
+
+    private static string GetAllDevicesTopic()
+    {
+        return $"{TopicConstants.DeviceTopic}/#";
+    }
+
+    private static string BuildDeviceTopic(int deviceNumber)
+    {
+        return $"{TopicConstants.DeviceTopic}/{deviceNumber}";
     }
 }
