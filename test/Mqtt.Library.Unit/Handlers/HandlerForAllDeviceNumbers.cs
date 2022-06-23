@@ -1,28 +1,25 @@
-﻿using System;
+﻿using System.IO;
 using System.Threading.Tasks;
 using MessagingLibrary.Core.Handlers;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Core.Results;
-using Microsoft.Extensions.Logging;
 using Mqtt.Library.Unit.Payloads;
 
 namespace Mqtt.Library.Unit.Handlers;
 
 public class HandlerForAllDeviceNumbers : MessageHandlerBase<DeviceMessagePayload>
 {
-    private readonly ILogger<HandlerForAllDeviceNumbers> _logger;
+    private readonly TextWriter _textWriter;
 
-    public HandlerForAllDeviceNumbers(ILogger<HandlerForAllDeviceNumbers> logger)
+    public HandlerForAllDeviceNumbers(TextWriter textWriter)
     {
-        _logger = logger;
+        _textWriter = textWriter;
     }
 
     protected override async Task<IExecutionResult> HandleAsync(MessagingContext<DeviceMessagePayload> messagingContext)
     {
-        _logger.LogInformation("Handler {handler} received message from topic = {value}", nameof(HandlerForAllDeviceNumbers), messagingContext.Topic);
-        var deviceMessagePayload = messagingContext.Payload;
-        _logger.LogInformation("Device name = {value}", deviceMessagePayload.Name);
-        await Task.Delay(TimeSpan.FromSeconds(1));
+        var payload = messagingContext.Payload;
+        await _textWriter.WriteLineAsync(payload.Name + " Handler All");
         return ExecutionResult.Ok();
     }
 }
