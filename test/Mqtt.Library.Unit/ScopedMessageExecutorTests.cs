@@ -27,20 +27,48 @@ public class UnitTest1
         await using var writer = new StringWriter(builder);
         
         var deviceMessagePayload = new DeviceMessagePayload { Name = "Device" };
+        const int deviceNumberOne = 1;
+        const int deviceNumberTwo = 2;
         var serviceProvider = BuildContainer(writer);
 
         var factory = serviceProvider.GetRequiredService<IMessageHandlerFactory<TestMessagingClientOptions>>();
-        factory.RegisterHandler<HandlerForDeviceNumber1>(BuildDeviceTopic(1));
-        factory.RegisterHandler<HandlerForDeviceNumber2>(BuildDeviceTopic(1));
+        factory.RegisterHandler<HandlerForDeviceNumber1>(BuildDeviceTopic(deviceNumberOne));
+        factory.RegisterHandler<HandlerForDeviceNumber2>(BuildDeviceTopic(deviceNumberTwo));
         factory.RegisterHandler<HandlerForAllDeviceNumbers>(GetAllDevicesTopic());
         
         // act
         var sut = new ScopedMessageExecutor<TestMessagingClientOptions>(serviceProvider.GetRequiredService<IServiceScopeFactory>());
-        await sut.ExecuteAsync(new Message { Topic = $"{TopicConstants.DeviceTopic}/{1}", Payload = deviceMessagePayload.MessagePayloadToJson() });
+        await sut.ExecuteAsync(new Message { Topic = BuildDeviceTopic(deviceNumberOne), Payload = deviceMessagePayload.MessagePayloadToJson() });
         var result = builder.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
         // assert
         Assert.Contains("Device " + nameof(HandlerForDeviceNumber1), result);
+        Assert.Contains("Device " + nameof(HandlerForAllDeviceNumbers), result);
+    }
+    
+    [Fact]
+    public async Task ExecuteAsync_SingleLevelWildCardDeviceTopic_CallsHandlerForAll()
+    {
+        // arrange
+        var builder = new StringBuilder();
+        await using var writer = new StringWriter(builder);
+
+        var deviceMessagePayload = new DeviceMessagePayload { Name = "Device" };
+        const int deviceNumberOne = 1;
+        const int deviceNumberTwo = 2;
+        var serviceProvider = BuildContainer(writer);
+
+        var factory = serviceProvider.GetRequiredService<IMessageHandlerFactory<TestMessagingClientOptions>>();
+        factory.RegisterHandler<HandlerForDeviceNumber1>($"{TopicConstants.DeviceTopic}/{deviceNumberOne}/brightness");
+        factory.RegisterHandler<HandlerForDeviceNumber2>($"{TopicConstants.DeviceTopic}/{deviceNumberTwo}/brightness");
+        factory.RegisterHandler<HandlerForAllDeviceNumbers>($"{TopicConstants.DeviceTopic}/+/temperature");
+        
+        // act
+        var sut = new ScopedMessageExecutor<TestMessagingClientOptions>(serviceProvider.GetRequiredService<IServiceScopeFactory>());
+        await sut.ExecuteAsync(new Message { Topic = $"{TopicConstants.DeviceTopic}/{deviceNumberOne}/temperature", Payload = deviceMessagePayload.MessagePayloadToJson() });
+        var result = builder.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+
+        // assert
         Assert.Contains("Device " + nameof(HandlerForAllDeviceNumbers), result);
     }
     
