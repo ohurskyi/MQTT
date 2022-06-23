@@ -7,7 +7,7 @@ using Mqtt.Library.TopicClient;
 
 namespace DistributedConfiguration.Domain.Listeners;
 
-public class PairDeviceMqttStartupListener : BaseMqttStartupListener<LocalMqttMessagingClientOptions>
+public class DistributedConfigurationMqttStartupListener : BaseMqttStartupListener<LocalMqttMessagingClientOptions>
 {
     protected override IEnumerable<Task<ISubscription>> DefineSubscriptions()
     {
@@ -19,7 +19,7 @@ public class PairDeviceMqttStartupListener : BaseMqttStartupListener<LocalMqttMe
         return subscriptions;
     }
 
-    public PairDeviceMqttStartupListener(
+    public DistributedConfigurationMqttStartupListener(
             IMqttTopicClient<LocalMqttMessagingClientOptions> topicClient, 
             ILogger<BaseMqttStartupListener<LocalMqttMessagingClientOptions>> logger) : base(topicClient, logger)
     {

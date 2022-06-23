@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddPairingDomainServices(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddMqttMessagingPipeline<LocalMqttMessagingClientOptions>(typeof(PairDeviceMessageHandler).Assembly);
-        serviceCollection.AddMqttStartupListener<PairDeviceMqttStartupListener>();
+        serviceCollection.AddMqttStartupListener<DistributedConfigurationMqttStartupListener>();
         return serviceCollection;
     }
 }
