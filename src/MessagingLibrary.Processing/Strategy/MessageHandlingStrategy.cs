@@ -3,24 +3,20 @@ using MessagingLibrary.Core.Factory;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Core.Results;
 using MessagingLibrary.Processing.Middlewares;
-using Microsoft.Extensions.Logging;
 
 namespace MessagingLibrary.Processing.Strategy;
 
-public class MessageHandlingStrategy<TMessagingClientOptions> : IMessageHandlingStrategy<TMessagingClientOptions>, IDisposable
+public class MessageHandlingStrategy<TMessagingClientOptions> : IMessageHandlingStrategy<TMessagingClientOptions>
     where TMessagingClientOptions: IMessagingClientOptions
 {
     private readonly IMessageHandlerFactory<TMessagingClientOptions> _messageHandlerFactory;
     private readonly HandlerFactory _handlerFactory;
-    private readonly ILogger<MessageHandlingStrategy<TMessagingClientOptions>> _logger;
 
     public MessageHandlingStrategy(
         IMessageHandlerFactory<TMessagingClientOptions> messageHandlerFactory, 
-        HandlerFactory handlerFactory, 
-        ILogger<MessageHandlingStrategy<TMessagingClientOptions>> logger)
+        HandlerFactory handlerFactory)
     {
         _messageHandlerFactory = messageHandlerFactory;
-        _logger = logger;
         _handlerFactory = handlerFactory;
     }
 
@@ -59,10 +55,5 @@ public class MessageHandlingStrategy<TMessagingClientOptions> : IMessageHandling
         }
 
         return handlerResult;
-    }
-
-    public void Dispose()
-    {
-        _logger.LogInformation($"{nameof(MessageHandlingStrategy<TMessagingClientOptions>)} disposed.");
     }
 }
