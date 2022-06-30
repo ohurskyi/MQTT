@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using MessagingLibrary.Core;
 using MessagingLibrary.Core.Configuration;
 using MessagingLibrary.Core.Factory;
 using MessagingLibrary.Core.Handlers;
@@ -37,7 +38,7 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddRequiredServices<TMessagingClientOptions>(this IServiceCollection serviceCollection) 
         where TMessagingClientOptions: IMessagingClientOptions
     {
-        serviceCollection.TryAddSingleton<IMessageHandlerFactory<TMessagingClientOptions>, MessageHandlerFactory<TMessagingClientOptions>>();
+        serviceCollection.AddMessageHandlerFactory<TMessagingClientOptions>();
 
         serviceCollection.TryAddTransient<HandlerFactory>(p => p.GetRequiredService);
 
