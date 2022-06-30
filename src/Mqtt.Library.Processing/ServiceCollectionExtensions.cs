@@ -15,7 +15,6 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddMqttMessagingPipeline<TMessagingClientOptions>(this IServiceCollection serviceCollection, params Assembly[] assemblies)
         where TMessagingClientOptions : class, IMqttMessagingClientOptions
     {
-        // add message bus dependency
         return serviceCollection
             .AddMessagingPipeline<TMessagingClientOptions>(assemblies)
             .AddMqttTopicComparer()

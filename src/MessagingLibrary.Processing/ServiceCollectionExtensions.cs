@@ -14,6 +14,8 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddMessagingPipeline<TMessagingClientOptions>(this IServiceCollection serviceCollection, params Assembly[] assemblies)
         where TMessagingClientOptions: IMessagingClientOptions
     {
+        assemblies = assemblies.Distinct().ToArray();
+        
         serviceCollection.AddMessageHandlers(assemblies);
 
         serviceCollection.AddRequiredServices<TMessagingClientOptions>();
