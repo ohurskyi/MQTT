@@ -25,13 +25,13 @@ public abstract class BaseMqttStartupListener<TMessagingClientOptions> : IHosted
     {
         _subscriptions = await Task.WhenAll(DefineSubscriptions());
         _logger.LogInformation("{count} subscriptions created.", _subscriptions.Length);
-        _logger.LogInformation("Subscribed topics {value}", _subscriptions.Select(s => s.Topic));
+        _logger.LogInformation("Subscribed topics {value}", _subscriptions.Select(s => s.Topic).Distinct());
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)
     {
         await Task.WhenAll(_subscriptions.Select(subscription => TopicClient.Unsubscribe(subscription)));
         _logger.LogInformation("{count} subscriptions removed.", _subscriptions.Length);
-        _logger.LogInformation("Unsubscribed from topics {value}", _subscriptions.Select(s => s.Topic));
+        _logger.LogInformation("Unsubscribed from topics {value}", _subscriptions.Select(s => s.Topic).Distinct());
     }
 }
