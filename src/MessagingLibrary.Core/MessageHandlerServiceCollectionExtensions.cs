@@ -1,28 +1,18 @@
 ﻿using System.Reflection;
-using MessagingLibrary.Core.Configuration;
-using MessagingLibrary.Core.Factory;
 using MessagingLibrary.Core.Handlers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace MessagingLibrary.Core;
 
-public static class ServiceCollectionExtensions
+public static class MessageHandlerServiceCollectionExtensions
 {
-    public static IServiceCollection AddMessageHandlerFactory<TMessagingClientOptions>(this IServiceCollection serviceCollection) 
-        where TMessagingClientOptions: IMessagingClientOptions
-    {
-        serviceCollection.TryAddTransient<HandlerFactory>(p => p.GetRequiredService);
-        serviceCollection.TryAddSingleton<IMessageHandlerFactory<TMessagingClientOptions>, MessageHandlerFactory<TMessagingClientOptions>>();
-        return serviceCollection;
-    }
-
     public static IServiceCollection AddMessageHandler<T>(this IServiceCollection serviceCollection) where T : class, IMessageHandler
     { 
         serviceCollection.TryAddTransient<T>();
         return serviceCollection;
     }
-    
+
     public static IServiceCollection AddMessageHandlers(this IServiceCollection serviceCollection, Assembly[] assemblies)
     {
         var implementationTypes = assemblies
