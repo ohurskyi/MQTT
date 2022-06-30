@@ -16,7 +16,7 @@ public static class ServiceCollectionExtensions
         return serviceCollection
             .AddMessagingPipeline<TMessagingClientOptions>(assemblies)
             .AddMqttTopicComparer()
-            .AddMiddleware()
+            .AddInternalMiddleware()
             .AddMqttApplicationMessageReceivedHandler<TMessagingClientOptions>();
     }
 
@@ -26,16 +26,12 @@ public static class ServiceCollectionExtensions
         serviceCollection.TryAddSingleton<MqttReceivedMessageHandler<TMessagingClientOptions>>();
         return serviceCollection;
     }
-
-    private static IServiceCollection AddMiddleware(this IServiceCollection serviceCollection)
+    
+    private static IServiceCollection AddInternalMiddleware(this IServiceCollection serviceCollection)
     {
-        serviceCollection.TryAddEnumerable(new[]
-        {
-            ServiceDescriptor.Transient(typeof(IMessageMiddleware), typeof(LoggingMiddleware)),
-            ServiceDescriptor.Transient(typeof(IMessageMiddleware), typeof(PublishMiddleware)),
-            ServiceDescriptor.Transient(typeof(IMessageMiddleware), typeof(ReplyMiddleware))
-        });
-
+        serviceCollection.AddMiddleware<LoggingMiddleware>();
+        serviceCollection.AddMiddleware<PublishMiddleware>();
+        serviceCollection.AddMiddleware<ReplyMiddleware>();
         return serviceCollection;
     }
 }
