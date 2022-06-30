@@ -17,12 +17,12 @@ public class MessageHandlerFactory<TMessagingClientOptions> : IMessageHandlerFac
     }
 
 
-    public int RegisterHandler<THandler>(string topic) where THandler : IMessageHandler
+    public int RegisterHandler<THandler>(string topic) where THandler : class, IMessageHandler
     {
         return AddInner<THandler>(topic);
     }
 
-    public int RemoveHandler<THandler>(string topic) where THandler : IMessageHandler
+    public int RemoveHandler<THandler>(string topic) where THandler : class, IMessageHandler
     {
         return RemoveInner(typeof(THandler), topic);
     }

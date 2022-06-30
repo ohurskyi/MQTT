@@ -16,7 +16,7 @@ public class MqttTopicClient<TMessagingClientOptions> : IMqttTopicClient<TMessag
         _messageHandlerFactory = messageHandlerFactory;
     }
 
-    public async Task<ISubscription> Subscribe<T>(string topic) where T : IMessageHandler
+    public async Task<ISubscription> Subscribe<T>(string topic) where T : class, IMessageHandler
     {
         await SubscribeInner<T>(topic);
         return new Subscription<T>(topic);
@@ -35,7 +35,7 @@ public class MqttTopicClient<TMessagingClientOptions> : IMqttTopicClient<TMessag
         }
     }
 
-    private async Task SubscribeInner<T>(string topic) where T : IMessageHandler
+    private async Task SubscribeInner<T>(string topic) where T : class, IMessageHandler
     {
         if (_messageHandlerFactory.RegisterHandler<T>(topic) == 1)
         {
