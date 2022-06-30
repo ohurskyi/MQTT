@@ -4,7 +4,6 @@ using System.Text;
 using System.Threading.Tasks;
 using MessagingLibrary.Core.Extensions;
 using MessagingLibrary.Core.Factory;
-using MessagingLibrary.Core.Handlers;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Processing;
 using MessagingLibrary.Processing.Executor;
@@ -33,13 +32,9 @@ public class UnitTest1
         var serviceProvider = BuildContainer(writer);
 
         var factory = serviceProvider.GetRequiredService<IMessageHandlerFactory<TestMessagingClientOptions>>();
-        // factory.RegisterHandler<HandlerForDeviceNumber1>(BuildDeviceTopic(deviceNumberOne));
-        // factory.RegisterHandler<HandlerForDeviceNumber2>(BuildDeviceTopic(deviceNumberTwo));
-        // factory.RegisterHandler<HandlerForAllDeviceNumbers>(GetAllDevicesTopic());
-
-        factory.RegisterHandler(new DeviceMessageHandlerDefinition<HandlerForDeviceNumber1>(deviceNumberOne));
-        factory.RegisterHandler(new DeviceMessageHandlerDefinition<HandlerForDeviceNumber2>(deviceNumberTwo));
-        factory.RegisterHandler(new DeviceMessageHandlerDefinition<HandlerForAllDeviceNumbers>());
+        factory.RegisterHandler<HandlerForDeviceNumber1>(BuildDeviceTopic(deviceNumberOne));
+        factory.RegisterHandler<HandlerForDeviceNumber2>(BuildDeviceTopic(deviceNumberTwo));
+        factory.RegisterHandler<HandlerForAllDeviceNumbers>(GetAllDevicesTopic());
         
         // act
         var sut = new ScopedMessageExecutor<TestMessagingClientOptions>(serviceProvider.GetRequiredService<IServiceScopeFactory>());

@@ -16,17 +16,13 @@ public class MessageHandlerFactory<TMessagingClientOptions> : IMessageHandlerFac
         _topicFilterComparer = topicFilterComparer;
     }
 
-    public int RegisterHandler<THandler>(IMessageHandlerDefinition<THandler> definition) where THandler : class, IMessageHandler
-    {
-        return AddInner<THandler>(definition.Topic);
-    }
 
-    public int RegisterHandler<THandler>(string topic) where THandler : class, IMessageHandler
+    public int RegisterHandler<THandler>(string topic) where THandler : IMessageHandler
     {
         return AddInner<THandler>(topic);
     }
 
-    public int RemoveHandler<THandler>(string topic) where THandler : class, IMessageHandler
+    public int RemoveHandler<THandler>(string topic) where THandler : IMessageHandler
     {
         return RemoveInner(typeof(THandler), topic);
     }
