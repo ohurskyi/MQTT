@@ -16,6 +16,12 @@ public static class ServiceCollectionExtensions
         serviceCollection.TryAddSingleton<IMessageHandlerFactory<TMessagingClientOptions>, MessageHandlerFactory<TMessagingClientOptions>>();
         return serviceCollection;
     }
+
+    public static IServiceCollection AddMessageHandler<T>(this IServiceCollection serviceCollection) where T : class, IMessageHandler
+    { 
+        serviceCollection.TryAddTransient<T>();
+        return serviceCollection;
+    }
     
     public static IServiceCollection AddMessageHandlers(this IServiceCollection serviceCollection, Assembly[] assemblies)
     {

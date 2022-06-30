@@ -17,9 +17,7 @@ IHost host = Host.CreateDefaultBuilder(args)
 
         serviceCollection.AddMqttRequestClient<LocalMqttMessagingClientOptions>();
 
-        serviceCollection.AddMqttMessagingPipeline<LocalMqttMessagingClientOptions>(
-            typeof(ResponseHandler).Assembly,
-            typeof(UpdateLocalConfigurationMessageHandler).Assembly);
+        serviceCollection.AddMqttMessagingPipeline<LocalMqttMessagingClientOptions>(typeof(UpdateLocalConfigurationMessageHandler).Assembly);
 
         serviceCollection.AddHostedService<BackgroundPublisher>();
 

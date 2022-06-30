@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MessagingLibrary.Core;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Mqtt.Library.Client.Configuration;
 
@@ -10,6 +11,7 @@ public static class ServiceCollectionExtensions
         where TMessagingClientOptions: class, IMqttMessagingClientOptions
     {
         serviceCollection.TryAddSingleton<PendingResponseTracker>();
+        serviceCollection.AddMessageHandler<ResponseHandler>();
         serviceCollection.TryAddSingleton<IRequester<TMessagingClientOptions>, Requester<TMessagingClientOptions>>();
         serviceCollection.TryAddSingleton<IRequestClient<TMessagingClientOptions>, RequestClient<TMessagingClientOptions>>();
         return serviceCollection;
