@@ -40,8 +40,6 @@ public static class ServiceCollectionExtensions
     {
         serviceCollection.AddMessageHandlerFactory<TMessagingClientOptions>();
 
-        serviceCollection.TryAddTransient<HandlerFactory>(p => p.GetRequiredService);
-
         serviceCollection.TryAddTransient<IMessageHandlingStrategy<TMessagingClientOptions>, MessageHandlingStrategy<TMessagingClientOptions>>();
         
         serviceCollection.TryAddSingleton<IMessageExecutor<TMessagingClientOptions>, ScopedMessageExecutor<TMessagingClientOptions>>();
