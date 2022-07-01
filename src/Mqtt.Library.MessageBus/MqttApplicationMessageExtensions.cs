@@ -1,7 +1,5 @@
-﻿using System.Text;
-using MessagingLibrary.Core.Messages;
+﻿using MessagingLibrary.Core.Messages;
 using MQTTnet;
-using Newtonsoft.Json;
 
 namespace Mqtt.Library.MessageBus;
 
