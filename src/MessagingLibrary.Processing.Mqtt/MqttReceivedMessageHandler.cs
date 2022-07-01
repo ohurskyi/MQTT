@@ -1,10 +1,10 @@
 ﻿using MessagingLibrary.Processing.Executor;
+using MessagingLibrary.Processing.Mqtt.Extensions;
 using Mqtt.Library.Client.Configuration;
-using Mqtt.Library.Processing.Extensions;
 using MQTTnet;
 using MQTTnet.Client.Receiving;
 
-namespace Mqtt.Library.Processing;
+namespace MessagingLibrary.Processing.Mqtt;
 
 public class MqttReceivedMessageHandler<TMessagingClientOptions> : IMqttApplicationMessageReceivedHandler
     where TMessagingClientOptions : class, IMqttMessagingClientOptions

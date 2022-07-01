@@ -8,7 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\MessagingLibrary.Core\MessagingLibrary.Core.csproj" />
-      <ProjectReference Include="..\..\src\Mqtt.Library.Processing\Mqtt.Library.Processing.csproj" />
+      <ProjectReference Include="..\..\src\MessagingLibrary.Processing.Mqtt\MessagingLibrary.Processing.Mqtt.csproj" />
       <ProjectReference Include="..\Mqtt.Library.Client.Local\Mqtt.Library.Client.Local.csproj" />
       <ProjectReference Include="..\DistributedConfiguration.Contracts\DistributedConfiguration.Contracts.csproj" />
     </ItemGroup>

@@ -2,7 +2,7 @@
 using Mqtt.Library.Client;
 using Mqtt.Library.Client.Configuration;
 
-namespace Mqtt.Library.Processing;
+namespace MessagingLibrary.Processing.Mqtt;
 
 public static class ServiceProviderExtensions
 {

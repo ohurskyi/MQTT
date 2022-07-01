@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
 using MessagingLibrary.Processing.Configuration.DependencyInjection;
+using MessagingLibrary.Processing.Mqtt.Middlewares;
 using Microsoft.Extensions.DependencyInjection;
 using Mqtt.Library.Client.Configuration;
-using Mqtt.Library.Processing.Middlewares;
 
-namespace Mqtt.Library.Processing.Configuration.DependencyInjection;
+namespace MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;
 
 public static class MessagingPipelineServiceCollectionExtensions
 {

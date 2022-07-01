@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Mqtt.Library.Processing.Configuration.DependencyInjection;
+namespace MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;
 
 public static class StartupListenerServiceCollectionExtensions
 {

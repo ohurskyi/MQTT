@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Mqtt.Library.Client.Configuration;
 using Mqtt.Library.TopicClient;
 
-namespace Mqtt.Library.Processing.Listeners;
+namespace MessagingLibrary.Processing.Mqtt.Listeners;
 
 public abstract class BaseMqttStartupListener<TMessagingClientOptions> : IHostedService
     where TMessagingClientOptions : class, IMqttMessagingClientOptions

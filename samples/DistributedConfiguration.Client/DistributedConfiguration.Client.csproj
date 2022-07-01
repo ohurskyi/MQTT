@@ -16,7 +16,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\Mqtt.Library.MessageBus\Mqtt.Library.MessageBus.csproj" />
-      <ProjectReference Include="..\..\src\Mqtt.Library.Processing\Mqtt.Library.Processing.csproj" />
+      <ProjectReference Include="..\..\src\MessagingLibrary.Processing.Mqtt\MessagingLibrary.Processing.Mqtt.csproj" />
       <ProjectReference Include="..\..\src\Mqtt.Library.RequestResponse\Mqtt.Library.RequestResponse.csproj" />
       <ProjectReference Include="..\Mqtt.Library.Client.Local\Mqtt.Library.Client.Local.csproj" />
       <ProjectReference Include="..\DistributedConfiguration.Contracts\DistributedConfiguration.Contracts.csproj" />

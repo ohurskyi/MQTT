@@ -1,9 +1,8 @@
 ﻿using DistributedConfiguration.Domain.Handlers;
 using DistributedConfiguration.Domain.Listeners;
+using MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Mqtt.Library.Client.Local;
-using Mqtt.Library.Processing;
-using Mqtt.Library.Processing.Configuration.DependencyInjection;
 
 namespace DistributedConfiguration.Domain;
 

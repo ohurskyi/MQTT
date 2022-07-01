@@ -1,6 +1,6 @@
 using MessagingLibrary.Core.Factory;
 
-namespace Mqtt.Library.Processing;
+namespace MessagingLibrary.Processing.Mqtt;
 
 public class MqttTopicComparer : ITopicFilterComparer
 {

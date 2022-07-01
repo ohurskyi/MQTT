@@ -1,10 +1,8 @@
 ﻿using System.Text;
 using MessagingLibrary.Core.Messages;
 using MQTTnet;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
-namespace Mqtt.Library.Processing.Extensions;
+namespace MessagingLibrary.Processing.Mqtt.Extensions;
 
 public static class MqttApplicationMessageExtensions
 {

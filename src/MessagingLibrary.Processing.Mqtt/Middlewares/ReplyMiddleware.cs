@@ -6,7 +6,7 @@ using MessagingLibrary.Processing.Middlewares;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Mqtt.Library.Processing.Middlewares;
+namespace MessagingLibrary.Processing.Mqtt.Middlewares;
 
 public class ReplyMiddleware : IMessageMiddleware
 {

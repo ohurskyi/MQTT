@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Mqtt.Library.Processing.Configuration.DependencyInjection;
+namespace MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;
 
 public static class TopicComparerServiceCollectionExtensions
 {
