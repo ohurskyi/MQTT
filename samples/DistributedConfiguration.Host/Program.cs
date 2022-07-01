@@ -8,11 +8,11 @@ IHost host = Host.CreateDefaultBuilder(args)
     {
         var configuration = hostContext.Configuration;
         
-        serviceCollection.AddLocalMqttMessagingClient(configuration);
+        serviceCollection.AddInfrastructureMqttMessagingClient(configuration);
 
-        serviceCollection.AddLocalMqttTopicClient();
+        serviceCollection.AddInfrastructureMqttTopicClient();
 
-        serviceCollection.AddLocalMqttMessageBus();
+        serviceCollection.AddInfrastructureMqttMessageBus();
 
         serviceCollection.AddPairingDomainServices();
 
@@ -23,6 +23,6 @@ IHost host = Host.CreateDefaultBuilder(args)
         .WriteTo.Console())
     .Build();
 
-host.Services.UseMqttMessageReceivedHandler<LocalMqttMessagingClientOptions>();
+host.Services.UseMqttMessageReceivedHandler<InfrastructureMqttMessagingClientOptions>();
 
 await host.RunAsync();

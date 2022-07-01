@@ -9,9 +9,9 @@ namespace DistributedConfiguration.Client
     {
         private int _msgSendCount = 0;
         
-        private readonly IMessageBus<LocalMqttMessagingClientOptions> _mqttMessageBusLocal;
+        private readonly IMessageBus<InfrastructureMqttMessagingClientOptions> _mqttMessageBusLocal;
 
-        public BackgroundPublisher(IMessageBus<LocalMqttMessagingClientOptions> mqttMessageBusLocal)
+        public BackgroundPublisher(IMessageBus<InfrastructureMqttMessagingClientOptions> mqttMessageBusLocal)
         {
             _mqttMessageBusLocal = mqttMessageBusLocal;
         }

@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddPairingDomainServices(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddMqttMessagingPipeline<LocalMqttMessagingClientOptions>(typeof(PairDeviceMessageHandler).Assembly);
+        serviceCollection.AddMqttMessagingPipeline<InfrastructureMqttMessagingClientOptions>(typeof(PairDeviceMessageHandler).Assembly);
         serviceCollection.AddMqttStartupListener<DistributedConfigurationMqttStartupListener>();
         return serviceCollection;
     }

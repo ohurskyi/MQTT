@@ -6,7 +6,7 @@ using Mqtt.Library.TopicClient;
 
 namespace DistributedConfiguration.Client.Listeners;
 
-public class PairedDevicesConfigurationChangedMqttStartupListener : BaseMqttStartupListener<LocalMqttMessagingClientOptions>
+public class PairedDevicesConfigurationChangedMqttStartupListener : BaseMqttStartupListener<InfrastructureMqttMessagingClientOptions>
 {
     protected override IEnumerable<Task<ISubscription>> DefineSubscriptions()
     {
@@ -19,8 +19,8 @@ public class PairedDevicesConfigurationChangedMqttStartupListener : BaseMqttStar
     }
 
     public PairedDevicesConfigurationChangedMqttStartupListener(
-            IMqttTopicClient<LocalMqttMessagingClientOptions> topicClient, 
-            ILogger<BaseMqttStartupListener<LocalMqttMessagingClientOptions>> logger) : base(topicClient, logger)
+            IMqttTopicClient<InfrastructureMqttMessagingClientOptions> topicClient, 
+            ILogger<BaseMqttStartupListener<InfrastructureMqttMessagingClientOptions>> logger) : base(topicClient, logger)
     {
     }
 }

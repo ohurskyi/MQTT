@@ -7,18 +7,18 @@ namespace Mqtt.Library.Client.Local;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddLocalMqttMessagingClient(this IServiceCollection serviceCollection, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructureMqttMessagingClient(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
-        return serviceCollection.AddMqttMessagingClient<LocalMqttMessagingClientOptions>(configuration);
+        return serviceCollection.AddMqttMessagingClient<InfrastructureMqttMessagingClientOptions>(configuration);
     }
     
-    public static IServiceCollection AddLocalMqttMessageBus(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddInfrastructureMqttMessageBus(this IServiceCollection serviceCollection)
     {
-        return serviceCollection.AddMqttMessageBus<LocalMqttMessagingClientOptions>();
+        return serviceCollection.AddMqttMessageBus<InfrastructureMqttMessagingClientOptions>();
     }
 
-    public static IServiceCollection AddLocalMqttTopicClient(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddInfrastructureMqttTopicClient(this IServiceCollection serviceCollection)
     {
-        return serviceCollection.AddMqttTopicClient<LocalMqttMessagingClientOptions>();
+        return serviceCollection.AddMqttTopicClient<InfrastructureMqttMessagingClientOptions>();
     }
 }

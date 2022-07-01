@@ -10,15 +10,15 @@ using Serilog;
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, serviceCollection) =>
     {
-        serviceCollection.AddLocalMqttMessagingClient(hostContext.Configuration);
+        serviceCollection.AddInfrastructureMqttMessagingClient(hostContext.Configuration);
 
-        serviceCollection.AddLocalMqttMessageBus();
+        serviceCollection.AddInfrastructureMqttMessageBus();
 
-        serviceCollection.AddLocalMqttTopicClient();
+        serviceCollection.AddInfrastructureMqttTopicClient();
 
-        serviceCollection.AddMqttRequestClient<LocalMqttMessagingClientOptions>();
+        serviceCollection.AddMqttRequestClient<InfrastructureMqttMessagingClientOptions>();
 
-        serviceCollection.AddMqttMessagingPipeline<LocalMqttMessagingClientOptions>(typeof(UpdateLocalConfigurationMessageHandler).Assembly);
+        serviceCollection.AddMqttMessagingPipeline<InfrastructureMqttMessagingClientOptions>(typeof(UpdateLocalConfigurationMessageHandler).Assembly);
 
         serviceCollection.AddHostedService<BackgroundPublisher>();
 
@@ -32,6 +32,6 @@ IHost host = Host.CreateDefaultBuilder(args)
         .WriteTo.Console())
     .Build();
 
-host.Services.UseMqttMessageReceivedHandler<LocalMqttMessagingClientOptions>();
+host.Services.UseMqttMessageReceivedHandler<InfrastructureMqttMessagingClientOptions>();
 
 await host.RunAsync();

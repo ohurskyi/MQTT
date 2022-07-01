@@ -2,7 +2,7 @@
 
 namespace Mqtt.Library.Client.Local;
 
-public class LocalMqttMessagingClientOptions : IMqttMessagingClientOptions
+public class InfrastructureMqttMessagingClientOptions : IMqttMessagingClientOptions
 {
     public MqttBrokerConnectionOptions MqttBrokerConnectionOptions { get; set; } = new() { Host = "localhost", Port = 1883 };
 }
