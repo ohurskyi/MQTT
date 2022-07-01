@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Mqtt.Library.Processing;
+using Mqtt.Library.Processing.Configuration.DependencyInjection;
 using Mqtt.Library.Unit.Handlers;
 using Mqtt.Library.Unit.Payloads;
 using Xunit;

@@ -2,9 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Mqtt.Library.Processing;
+namespace Mqtt.Library.Processing.Configuration.DependencyInjection;
 
-public static class MqttTopicComparerServiceCollectionExtensions
+public static class TopicComparerServiceCollectionExtensions
 {
     public static IServiceCollection AddMqttTopicComparer(this IServiceCollection serviceCollection)
     { 

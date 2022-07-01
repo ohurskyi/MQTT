@@ -5,6 +5,7 @@ using MessagingLibrary.Processing.Middlewares;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Mqtt.Library.Client.Configuration;
+using Mqtt.Library.Processing.Configuration.DependencyInjection;
 using Mqtt.Library.Processing.Middlewares;
 
 namespace Mqtt.Library.Processing;

@@ -3,6 +3,7 @@ using DistributedConfiguration.Client.IntegrationEvents.PairedDevicesConfigurati
 using DistributedConfiguration.Client.Listeners;
 using Mqtt.Library.Client.Local;
 using Mqtt.Library.Processing;
+using Mqtt.Library.Processing.Configuration.DependencyInjection;
 using Mqtt.Library.RequestResponse;
 using Serilog;
 

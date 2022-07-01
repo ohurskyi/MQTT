@@ -1,9 +1,8 @@
 ﻿using MessagingLibrary.Processing.Middlewares;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Mqtt.Library.Processing.Middlewares;
 
-namespace Mqtt.Library.Processing;
+namespace Mqtt.Library.Processing.Configuration.DependencyInjection;
 
 public static class MiddlewareServiceCollectionsExtensions
 {
