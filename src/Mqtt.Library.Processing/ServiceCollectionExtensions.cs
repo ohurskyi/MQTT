@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using MessagingLibrary.Processing;
+using MessagingLibrary.Processing.Configuration.DependencyInjection;
 using MessagingLibrary.Processing.Middlewares;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;

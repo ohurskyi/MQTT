@@ -6,6 +6,7 @@ using MessagingLibrary.Core.Extensions;
 using MessagingLibrary.Core.Factory;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Processing;
+using MessagingLibrary.Processing.Configuration.DependencyInjection;
 using MessagingLibrary.Processing.Executor;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

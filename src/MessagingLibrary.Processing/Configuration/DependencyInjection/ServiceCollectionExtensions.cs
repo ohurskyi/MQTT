@@ -1,14 +1,12 @@
 ﻿using System.Reflection;
-using MessagingLibrary.Core;
 using MessagingLibrary.Core.Configuration;
 using MessagingLibrary.Core.Configuration.DependencyInjection;
-using MessagingLibrary.Core.Factory;
 using MessagingLibrary.Processing.Executor;
 using MessagingLibrary.Processing.Strategy;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace MessagingLibrary.Processing;
+namespace MessagingLibrary.Processing.Configuration.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {
