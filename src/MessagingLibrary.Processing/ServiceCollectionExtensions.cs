@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using MessagingLibrary.Core;
 using MessagingLibrary.Core.Configuration;
+using MessagingLibrary.Core.Configuration.DependencyInjection;
 using MessagingLibrary.Core.Factory;
 using MessagingLibrary.Processing.Executor;
 using MessagingLibrary.Processing.Strategy;

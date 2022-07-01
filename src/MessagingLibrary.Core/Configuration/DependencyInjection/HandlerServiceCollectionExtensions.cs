@@ -3,9 +3,9 @@ using MessagingLibrary.Core.Handlers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace MessagingLibrary.Core;
+namespace MessagingLibrary.Core.Configuration.DependencyInjection;
 
-public static class MessageHandlerServiceCollectionExtensions
+public static class HandlerServiceCollectionExtensions
 {
     public static IServiceCollection AddMessageHandler<T>(this IServiceCollection serviceCollection) where T : class, IMessageHandler
     { 

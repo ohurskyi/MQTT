@@ -1,11 +1,10 @@
-﻿using MessagingLibrary.Core.Configuration;
-using MessagingLibrary.Core.Factory;
+﻿using MessagingLibrary.Core.Factory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace MessagingLibrary.Core;
+namespace MessagingLibrary.Core.Configuration.DependencyInjection;
 
-public static class MessageHandlerFactoryServiceCollectionExtensions
+public static class HandlerFactoryServiceCollectionExtensions
 {
     public static IServiceCollection AddMessageHandlerFactory<TMessagingClientOptions>(this IServiceCollection serviceCollection) 
         where TMessagingClientOptions: IMessagingClientOptions
