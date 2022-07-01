@@ -1,16 +1,12 @@
 ﻿using System.Reflection;
-using MessagingLibrary.Processing;
 using MessagingLibrary.Processing.Configuration.DependencyInjection;
-using MessagingLibrary.Processing.Middlewares;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Mqtt.Library.Client.Configuration;
-using Mqtt.Library.Processing.Configuration.DependencyInjection;
 using Mqtt.Library.Processing.Middlewares;
 
-namespace Mqtt.Library.Processing;
+namespace Mqtt.Library.Processing.Configuration.DependencyInjection;
 
-public static class ServiceCollectionExtensions
+public static class MessagingPipelineServiceCollectionExtensions
 {
     public static IServiceCollection AddMqttMessagingPipeline<TMessagingClientOptions>(this IServiceCollection serviceCollection, params Assembly[] assemblies)
         where TMessagingClientOptions : class, IMqttMessagingClientOptions
@@ -18,18 +14,11 @@ public static class ServiceCollectionExtensions
         return serviceCollection
             .AddMessagingPipeline<TMessagingClientOptions>(assemblies)
             .AddMqttTopicComparer()
-            .AddInternalMiddleware()
+            .AddInternalMiddlewares()
             .AddMqttApplicationMessageReceivedHandler<TMessagingClientOptions>();
     }
 
-    private static IServiceCollection AddMqttApplicationMessageReceivedHandler<TMessagingClientOptions>(this IServiceCollection serviceCollection)
-        where TMessagingClientOptions : class, IMqttMessagingClientOptions
-    {
-        serviceCollection.TryAddSingleton<MqttReceivedMessageHandler<TMessagingClientOptions>>();
-        return serviceCollection;
-    }
-    
-    private static IServiceCollection AddInternalMiddleware(this IServiceCollection serviceCollection)
+    private static IServiceCollection AddInternalMiddlewares(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddMiddleware<LoggingMiddleware>();
         serviceCollection.AddMiddleware<PublishMiddleware>();
