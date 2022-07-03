@@ -1,6 +1,6 @@
 using DistributedConfiguration.Domain;
 using MessagingLibrary.Processing.Mqtt;
-using Mqtt.Library.Client.Local;
+using Mqtt.Library.Client.Infrastructure;
 using Serilog;
 
 IHost host = Host.CreateDefaultBuilder(args)

@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Mqtt.Library.MessageBus;
 using Mqtt.Library.TopicClient;
 
-namespace Mqtt.Library.Client.Local;
+namespace Mqtt.Library.Client.Infrastructure;
 
 public static class ServiceCollectionExtensions
 {

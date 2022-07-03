@@ -2,7 +2,7 @@
 using DistributedConfiguration.Domain.Handlers;
 using MessagingLibrary.Processing.Mqtt.Listeners;
 using Microsoft.Extensions.Logging;
-using Mqtt.Library.Client.Local;
+using Mqtt.Library.Client.Infrastructure;
 using Mqtt.Library.TopicClient;
 
 namespace DistributedConfiguration.Domain.Listeners;

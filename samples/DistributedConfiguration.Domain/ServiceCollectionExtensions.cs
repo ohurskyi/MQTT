@@ -2,7 +2,7 @@
 using DistributedConfiguration.Domain.Listeners;
 using MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
-using Mqtt.Library.Client.Local;
+using Mqtt.Library.Client.Infrastructure;
 
 namespace DistributedConfiguration.Domain;
 

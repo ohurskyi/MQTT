@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{190E30F9-5E6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{2FDF9B42-0D8C-4844-9224-0604A9941B55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mqtt.Library.Client.Local", "samples\Mqtt.Library.Client.Local\Mqtt.Library.Client.Local.csproj", "{36395632-9953-4016-8DD2-0428B85E96E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mqtt.Library.Client.Infrastructure", "samples\Mqtt.Library.Client.Infrastructure\Mqtt.Library.Client.Infrastructure.csproj", "{36395632-9953-4016-8DD2-0428B85E96E2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedConfiguration.Domain", "samples\DistributedConfiguration.Domain\DistributedConfiguration.Domain.csproj", "{ED0B52CC-5BD5-4E5C-8F50-30DEAF3D42FF}"
 EndProject
