@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace DistributedConfiguration.Domain.Handlers;
 
-public class PairDeviceMessageHandler : MessageHandlerBase<PairDevicePayload>
+public class PairDeviceMessageHandler : MessageHandlerBase<PairDeviceContract>
 {
     private readonly ILogger<PairDeviceMessageHandler> _logger;
 
@@ -16,13 +16,13 @@ public class PairDeviceMessageHandler : MessageHandlerBase<PairDevicePayload>
         _logger = logger;
     }
 
-    protected override async Task<IExecutionResult> HandleAsync(MessagingContext<PairDevicePayload> messagingContext)
+    protected override async Task<IExecutionResult> HandleAsync(MessagingContext<PairDeviceContract> messagingContext)
     {
         var payload = messagingContext.Payload;
         
         _logger.LogInformation("Paired with device {value}", payload.MacAddress);
 
-        var eventPayload = new PairedDevicesConfigurationChangedEventPayload
+        var eventPayload = new PairedDevicesConfigurationChangedEventContract
         {
             PairedDevices = new PairedDevices {DeviceMacAddresses = new List<string> {payload.MacAddress}},
         };

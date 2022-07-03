@@ -5,7 +5,7 @@ using MessagingLibrary.Core.Results;
 namespace MessagingLibrary.Core.Handlers;
 
 public abstract class MessageHandlerBase<T> : IMessageHandler
-    where T: IMessagePayload
+    where T: IMessageContract
 {
     public Task<IExecutionResult> Handle(IMessage message)
     {

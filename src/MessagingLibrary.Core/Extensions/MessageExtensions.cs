@@ -6,7 +6,7 @@ namespace MessagingLibrary.Core.Extensions
 {
     public static class MessageExtensions
     {
-        public static string MessagePayloadToJson<T>(this T messagePayload) where T: IMessagePayload
+        public static string MessagePayloadToJson<T>(this T messagePayload) where T: IMessageContract
         {
             return JsonConvert.SerializeObject(messagePayload, new JsonSerializerSettings
             {
@@ -14,7 +14,7 @@ namespace MessagingLibrary.Core.Extensions
             });
         }
         
-        public static T MessagePayloadFromJson<T>(this string messagePayload) where T: IMessagePayload
+        public static T MessagePayloadFromJson<T>(this string messagePayload) where T: IMessageContract
         {
             return JsonConvert.DeserializeObject<T>(messagePayload, new JsonSerializerSettings
             {

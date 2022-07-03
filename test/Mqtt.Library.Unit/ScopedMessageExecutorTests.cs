@@ -26,7 +26,7 @@ public class UnitTest1
         var builder = new StringBuilder();
         await using var writer = new StringWriter(builder);
         
-        var deviceMessagePayload = new DeviceMessagePayload { Name = "Device" };
+        var deviceMessagePayload = new DeviceMessageContract { Name = "Device" };
         const int deviceNumberOne = 1;
         const int deviceNumberTwo = 2;
         var serviceProvider = BuildContainer(writer);
@@ -53,7 +53,7 @@ public class UnitTest1
         var builder = new StringBuilder();
         await using var writer = new StringWriter(builder);
 
-        var deviceMessagePayload = new DeviceMessagePayload { Name = "Device" };
+        var deviceMessagePayload = new DeviceMessageContract { Name = "Device" };
         const int deviceNumberOne = 1;
         const int deviceNumberTwo = 2;
         var serviceProvider = BuildContainer(writer);

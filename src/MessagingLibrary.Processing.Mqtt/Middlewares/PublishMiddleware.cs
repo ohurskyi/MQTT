@@ -26,9 +26,9 @@ public class PublishMiddleware : IMessageMiddleware
         var publishTasks = new List<Task>(integrationEvents.Count);
         foreach (var integrationEvent in integrationEvents)
         {
-            _logger.LogInformation("Publishing integration event into topic {topicValue} of payload {type}", integrationEvent.Topic, integrationEvent.Payload.GetType().Name);
+            _logger.LogInformation("Publishing integration event into topic {topicValue} of payload {type}", integrationEvent.Topic, integrationEvent.Contract.GetType().Name);
             var messageBus = _serviceProvider.GetRequiredService<IMessageBus<TMessagingClientOptions>>();
-            publishTasks.Add(messageBus.Publish(integrationEvent.Payload, integrationEvent.Topic));
+            publishTasks.Add(messageBus.Publish(integrationEvent.Contract, integrationEvent.Topic));
         }
 
         await Task.WhenAll(publishTasks);

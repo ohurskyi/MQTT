@@ -2,7 +2,7 @@
 
 namespace Mqtt.Library.Unit.Payloads;
 
-public class DeviceMessagePayload : IMessagePayload
+public class DeviceMessageContract : IMessageContract
 {
     public string Name { get; set; }
 }

@@ -5,12 +5,12 @@ namespace MessagingLibrary.Core.Results
     public class IntegrationEventResult : ExecutionResult
     {
         public string Topic { get; }
-        public IMessagePayload Payload { get; }
+        public IMessageContract Contract { get; }
 
-        public IntegrationEventResult(IMessagePayload payload, string topic)
+        public IntegrationEventResult(IMessageContract contract, string topic)
         {
             Topic = topic;
-            Payload = payload;
+            Contract = contract;
         }
     }
 }

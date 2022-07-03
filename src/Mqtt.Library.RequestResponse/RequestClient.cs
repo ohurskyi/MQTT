@@ -13,9 +13,9 @@ public class RequestClient<TMessagingClientOptions> : IRequestClient<TMessagingC
         _requester = requester;
     }
 
-    public async Task<TMessageResponse> SendAndWaitAsync<TMessageResponse>(string requestTopic, string responseTopic, IMessagePayload payload, TimeSpan timeout) where TMessageResponse : class, IMessageResponse
+    public async Task<TMessageResponse> SendAndWaitAsync<TMessageResponse>(string requestTopic, string responseTopic, IMessageContract contract, TimeSpan timeout) where TMessageResponse : class, IMessageResponse
     {
-        var response = await _requester.Request(requestTopic, responseTopic, payload, timeout);
+        var response = await _requester.Request(requestTopic, responseTopic, contract, timeout);
         var messagePayloadFromJson = response?.MessagePayloadFromJson<TMessageResponse>();
         return messagePayloadFromJson;
     }

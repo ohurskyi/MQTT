@@ -23,7 +23,7 @@ public class Requester<TMessagingClientOptions> : IRequester<TMessagingClientOpt
         _mqttTopicClient = mqttTopicClient;
     }
 
-    public async Task<string> Request(string requestTopic, string responseTopic, IMessagePayload payload, TimeSpan timeout)
+    public async Task<string> Request(string requestTopic, string responseTopic, IMessageContract contract, TimeSpan timeout)
     {
         var correlationId = Guid.NewGuid();
         var replyTopic = $"{responseTopic}/{correlationId}";
@@ -31,7 +31,7 @@ public class Requester<TMessagingClientOptions> : IRequester<TMessagingClientOpt
         
         try
         {
-            var message = new Message { Topic = requestTopic, ReplyTopic = replyTopic, CorrelationId = correlationId, Payload = payload.MessagePayloadToJson() };
+            var message = new Message { Topic = requestTopic, ReplyTopic = replyTopic, CorrelationId = correlationId, Payload = contract.MessagePayloadToJson() };
             var responseTask = await PublishAndWaitForCompletion(message);
             var delayTask = Task.Delay(timeout);
             

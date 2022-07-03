@@ -1,6 +1,6 @@
 ﻿namespace MessagingLibrary.Core.Messages;
 
-public interface IMessagePayload
+public interface IMessageContract
 {
     
 }

@@ -7,7 +7,7 @@ using Mqtt.Library.Unit.Payloads;
 
 namespace Mqtt.Library.Unit.Handlers;
 
-public class HandlerForAllDeviceNumbers : MessageHandlerBase<DeviceMessagePayload>
+public class HandlerForAllDeviceNumbers : MessageHandlerBase<DeviceMessageContract>
 {
     private readonly TextWriter _textWriter;
 
@@ -16,7 +16,7 @@ public class HandlerForAllDeviceNumbers : MessageHandlerBase<DeviceMessagePayloa
         _textWriter = textWriter;
     }
 
-    protected override async Task<IExecutionResult> HandleAsync(MessagingContext<DeviceMessagePayload> messagingContext)
+    protected override async Task<IExecutionResult> HandleAsync(MessagingContext<DeviceMessageContract> messagingContext)
     {
         var payload = messagingContext.Payload;
         await _textWriter.WriteLineAsync(payload.Name + " " + nameof(HandlerForAllDeviceNumbers));

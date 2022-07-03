@@ -1,6 +1,6 @@
 ﻿namespace MessagingLibrary.Core.Messages;
 
-public interface IMessagingContext<T> where T: IMessagePayload
+public interface IMessagingContext<T> where T: IMessageContract
 {
     string Topic { get; set; }
     string ReplyTopic { get; set; }

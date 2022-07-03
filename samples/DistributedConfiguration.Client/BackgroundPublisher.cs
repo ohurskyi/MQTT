@@ -21,7 +21,7 @@ namespace DistributedConfiguration.Client
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                var message = new PairDevicePayload { MacAddress = $"Address: {++_msgSendCount}" };
+                var message = new PairDeviceContract { MacAddress = $"Address: {++_msgSendCount}" };
                 const string topic = TopicConstants.PairDevice;
                 
                 await _mqttMessageBusLocal.Publish(message, topic);
