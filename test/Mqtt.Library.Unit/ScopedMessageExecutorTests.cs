@@ -19,6 +19,34 @@ namespace Mqtt.Library.Unit;
 
 public class UnitTest1
 {
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(420)]
+    public async Task ExecuteAsync_MultiWildCardDeviceTopic_CallHandlerForAllDevices(int deviceNumber)
+    {
+        // arrange
+        var builder = new StringBuilder();
+        await using var writer = new StringWriter(builder);
+
+        var multiWildCardDeviceTopic = $"{TopicConstants.DeviceTopic}/#";
+        var serviceProvider = BuildContainer(writer);
+        var factory = serviceProvider.GetRequiredService<IMessageHandlerFactory<TestMessagingClientOptions>>();
+        factory.RegisterHandler<HandlerForAllDeviceNumbers>(multiWildCardDeviceTopic);
+
+        var contract =  new DeviceMessageContract { Name = "Device" };
+        var deviceTopic = $"{TopicConstants.DeviceTopic}/{deviceNumber}";
+        var message = new Message { Topic = deviceTopic, Payload = contract.MessagePayloadToJson() };
+
+        // act
+        var sut = new ScopedMessageExecutor<TestMessagingClientOptions>(serviceProvider.GetRequiredService<IServiceScopeFactory>());
+        await sut.ExecuteAsync(message);
+        var result = builder.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+
+        // assert
+        Assert.Contains("Device " + nameof(HandlerForAllDeviceNumbers), result);
+    }
+    
     [Fact]
     public async Task ExecuteAsync_ForDeviceNumberOneTopic_CallsHandlerForOneAndForAll()
     {
