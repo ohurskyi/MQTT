@@ -1,4 +1,6 @@
-﻿using DistributedConfiguration.Contracts.Payloads;
+﻿using System.Collections.Concurrent;
+using DistributedConfiguration.Contracts.Models;
+using DistributedConfiguration.Contracts.Payloads;
 using DistributedConfiguration.Contracts.Topics;
 using MessagingLibrary.Core.Handlers;
 using MessagingLibrary.Core.Messages;
@@ -10,6 +12,7 @@ namespace DistributedConfiguration.Domain.Handlers;
 public class PairDeviceMessageHandler : MessageHandlerBase<PairDeviceContract>
 {
     private readonly ILogger<PairDeviceMessageHandler> _logger;
+    private static readonly ConcurrentDictionary<string, Device> _pairedDevicesStorage = new();
 
     public PairDeviceMessageHandler(ILogger<PairDeviceMessageHandler> logger)
     {
@@ -20,11 +23,18 @@ public class PairDeviceMessageHandler : MessageHandlerBase<PairDeviceContract>
     {
         var payload = messagingContext.Payload;
         
+        if (_pairedDevicesStorage.ContainsKey(payload.MacAddress))
+        {
+            return ExecutionResult.Ok();
+        }
+        
         _logger.LogInformation("Paired with device {value}", payload.MacAddress);
+
+        _pairedDevicesStorage.TryAdd(payload.MacAddress, new Device { MacAddress = payload.MacAddress });
 
         var eventPayload = new PairedDevicesConfigurationChangedEventContract
         {
-            PairedDevices = new PairedDevices {DeviceMacAddresses = new List<string> {payload.MacAddress}},
+            PairedDevicesModel = new PairedDevicesModel {Devices = _pairedDevicesStorage.Values.ToList() }
         };
         
         var integrationEventResult = new IntegrationEventResult(eventPayload, TopicConstants.CurrentConfiguration);

@@ -17,8 +17,8 @@ public class UpdateLocalConfigurationMessageHandler : MessageHandlerBase<PairedD
     protected override async Task<IExecutionResult> HandleAsync(MessagingContext<PairedDevicesConfigurationChangedEventContract> messagingContext)
     {
         var payload = messagingContext.Payload;
-        var newConfiguration = payload.PairedDevices;
-        _logger.LogInformation("New Configuration received with devices count: {value}. Update local configuration after distributed config change", newConfiguration.DeviceMacAddresses.Count);
+        var newConfiguration = payload.PairedDevicesModel;
+        _logger.LogInformation("New Configuration received with devices count: {value}. Update local configuration after distributed config change", newConfiguration.Devices.Count);
         return await Task.FromResult(ExecutionResult.Ok());
     }
 }
