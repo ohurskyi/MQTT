@@ -3,6 +3,9 @@ using MessagingLibrary.Core;
 using MessagingLibrary.Core.Configuration.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Mqtt.Library.RequestResponse.Completion;
+using Mqtt.Library.RequestResponse.Handlers;
+using Mqtt.Library.RequestResponse.Requesters;
 
 namespace Mqtt.Library.RequestResponse;
 

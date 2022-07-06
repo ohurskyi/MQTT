@@ -1,9 +1,11 @@
 using MessagingLibrary.Client.Mqtt.Configuration;
 using MessagingLibrary.Core.Extensions;
 using MessagingLibrary.Core.Messages;
+using Mqtt.Library.RequestResponse.Completion;
+using Mqtt.Library.RequestResponse.Handlers;
 using Mqtt.Library.TopicClient;
 
-namespace Mqtt.Library.RequestResponse;
+namespace Mqtt.Library.RequestResponse.Requesters;
 
 public class Requester<TMessagingClientOptions> : IRequester<TMessagingClientOptions>
     where TMessagingClientOptions : IMqttMessagingClientOptions
