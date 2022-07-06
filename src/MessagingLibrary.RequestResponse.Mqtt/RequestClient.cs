@@ -1,9 +1,9 @@
 using MessagingLibrary.Client.Mqtt.Configuration;
 using MessagingLibrary.Core.Extensions;
 using MessagingLibrary.Core.Messages;
-using Mqtt.Library.RequestResponse.Requesters;
+using MessagingLibrary.RequestResponse.Mqtt.Requesters;
 
-namespace Mqtt.Library.RequestResponse;
+namespace MessagingLibrary.RequestResponse.Mqtt;
 
 public class RequestClient<TMessagingClientOptions> : IRequestClient<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
 {

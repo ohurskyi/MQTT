@@ -1,9 +1,9 @@
 ﻿using MessagingLibrary.Core.Handlers;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Core.Results;
-using Mqtt.Library.RequestResponse.Completion;
+using MessagingLibrary.RequestResponse.Mqtt.Completion;
 
-namespace Mqtt.Library.RequestResponse.Handlers;
+namespace MessagingLibrary.RequestResponse.Mqtt.Handlers;
 
 public class ResponseHandler : IMessageHandler
 {

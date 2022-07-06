@@ -1,13 +1,12 @@
 ﻿using MessagingLibrary.Client.Mqtt.Configuration;
-using MessagingLibrary.Core;
 using MessagingLibrary.Core.Configuration.DependencyInjection;
+using MessagingLibrary.RequestResponse.Mqtt.Completion;
+using MessagingLibrary.RequestResponse.Mqtt.Handlers;
+using MessagingLibrary.RequestResponse.Mqtt.Requesters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Mqtt.Library.RequestResponse.Completion;
-using Mqtt.Library.RequestResponse.Handlers;
-using Mqtt.Library.RequestResponse.Requesters;
 
-namespace Mqtt.Library.RequestResponse;
+namespace MessagingLibrary.RequestResponse.Mqtt;
 
 public static class ServiceCollectionExtensions
 {

@@ -3,8 +3,8 @@ using DistributedConfiguration.Client.IntegrationEvents.PairedDevicesConfigurati
 using DistributedConfiguration.Client.Listeners;
 using MessagingLibrary.Processing.Mqtt;
 using MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;
+using MessagingLibrary.RequestResponse.Mqtt;
 using Mqtt.Library.Client.Infrastructure;
-using Mqtt.Library.RequestResponse;
 using Serilog;
 
 IHost host = Host.CreateDefaultBuilder(args)

@@ -1,7 +1,7 @@
 ﻿using MessagingLibrary.Client.Mqtt.Configuration;
 using MessagingLibrary.Core.Messages;
 
-namespace Mqtt.Library.RequestResponse.Requesters;
+namespace MessagingLibrary.RequestResponse.Mqtt.Requesters;
 
 public interface IRequester<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
 {
