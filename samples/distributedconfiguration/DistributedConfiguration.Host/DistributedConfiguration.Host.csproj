@@ -2,9 +2,9 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <Nullable>disable</Nullable>
+        <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <UserSecretsId>dotnet-DistributedConfiguration.Client-4C6147F6-62C8-461F-A41D-A7D90DD089F3</UserSecretsId>
+        <UserSecretsId>dotnet-DistributedConfiguration.Host-48997BA6-D660-468C-B2B0-BD218F7400C9</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,10 +15,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\MessagingLibrary.MessageBus.Mqtt\MessagingLibrary.MessageBus.Mqtt.csproj" />
-      <ProjectReference Include="..\..\src\MessagingLibrary.Processing.Mqtt\MessagingLibrary.Processing.Mqtt.csproj" />
-      <ProjectReference Include="..\..\src\MessagingLibrary.RequestResponse.Mqtt\MessagingLibrary.RequestResponse.Mqtt.csproj" />
+      <ProjectReference Include="..\DistributedConfiguration.Domain\DistributedConfiguration.Domain.csproj" />
       <ProjectReference Include="..\Mqtt.Library.Client.Infrastructure\Mqtt.Library.Client.Infrastructure.csproj" />
-      <ProjectReference Include="..\DistributedConfiguration.Contracts\DistributedConfiguration.Contracts.csproj" />
     </ItemGroup>
+    
 </Project>

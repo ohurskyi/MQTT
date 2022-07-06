@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MessagingLibrary.Core\MessagingLibrary.Core.csproj" />
+      <ProjectReference Include="..\..\MessagingLibrary\MessagingLibrary.Core\MessagingLibrary.Core.csproj" />
     </ItemGroup>
 
 </Project>
