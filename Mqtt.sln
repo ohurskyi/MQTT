@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mqtt.Library.Client", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingLibrary.Processing.Mqtt", "src\MessagingLibrary.Processing.Mqtt\MessagingLibrary.Processing.Mqtt.csproj", "{50662007-F2E0-4447-AAA6-31830A59F50C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mqtt.Library.MessageBus", "src\Mqtt.Library.MessageBus\Mqtt.Library.MessageBus.csproj", "{76BFB8DB-B96F-432A-8422-F21B8EDCF358}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingLibrary.MessageBus.Mqtt", "src\MessagingLibrary.MessageBus.Mqtt\MessagingLibrary.MessageBus.Mqtt.csproj", "{76BFB8DB-B96F-432A-8422-F21B8EDCF358}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mqtt.Library.Unit", "test\Mqtt.Library.Unit\Mqtt.Library.Unit.csproj", "{83341A0E-B7E2-4CF0-B119-49059ED163CE}"
 EndProject

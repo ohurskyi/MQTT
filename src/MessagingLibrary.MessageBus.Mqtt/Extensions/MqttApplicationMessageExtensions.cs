@@ -1,7 +1,7 @@
 ﻿using MessagingLibrary.Core.Messages;
 using MQTTnet;
 
-namespace Mqtt.Library.MessageBus.Extensions;
+namespace MessagingLibrary.MessageBus.Mqtt.Extensions;
 
 public static class MqttApplicationMessageExtensions
 {
