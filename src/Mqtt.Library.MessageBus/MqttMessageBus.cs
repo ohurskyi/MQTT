@@ -2,6 +2,7 @@ using MessagingLibrary.Core.Extensions;
 using MessagingLibrary.Core.Messages;
 using Mqtt.Library.Client;
 using Mqtt.Library.Client.Configuration;
+using Mqtt.Library.MessageBus.Extensions;
 
 namespace Mqtt.Library.MessageBus;
 
