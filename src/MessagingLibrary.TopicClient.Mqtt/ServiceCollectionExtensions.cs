@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Mqtt.Library.TopicClient;
+namespace MessagingLibrary.TopicClient.Mqtt;
 
 public static class ServiceCollectionExtensions
 {

@@ -3,7 +3,7 @@ using MessagingLibrary.Core.Extensions;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.RequestResponse.Mqtt.Completion;
 using MessagingLibrary.RequestResponse.Mqtt.Handlers;
-using Mqtt.Library.TopicClient;
+using MessagingLibrary.TopicClient.Mqtt;
 
 namespace MessagingLibrary.RequestResponse.Mqtt.Requesters;
 

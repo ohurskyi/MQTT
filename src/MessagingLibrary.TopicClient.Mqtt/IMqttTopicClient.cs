@@ -1,7 +1,7 @@
 ﻿using MessagingLibrary.Client.Mqtt.Configuration;
 using MessagingLibrary.Core.Handlers;
 
-namespace Mqtt.Library.TopicClient
+namespace MessagingLibrary.TopicClient.Mqtt
 {
     public interface IMqttTopicClient<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
     {

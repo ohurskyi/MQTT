@@ -1,6 +1,6 @@
 ﻿using MessagingLibrary.Core.Handlers;
 
-namespace Mqtt.Library.TopicClient;
+namespace MessagingLibrary.TopicClient.Mqtt;
 
 public class Subscription<T> : ISubscription
     where T: IMessageHandler
