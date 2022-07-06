@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using DistributedConfiguration.Contracts.Models;
-using DistributedConfiguration.Contracts.Payloads;
+using DistributedConfiguration.Contracts.Pairing;
 using DistributedConfiguration.Contracts.Topics;
 using MessagingLibrary.Core.Handlers;
 using MessagingLibrary.Core.Messages;
@@ -37,7 +37,7 @@ public class PairDeviceMessageHandler : MessageHandlerBase<PairDeviceContract>
             PairedDevicesModel = new PairedDevicesModel {Devices = _pairedDevicesStorage.Values.ToList() }
         };
         
-        var integrationEventResult = new IntegrationEventResult(eventPayload, TopicConstants.CurrentConfiguration);
+        var integrationEventResult = new IntegrationEventResult(eventPayload, DistributedConfigurationTopicConstants.CurrentConfiguration);
 
         return await Task.FromResult(integrationEventResult);
     }

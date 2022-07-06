@@ -13,8 +13,8 @@ public class DistributedConfigurationMqttStartupListener : BaseMqttStartupListen
     {
         var subscriptions = new List<Task<ISubscription>>
         {
-            TopicClient.Subscribe<PairDeviceMessageHandler>($"{TopicConstants.PairDevice}"),
-            TopicClient.Subscribe<GetPairedDeviceMessageHandler>($"{TopicConstants.RequestUpdate}"),
+            TopicClient.Subscribe<PairDeviceMessageHandler>($"{DistributedConfigurationTopicConstants.PairDevice}"),
+            TopicClient.Subscribe<GetPairedDeviceMessageHandler>($"{DistributedConfigurationTopicConstants.RequestUpdate}"),
         };
         return subscriptions;
     }

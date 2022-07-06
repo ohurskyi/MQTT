@@ -1,4 +1,4 @@
-using DistributedConfiguration.Contracts.Payloads;
+using DistributedConfiguration.Contracts.Pairing;
 using DistributedConfiguration.Contracts.Topics;
 using MessagingLibrary.RequestResponse.Mqtt;
 using Mqtt.Library.Client.Infrastructure;
@@ -25,8 +25,8 @@ public class BackgroundRequestSender : BackgroundService
             {
                 var payload = new GetPairedDeviceContract { DeviceId = $"Device: {++_requestCount}"};
                 var response = await _requestClient.SendAndWaitAsync<GetPairedDeviceResponse>(
-                    TopicConstants.RequestUpdate,
-                    TopicConstants.ResponseUpdate, payload,
+                    DistributedConfigurationTopicConstants.RequestUpdate,
+                    DistributedConfigurationTopicConstants.ResponseUpdate, payload,
                     TimeSpan.FromSeconds(2));
                 _logger.LogInformation("Received response for device with id {value}", response?.DeviceId);
             }

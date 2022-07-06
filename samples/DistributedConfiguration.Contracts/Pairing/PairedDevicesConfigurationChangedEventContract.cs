@@ -1,7 +1,7 @@
 using DistributedConfiguration.Contracts.Models;
 using MessagingLibrary.Core.Messages;
 
-namespace DistributedConfiguration.Contracts.Payloads;
+namespace DistributedConfiguration.Contracts.Pairing;
 
 public class PairedDevicesConfigurationChangedEventContract : IMessageContract
 {

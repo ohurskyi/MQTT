@@ -1,4 +1,4 @@
-﻿using DistributedConfiguration.Contracts.Payloads;
+﻿using DistributedConfiguration.Contracts.Pairing;
 using MessagingLibrary.Core.Handlers;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Core.Results;

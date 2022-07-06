@@ -1,4 +1,4 @@
-﻿using DistributedConfiguration.Contracts.Payloads;
+﻿using DistributedConfiguration.Contracts.Pairing;
 using DistributedConfiguration.Contracts.Topics;
 using MessagingLibrary.Core.Messages;
 using Mqtt.Library.Client.Infrastructure;
@@ -22,7 +22,7 @@ namespace DistributedConfiguration.Client
             while (!stoppingToken.IsCancellationRequested)
             {
                 var message = new PairDeviceContract { MacAddress = $"Address: {++_msgSendCount}" };
-                const string topic = TopicConstants.PairDevice;
+                const string topic = DistributedConfigurationTopicConstants.PairDevice;
                 
                 await _mqttMessageBusLocal.Publish(message, topic);
 

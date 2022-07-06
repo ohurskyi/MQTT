@@ -1,6 +1,6 @@
 ﻿using MessagingLibrary.Core.Messages;
 
-namespace DistributedConfiguration.Contracts.Payloads;
+namespace DistributedConfiguration.Contracts.Pairing;
 
 public class GetPairedDeviceResponse : IMessageResponse
 {
