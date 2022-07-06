@@ -1,6 +1,6 @@
 ﻿using MessagingLibrary.Core.Configuration;
 
-namespace Mqtt.Library.Client.Configuration
+namespace MessagingLibrary.Client.Mqtt.Configuration
 {
     public interface IMqttMessagingClientOptions : IMessagingClientOptions
     {

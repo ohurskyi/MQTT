@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MessagingLibrary.Client.Mqtt.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using Mqtt.Library.Client.Configuration;
 using Mqtt.Library.Client.Services;
 
-namespace Mqtt.Library.Client
+namespace MessagingLibrary.Client.Mqtt
 {
     public static class ServiceCollectionExtensions
     {

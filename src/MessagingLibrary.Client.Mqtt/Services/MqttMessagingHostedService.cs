@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using MessagingLibrary.Client.Mqtt;
+using MessagingLibrary.Client.Mqtt.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Mqtt.Library.Client.Configuration;
 
 namespace Mqtt.Library.Client.Services
 {

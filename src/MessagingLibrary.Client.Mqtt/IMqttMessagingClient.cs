@@ -2,9 +2,9 @@
 using MQTTnet.Client.Publishing;
 using MQTTnet.Client.Receiving;
 
-namespace Mqtt.Library.Client;
+namespace MessagingLibrary.Client.Mqtt;
 
-public interface IMqttMessagingClient : IDisposable
+public interface IMqttMessagingClient
 {
     Task StartAsync();
 

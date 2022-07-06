@@ -1,8 +1,8 @@
-﻿using MessagingLibrary.Core;
+﻿using MessagingLibrary.Client.Mqtt.Configuration;
+using MessagingLibrary.Core;
 using MessagingLibrary.Core.Configuration.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Mqtt.Library.Client.Configuration;
 
 namespace Mqtt.Library.RequestResponse;
 

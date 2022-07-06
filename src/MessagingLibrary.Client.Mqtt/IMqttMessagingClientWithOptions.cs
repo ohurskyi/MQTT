@@ -1,6 +1,6 @@
-﻿using Mqtt.Library.Client.Configuration;
+﻿using MessagingLibrary.Client.Mqtt.Configuration;
 
-namespace Mqtt.Library.Client;
+namespace MessagingLibrary.Client.Mqtt;
 
 public interface IMqttMessagingClient<in TMessagingClientOptions> : IMqttMessagingClient
     where TMessagingClientOptions : IMqttMessagingClientOptions

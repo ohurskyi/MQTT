@@ -1,4 +1,5 @@
-﻿using Mqtt.Library.Client.Configuration;
+﻿using MessagingLibrary.Client.Mqtt.Configuration;
+using Mqtt.Library.Client;
 using MQTTnet;
 using MQTTnet.Client.Options;
 using MQTTnet.Client.Publishing;
@@ -6,9 +7,9 @@ using MQTTnet.Client.Receiving;
 using MQTTnet.Extensions.ManagedClient;
 using MQTTnet.Formatter;
 
-namespace Mqtt.Library.Client;
+namespace MessagingLibrary.Client.Mqtt;
 
-public class MqttMessagingClient<TMessagingClientOptions> : IMqttMessagingClient<TMessagingClientOptions>
+public class MqttMessagingClient<TMessagingClientOptions> : IMqttMessagingClient<TMessagingClientOptions>, IDisposable
     where TMessagingClientOptions : IMqttMessagingClientOptions
 {
     private readonly IManagedMqttClient _mqttClient;
@@ -76,7 +77,6 @@ public class MqttMessagingClient<TMessagingClientOptions> : IMqttMessagingClient
 
     public void Dispose()
     {
-        Console.WriteLine("Disposing message client.");
         _mqttClient?.Dispose();
     }
 }

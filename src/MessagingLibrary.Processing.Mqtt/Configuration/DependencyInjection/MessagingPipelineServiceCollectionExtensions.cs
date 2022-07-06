@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
+using MessagingLibrary.Client.Mqtt.Configuration;
 using MessagingLibrary.Processing.Configuration.DependencyInjection;
 using MessagingLibrary.Processing.Mqtt.Middlewares;
 using Microsoft.Extensions.DependencyInjection;
-using Mqtt.Library.Client.Configuration;
 
 namespace MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;
 
