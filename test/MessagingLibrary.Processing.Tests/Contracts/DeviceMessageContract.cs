@@ -1,6 +1,6 @@
 ﻿using MessagingLibrary.Core.Messages;
 
-namespace Mqtt.Library.Unit.Payloads;
+namespace MessagingLibrary.Processing.Tests.Contracts;
 
 public class DeviceMessageContract : IMessageContract
 {

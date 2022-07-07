@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using MessagingLibrary.Core.Handlers;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Core.Results;
-using Mqtt.Library.Unit.Payloads;
+using MessagingLibrary.Processing.Tests.Contracts;
 
-namespace Mqtt.Library.Unit.Handlers;
+namespace MessagingLibrary.Processing.Tests.Handlers;
 
 public class HandlerForDeviceNumber2 :  MessageHandlerBase<DeviceMessageContract>
 {

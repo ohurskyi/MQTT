@@ -8,16 +8,18 @@ using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Processing.Configuration.DependencyInjection;
 using MessagingLibrary.Processing.Executor;
 using MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;
+using MessagingLibrary.Processing.Tests.Contracts;
+using MessagingLibrary.Processing.Tests.Handlers;
+using MessagingLibrary.Processing.Tests.Options;
+using MessagingLibrary.Processing.Tests.Topics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using Mqtt.Library.Unit.Handlers;
-using Mqtt.Library.Unit.Payloads;
 using Xunit;
 
-namespace Mqtt.Library.Unit;
+namespace MessagingLibrary.Processing.Tests;
 
-public class UnitTest1
+public class ScopedMessageExecutorTests
 {
     [Theory]
     [InlineData(1)]
@@ -28,15 +30,15 @@ public class UnitTest1
         // arrange
         var builder = new StringBuilder();
         await using var writer = new StringWriter(builder);
-
-        var multiWildCardDeviceTopic = $"{TopicConstants.DeviceTopic}/#";
         var serviceProvider = BuildContainer(writer);
+
+        var multiWildCardDeviceTopic = $"{DeviceTopicConstants.DeviceTopic}/#";
         var factory = serviceProvider.GetRequiredService<IMessageHandlerFactory<TestMessagingClientOptions>>();
         factory.RegisterHandler<HandlerForAllDeviceNumbers>(multiWildCardDeviceTopic);
 
         var contract =  new DeviceMessageContract { Name = "Device" };
-        var deviceTopic = $"{TopicConstants.DeviceTopic}/{deviceNumber}";
-        var message = new Message { Topic = deviceTopic, Payload = contract.MessagePayloadToJson() };
+        var publishTopic = $"{DeviceTopicConstants.DeviceTopic}/{deviceNumber}";
+        var message = new Message { Topic = publishTopic, Payload = contract.MessagePayloadToJson() };
 
         // act
         var sut = new ScopedMessageExecutor<TestMessagingClientOptions>(serviceProvider.GetRequiredService<IServiceScopeFactory>());
@@ -48,56 +50,63 @@ public class UnitTest1
     }
     
     [Fact]
-    public async Task ExecuteAsync_ForDeviceNumberOneTopic_CallsHandlerForOneAndForAll()
+    public async Task ExecuteAsync_ForDeviceNumberOneTopic_CallsHandlerForDeviceNumber1()
     {
         // arrange
         var builder = new StringBuilder();
         await using var writer = new StringWriter(builder);
+        var serviceProvider = BuildContainer(writer);
         
-        var deviceMessagePayload = new DeviceMessageContract { Name = "Device" };
         const int deviceNumberOne = 1;
         const int deviceNumberTwo = 2;
-        var serviceProvider = BuildContainer(writer);
-
         var factory = serviceProvider.GetRequiredService<IMessageHandlerFactory<TestMessagingClientOptions>>();
-        factory.RegisterHandler<HandlerForDeviceNumber1>(BuildDeviceTopic(deviceNumberOne));
-        factory.RegisterHandler<HandlerForDeviceNumber2>(BuildDeviceTopic(deviceNumberTwo));
-        factory.RegisterHandler<HandlerForAllDeviceNumbers>(GetAllDevicesTopic());
-        
+        factory.RegisterHandler<HandlerForDeviceNumber1>($"{DeviceTopicConstants.DeviceTopic}/{deviceNumberOne}");
+        factory.RegisterHandler<HandlerForDeviceNumber2>($"{DeviceTopicConstants.DeviceTopic}/{deviceNumberTwo}");
+
+        var contract =  new DeviceMessageContract { Name = "Device" };
+        var publishTopic = $"{DeviceTopicConstants.DeviceTopic}/{deviceNumberOne}";
+        var message = new Message { Topic = publishTopic, Payload = contract.MessagePayloadToJson() };
+
         // act
         var sut = new ScopedMessageExecutor<TestMessagingClientOptions>(serviceProvider.GetRequiredService<IServiceScopeFactory>());
-        await sut.ExecuteAsync(new Message { Topic = BuildDeviceTopic(deviceNumberOne), Payload = deviceMessagePayload.MessagePayloadToJson() });
+        await sut.ExecuteAsync(message);
         var result = builder.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
         // assert
         Assert.Contains("Device " + nameof(HandlerForDeviceNumber1), result);
-        Assert.Contains("Device " + nameof(HandlerForAllDeviceNumbers), result);
+        Assert.DoesNotContain("Device " + nameof(HandlerForDeviceNumber2), result);
     }
     
     [Fact]
-    public async Task ExecuteAsync_SingleLevelWildCardDeviceTopic_CallsHandlerForAll()
+    public async Task ExecuteAsync_SingleLevelWildCardDeviceTopic_CallsHandlerForAllDeviceNumbers()
     {
         // arrange
         var builder = new StringBuilder();
         await using var writer = new StringWriter(builder);
-
-        var deviceMessagePayload = new DeviceMessageContract { Name = "Device" };
+        var serviceProvider = BuildContainer(writer);
+        
         const int deviceNumberOne = 1;
         const int deviceNumberTwo = 2;
-        var serviceProvider = BuildContainer(writer);
+        var singleLevelWildCardTopic = $"{DeviceTopicConstants.DeviceTopic}/+/temperature";
 
         var factory = serviceProvider.GetRequiredService<IMessageHandlerFactory<TestMessagingClientOptions>>();
-        factory.RegisterHandler<HandlerForDeviceNumber1>($"{TopicConstants.DeviceTopic}/{deviceNumberOne}/brightness");
-        factory.RegisterHandler<HandlerForDeviceNumber2>($"{TopicConstants.DeviceTopic}/{deviceNumberTwo}/brightness");
-        factory.RegisterHandler<HandlerForAllDeviceNumbers>($"{TopicConstants.DeviceTopic}/+/temperature");
+        factory.RegisterHandler<HandlerForDeviceNumber1>($"{DeviceTopicConstants.DeviceTopic}/{deviceNumberOne}/brightness");
+        factory.RegisterHandler<HandlerForDeviceNumber2>($"{DeviceTopicConstants.DeviceTopic}/{deviceNumberTwo}/brightness");
+        factory.RegisterHandler<HandlerForAllDeviceNumbers>(singleLevelWildCardTopic);
+
+        var contract =  new DeviceMessageContract { Name = "Device" };
+        var publishTopic = $"{DeviceTopicConstants.DeviceTopic}/{deviceNumberOne}/temperature";
+        var message = new Message { Topic = publishTopic, Payload = contract.MessagePayloadToJson() };
         
         // act
         var sut = new ScopedMessageExecutor<TestMessagingClientOptions>(serviceProvider.GetRequiredService<IServiceScopeFactory>());
-        await sut.ExecuteAsync(new Message { Topic = $"{TopicConstants.DeviceTopic}/{deviceNumberOne}/temperature", Payload = deviceMessagePayload.MessagePayloadToJson() });
+        await sut.ExecuteAsync(message);
         var result = builder.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
         // assert
         Assert.Contains("Device " + nameof(HandlerForAllDeviceNumbers), result);
+        Assert.DoesNotContain("Device " + nameof(HandlerForDeviceNumber1), result);
+        Assert.DoesNotContain("Device " + nameof(HandlerForDeviceNumber2), result);
     }
     
     private static IServiceProvider BuildContainer(TextWriter textWriter)
@@ -110,15 +119,5 @@ public class UnitTest1
         serviceCollection.AddMqttTopicComparer();
         serviceCollection.AddSingleton(textWriter);
         return serviceCollection.BuildServiceProvider();
-    }
-
-    private static string GetAllDevicesTopic()
-    {
-        return $"{TopicConstants.DeviceTopic}/#";
-    }
-
-    private static string BuildDeviceTopic(int deviceNumber)
-    {
-        return $"{TopicConstants.DeviceTopic}/{deviceNumber}";
     }
 }

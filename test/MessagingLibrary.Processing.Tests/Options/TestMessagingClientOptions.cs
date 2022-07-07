@@ -1,6 +1,6 @@
 ﻿using MessagingLibrary.Core.Configuration;
 
-namespace Mqtt.Library.Unit;
+namespace MessagingLibrary.Processing.Tests.Options;
 
 public class TestMessagingClientOptions : IMessagingClientOptions
 {

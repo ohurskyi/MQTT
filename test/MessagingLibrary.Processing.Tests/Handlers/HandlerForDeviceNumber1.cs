@@ -3,23 +3,23 @@ using System.Threading.Tasks;
 using MessagingLibrary.Core.Handlers;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Core.Results;
-using Mqtt.Library.Unit.Payloads;
+using MessagingLibrary.Processing.Tests.Contracts;
 
-namespace Mqtt.Library.Unit.Handlers;
+namespace MessagingLibrary.Processing.Tests.Handlers;
 
-public class HandlerForAllDeviceNumbers : MessageHandlerBase<DeviceMessageContract>
+public class HandlerForDeviceNumber1 : MessageHandlerBase<DeviceMessageContract>
 {
     private readonly TextWriter _textWriter;
 
-    public HandlerForAllDeviceNumbers(TextWriter textWriter)
+    public HandlerForDeviceNumber1(TextWriter textWriter)
     {
         _textWriter = textWriter;
     }
-
+    
     protected override async Task<IExecutionResult> HandleAsync(MessagingContext<DeviceMessageContract> messagingContext)
     {
         var payload = messagingContext.Payload;
-        await _textWriter.WriteLineAsync(payload.Name + " " + nameof(HandlerForAllDeviceNumbers));
+        await _textWriter.WriteLineAsync(payload.Name + " " + nameof(HandlerForDeviceNumber1));
         return ExecutionResult.Ok();
     }
 }

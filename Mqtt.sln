@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mqtt.Library.Unit", "test\Mqtt.Library.Unit\Mqtt.Library.Unit.csproj", "{83341A0E-B7E2-4CF0-B119-49059ED163CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingLibrary.Processing.Tests", "test\MessagingLibrary.Processing.Tests\MessagingLibrary.Processing.Tests.csproj", "{83341A0E-B7E2-4CF0-B119-49059ED163CE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{190E30F9-5E61-4315-B8D4-F4B98A0D7CB3}"
 EndProject
