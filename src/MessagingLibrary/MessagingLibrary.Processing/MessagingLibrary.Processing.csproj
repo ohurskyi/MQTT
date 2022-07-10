@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MessagingLibrary.Core\MessagingLibrary.Core.csproj" />
+      <PackageReference Include="MessagingLibrary.Core" Version="1.0.1-alpha" />
     </ItemGroup>
 
 </Project>
