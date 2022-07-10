@@ -8,7 +8,7 @@ namespace DistributedConfiguration.Client.Listeners;
 
 public class PairedDevicesConfigurationChangedMqttStartupListener : BaseMqttStartupListener<InfrastructureMqttMessagingClientOptions>
 {
-    protected override IEnumerable<Task<ISubscription>> DefineSubscriptions()
+    protected override IEnumerable<Task<ISubscription>> Subscriptions()
     {
         var subscriptions = new List<Task<ISubscription>>
         {

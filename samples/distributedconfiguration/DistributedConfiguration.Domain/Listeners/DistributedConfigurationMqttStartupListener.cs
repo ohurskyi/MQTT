@@ -9,7 +9,7 @@ namespace DistributedConfiguration.Domain.Listeners;
 
 public class DistributedConfigurationMqttStartupListener : BaseMqttStartupListener<InfrastructureMqttMessagingClientOptions>
 {
-    protected override IEnumerable<Task<ISubscription>> DefineSubscriptions()
+    protected override IEnumerable<Task<ISubscription>> Subscriptions()
     {
         var subscriptions = new List<Task<ISubscription>>
         {

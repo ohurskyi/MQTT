@@ -19,11 +19,11 @@ public abstract class BaseMqttStartupListener<TMessagingClientOptions> : IHosted
         _logger = logger;
     }
 
-    protected abstract IEnumerable<Task<ISubscription>> DefineSubscriptions();
+    protected abstract IEnumerable<Task<ISubscription>> Subscriptions();
     
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        _subscriptions = await Task.WhenAll(DefineSubscriptions());
+        _subscriptions = await Task.WhenAll(Subscriptions());
         _logger.LogInformation("{count} subscriptions created.", _subscriptions.Length);
         _logger.LogInformation("Subscribed topics {value}", _subscriptions.Select(s => s.Topic).Distinct());
     }
