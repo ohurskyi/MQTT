@@ -2,6 +2,7 @@ using MessagingLibrary.Client.Mqtt;
 using MessagingLibrary.Client.Mqtt.Configuration;
 using MessagingLibrary.Core.Factory;
 using MessagingLibrary.Core.Handlers;
+using MessagingLibrary.TopicClient.Mqtt.Definitions;
 
 namespace MessagingLibrary.TopicClient.Mqtt;
 
@@ -22,6 +23,11 @@ public class MqttTopicClient<TMessagingClientOptions> : IMqttTopicClient<TMessag
         return new Subscription<T>(topic);
     }
 
+    public async Task Subscribe(IDefinition definition)
+    {
+        await SubscribeInner(definition);
+    }
+
     public async Task Unsubscribe(ISubscription subscription)
     {
         await UnsubscribeInner(subscription);
@@ -40,6 +46,14 @@ public class MqttTopicClient<TMessagingClientOptions> : IMqttTopicClient<TMessag
         if (_messageHandlerFactory.RegisterHandler<T>(topic) == 1)
         {
             await _mqttMessagingClient.SubscribeAsync(topic);
+        }
+    }
+    
+    private async Task SubscribeInner(IDefinition definition)
+    {
+        if (_messageHandlerFactory.RegisterHandler(definition.HandlerType, definition.Topic) == 1)
+        {
+            await _mqttMessagingClient.SubscribeAsync(definition.Topic);
         }
     }
 }

@@ -15,11 +15,15 @@ public class MessageHandlerFactory<TMessagingClientOptions> : IMessageHandlerFac
     {
         _topicFilterComparer = topicFilterComparer;
     }
-
+    
+    public int RegisterHandler(Type handlerType, string topic)
+    {
+        return AddInner(handlerType, topic);
+    }
 
     public int RegisterHandler<THandler>(string topic) where THandler : class, IMessageHandler
     {
-        return AddInner<THandler>(topic);
+        return AddInner(typeof(THandler), topic);
     }
 
     public int RemoveHandler<THandler>(string topic) where THandler : class, IMessageHandler
@@ -43,20 +47,20 @@ public class MessageHandlerFactory<TMessagingClientOptions> : IMessageHandlerFac
         return instances;
     }
 
-    private int AddInner<THandler>(string topic) where THandler : IMessageHandler
+    private int AddInner(Type handlerType, string topic)
     {
         if (!_handlersMap.TryGetValue(topic, out var handlers))
         {
-            _handlersMap.TryAdd(topic, new ConcurrentDictionary<Type, byte>(new[] { new KeyValuePair<Type, byte>(typeof(THandler), default) }));
+            _handlersMap.TryAdd(topic, new ConcurrentDictionary<Type, byte>(new[] { new KeyValuePair<Type, byte>(handlerType, default) }));
             return 1;
         }
 
-        if (handlers.ContainsKey(typeof(THandler)))
+        if (handlers.ContainsKey(handlerType))
         {
             return handlers.Count;
         }
 
-        handlers.TryAdd(typeof(THandler), default);
+        handlers.TryAdd(handlerType, default);
 
         return handlers.Count;
     }
