@@ -12,12 +12,12 @@ public class Requester<TMessagingClientOptions> : IRequester<TMessagingClientOpt
     where TMessagingClientOptions : IMqttMessagingClientOptions
 {
     private readonly IMessageBus<TMessagingClientOptions> _mqttMessageBus;
-    private readonly IMqttTopicClient<TMessagingClientOptions> _mqttTopicClient;
+    private readonly ITopicClient<TMessagingClientOptions> _mqttTopicClient;
     private readonly PendingResponseTracker _pendingResponseTracker;
 
     public Requester(
         IMessageBus<TMessagingClientOptions> mqttMessageBus, 
-        IMqttTopicClient<TMessagingClientOptions> mqttTopicClient, 
+        ITopicClient<TMessagingClientOptions> mqttTopicClient,
         PendingResponseTracker pendingResponseTracker)
     {
         _mqttMessageBus = mqttMessageBus;

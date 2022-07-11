@@ -1,4 +1,5 @@
 ﻿using MessagingLibrary.Client.Mqtt.Configuration;
+using MessagingLibrary.Core.Clients;
 using MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -10,7 +11,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddMqttTopicClient<TMessagingClientOptions>(this IServiceCollection serviceCollection) 
         where TMessagingClientOptions: class, IMqttMessagingClientOptions
     {
-        serviceCollection.TryAddSingleton<IMqttTopicClient<TMessagingClientOptions>, MqttTopicClient<TMessagingClientOptions>>();
+        serviceCollection.TryAddSingleton<ITopicClient<TMessagingClientOptions>, MqttTopicClient<TMessagingClientOptions>>();
         return serviceCollection;
     }
     

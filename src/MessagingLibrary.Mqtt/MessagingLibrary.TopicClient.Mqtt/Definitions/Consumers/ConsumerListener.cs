@@ -1,4 +1,5 @@
 ﻿using MessagingLibrary.Client.Mqtt.Configuration;
+using MessagingLibrary.Core.Clients;
 using Microsoft.Extensions.Hosting;
 
 namespace MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
@@ -7,9 +8,9 @@ public class ConsumerListener<TMessagingClientOptions> : IHostedService
     where TMessagingClientOptions : class, IMqttMessagingClientOptions
 {
     private readonly IConsumerDefinitionProvider<TMessagingClientOptions> _consumerDefinitionProvider;
-    private readonly IMqttTopicClient<TMessagingClientOptions> _topicClient;
+    private readonly ITopicClient<TMessagingClientOptions> _topicClient;
 
-    public ConsumerListener(IConsumerDefinitionProvider<TMessagingClientOptions> consumerDefinitionProvider, IMqttTopicClient<TMessagingClientOptions> topicClient)
+    public ConsumerListener(IConsumerDefinitionProvider<TMessagingClientOptions> consumerDefinitionProvider, ITopicClient<TMessagingClientOptions> topicClient)
     {
         _consumerDefinitionProvider = consumerDefinitionProvider;
         _topicClient = topicClient;
