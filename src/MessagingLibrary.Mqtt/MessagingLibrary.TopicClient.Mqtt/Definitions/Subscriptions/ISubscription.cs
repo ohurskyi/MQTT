@@ -1,4 +1,4 @@
-﻿namespace MessagingLibrary.TopicClient.Mqtt;
+﻿namespace MessagingLibrary.TopicClient.Mqtt.Definitions.Subscriptions;
 
 public interface ISubscription
 {

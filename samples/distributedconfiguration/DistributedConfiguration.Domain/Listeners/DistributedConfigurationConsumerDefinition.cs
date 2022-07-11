@@ -1,7 +1,8 @@
 ﻿using DistributedConfiguration.Contracts.Topics;
 using DistributedConfiguration.Domain.Handlers;
 using MessagingLibrary.TopicClient.Mqtt;
-using MessagingLibrary.TopicClient.Mqtt.Definitions;
+using MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
+using MessagingLibrary.TopicClient.Mqtt.Definitions.Subscriptions;
 
 namespace DistributedConfiguration.Domain.Listeners;
 

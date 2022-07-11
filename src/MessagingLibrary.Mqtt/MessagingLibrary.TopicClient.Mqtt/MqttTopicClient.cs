@@ -2,6 +2,7 @@ using MessagingLibrary.Client.Mqtt;
 using MessagingLibrary.Client.Mqtt.Configuration;
 using MessagingLibrary.Core.Factory;
 using MessagingLibrary.Core.Handlers;
+using MessagingLibrary.TopicClient.Mqtt.Definitions.Subscriptions;
 
 namespace MessagingLibrary.TopicClient.Mqtt;
 

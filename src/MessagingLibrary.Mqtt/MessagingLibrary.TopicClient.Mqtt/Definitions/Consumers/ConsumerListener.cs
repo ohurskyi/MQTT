@@ -1,7 +1,7 @@
 ﻿using MessagingLibrary.Client.Mqtt.Configuration;
 using Microsoft.Extensions.Hosting;
 
-namespace MessagingLibrary.TopicClient.Mqtt.Definitions;
+namespace MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
 
 public class ConsumerListener<TMessagingClientOptions> : IHostedService
     where TMessagingClientOptions : class, IMqttMessagingClientOptions

@@ -2,6 +2,7 @@
 using DistributedConfiguration.Contracts.Topics;
 using MessagingLibrary.Processing.Mqtt.Listeners;
 using MessagingLibrary.TopicClient.Mqtt;
+using MessagingLibrary.TopicClient.Mqtt.Definitions.Subscriptions;
 using Mqtt.Library.Client.Infrastructure;
 
 namespace DistributedConfiguration.Client.Listeners;

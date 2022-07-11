@@ -1,5 +1,6 @@
 ﻿using MessagingLibrary.Client.Mqtt.Configuration;
 using MessagingLibrary.TopicClient.Mqtt;
+using MessagingLibrary.TopicClient.Mqtt.Definitions.Subscriptions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
