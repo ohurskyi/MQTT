@@ -1,4 +1,4 @@
-﻿using MessagingLibrary.TopicClient.Mqtt.Definitions.Subscriptions;
+﻿using MessagingLibrary.Core.Definitions.Subscriptions;
 
 namespace MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
 
