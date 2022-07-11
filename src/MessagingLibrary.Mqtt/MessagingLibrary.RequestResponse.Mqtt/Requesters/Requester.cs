@@ -1,4 +1,5 @@
 using MessagingLibrary.Client.Mqtt.Configuration;
+using MessagingLibrary.Core.Clients;
 using MessagingLibrary.Core.Extensions;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.RequestResponse.Mqtt.Completion;

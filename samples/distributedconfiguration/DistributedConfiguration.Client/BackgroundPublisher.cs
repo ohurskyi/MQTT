@@ -1,5 +1,6 @@
 ﻿using DistributedConfiguration.Contracts.Pairing;
 using DistributedConfiguration.Contracts.Topics;
+using MessagingLibrary.Core.Clients;
 using MessagingLibrary.Core.Messages;
 using Mqtt.Library.Client.Infrastructure;
 

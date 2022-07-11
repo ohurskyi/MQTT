@@ -1,4 +1,5 @@
 ﻿using MessagingLibrary.Client.Mqtt.Configuration;
+using MessagingLibrary.Core.Clients;
 using MessagingLibrary.Core.Messages;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;

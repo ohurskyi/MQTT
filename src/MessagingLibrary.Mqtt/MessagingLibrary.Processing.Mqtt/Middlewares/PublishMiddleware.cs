@@ -1,4 +1,5 @@
-﻿using MessagingLibrary.Core.Configuration;
+﻿using MessagingLibrary.Core.Clients;
+using MessagingLibrary.Core.Configuration;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Core.Results;
 using MessagingLibrary.Processing.Middlewares;
