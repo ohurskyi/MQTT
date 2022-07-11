@@ -5,11 +5,8 @@ namespace DistributedConfiguration.Client.Listeners;
 
 public class ConsumerDefinitionProvider : IConsumerDefinitionProvider<InfrastructureMqttMessagingClientOptions>
 {
-    public IEnumerable<IConsumerDefinition> ConsumerDefinitions()
+    public IEnumerable<IConsumerDefinition> Definitions => new List<IConsumerDefinition>
     {
-        return new List<IConsumerDefinition>
-        {
-            new PairedDevicesConsumerDefinition()
-        };
-    }
+        new PairedDevicesConsumerDefinition()
+    };
 }

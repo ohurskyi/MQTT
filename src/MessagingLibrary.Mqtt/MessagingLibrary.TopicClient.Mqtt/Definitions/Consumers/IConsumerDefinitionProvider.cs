@@ -5,5 +5,5 @@ namespace MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
 public interface IConsumerDefinitionProvider<TMessagingClientOptions>
     where TMessagingClientOptions : class, IMqttMessagingClientOptions
 {
-    IEnumerable<IConsumerDefinition> ConsumerDefinitions();
+    IEnumerable<IConsumerDefinition> Definitions { get; }
 }

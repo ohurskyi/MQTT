@@ -17,14 +17,14 @@ public class ConsumerListener<TMessagingClientOptions> : IHostedService
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        var consumerDefinitions = _consumerDefinitionProvider.ConsumerDefinitions();
+        var consumerDefinitions = _consumerDefinitionProvider.Definitions;
         var subs = consumerDefinitions.SelectMany(c => c.Definitions()).ToList();
         await Task.WhenAll(subs.Select(s => _topicClient.Subscribe(s)));
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)
     {
-        var consumerDefinitions = _consumerDefinitionProvider.ConsumerDefinitions();
+        var consumerDefinitions = _consumerDefinitionProvider.Definitions;
         var subs = consumerDefinitions.SelectMany(c => c.Definitions()).ToList();
         await Task.WhenAll(subs.Select(s => _topicClient.Unsubscribe(s)));
     }

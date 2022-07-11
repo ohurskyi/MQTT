@@ -5,11 +5,8 @@ namespace DistributedConfiguration.Domain.Listeners;
 
 public class ThisDomainConsumerDefinitionProvider : IConsumerDefinitionProvider<InfrastructureMqttMessagingClientOptions>
 {
-    public IEnumerable<IConsumerDefinition> ConsumerDefinitions()
+    public IEnumerable<IConsumerDefinition> Definitions => new List<IConsumerDefinition>
     {
-        return new List<IConsumerDefinition>
-        {
-            new DistributedConfigurationConsumerDefinition()
-        };
-    }
+        new DistributedConfigurationConsumerDefinition()
+    };
 }
