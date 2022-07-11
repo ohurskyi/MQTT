@@ -2,19 +2,17 @@
 using DistributedConfiguration.Domain.Handlers;
 using MessagingLibrary.TopicClient.Mqtt;
 using MessagingLibrary.TopicClient.Mqtt.Definitions;
-using Mqtt.Library.Client.Infrastructure;
 
 namespace DistributedConfiguration.Domain.Listeners;
 
-public class DistributedConfigurationConsumerDefinition : IConsumerDefinition<InfrastructureMqttMessagingClientOptions>
+public class DistributedConfigurationConsumerDefinition : IConsumerDefinition
 {
-    public IEnumerable<Task<ISubscription>> Subscriptions(IMqttTopicClient<InfrastructureMqttMessagingClientOptions> topicClient)
+    public IEnumerable<ISubscription> Definitions()
     {
-        var subscriptions = new List<Task<ISubscription>>
+        return new List<ISubscription>
         {
-            topicClient.Subscribe<PairDeviceMessageHandler>($"{DistributedConfigurationTopicConstants.PairDevice}"),
-            topicClient.Subscribe<GetPairedDeviceMessageHandler>($"{DistributedConfigurationTopicConstants.RequestUpdate}"),
+            new Subscription<PairDeviceMessageHandler>($"{DistributedConfigurationTopicConstants.PairDevice}"),
+            new Subscription<PairDeviceMessageHandler>($"{DistributedConfigurationTopicConstants.RequestUpdate}")
         };
-        return subscriptions;
     }
 }

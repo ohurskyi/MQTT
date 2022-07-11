@@ -7,7 +7,7 @@ namespace MessagingLibrary.TopicClient.Mqtt
     public interface IMqttTopicClient<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
     {
         Task<ISubscription> Subscribe<T>(string topic) where T : class, IMessageHandler;
-        Task Subscribe(IDefinition definition);
+        Task Subscribe(ISubscription definition);
         Task Unsubscribe(ISubscription subscription);
     }
 }

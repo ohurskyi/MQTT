@@ -1,8 +1,6 @@
-﻿using MessagingLibrary.Client.Mqtt.Configuration;
+﻿namespace MessagingLibrary.TopicClient.Mqtt.Definitions;
 
-namespace MessagingLibrary.TopicClient.Mqtt.Definitions;
-
-public interface IConsumerDefinition<TMessagingClientOptions> where TMessagingClientOptions : class, IMqttMessagingClientOptions
+public interface IConsumerDefinition
 {
-    IEnumerable<Task<ISubscription>> Subscriptions(IMqttTopicClient<TMessagingClientOptions> topicClient);
+    IEnumerable<ISubscription> Definitions();
 }
