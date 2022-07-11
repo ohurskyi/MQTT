@@ -25,8 +25,6 @@ IHost host = Host.CreateDefaultBuilder(args)
 
         serviceCollection.AddHostedService<BackgroundPublisher>();
 
-        //serviceCollection.AddMqttStartupListener<PairedDevicesConfigurationChangedMqttStartupListener>();
-
         //serviceCollection.AddHostedService<BackgroundRequestSender>();
     })
     .UseSerilog((hostingContext, _, loggerConfiguration) => loggerConfiguration

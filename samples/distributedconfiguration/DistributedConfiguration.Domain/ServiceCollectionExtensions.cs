@@ -14,9 +14,6 @@ public static class ServiceCollectionExtensions
         serviceCollection.AddMqttMessagingPipeline<InfrastructureMqttMessagingClientOptions>(typeof(PairDeviceMessageHandler).Assembly);
         serviceCollection.AddConsumerDefinitionProvider<InfrastructureMqttMessagingClientOptions, ThisDomainConsumerDefinitionProvider>();
         serviceCollection.AddConsumerListener<InfrastructureMqttMessagingClientOptions>();
-        
-        //serviceCollection.AddMqttStartupListener<DistributedConfigurationMqttStartupListener>();
-        
         return serviceCollection;
     }
 }
