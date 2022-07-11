@@ -1,4 +1,5 @@
 ﻿using MessagingLibrary.Client.Mqtt.Configuration;
+using MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -10,6 +11,21 @@ public static class ServiceCollectionExtensions
         where TMessagingClientOptions: class, IMqttMessagingClientOptions
     {
         serviceCollection.TryAddSingleton<IMqttTopicClient<TMessagingClientOptions>, MqttTopicClient<TMessagingClientOptions>>();
+        return serviceCollection;
+    }
+    
+    public static IServiceCollection AddConsumerDefinitionProvider<TMessagingClientOptions, TConsumerDefinitionProvider>(this IServiceCollection serviceCollection)
+        where TMessagingClientOptions: class, IMqttMessagingClientOptions
+        where TConsumerDefinitionProvider: class, IConsumerDefinitionProvider<TMessagingClientOptions>
+    {
+        serviceCollection.TryAddSingleton<IConsumerDefinitionProvider<TMessagingClientOptions>, TConsumerDefinitionProvider>();
+        return serviceCollection;
+    }
+
+    public static IServiceCollection AddConsumerListener<TMessagingClientOptions>(this IServiceCollection serviceCollection)
+        where TMessagingClientOptions: class, IMqttMessagingClientOptions
+    {
+        serviceCollection.AddHostedService<ConsumerListener<TMessagingClientOptions>>();
         return serviceCollection;
     }
 }

@@ -1,6 +1,5 @@
 ﻿using DistributedConfiguration.Contracts.Topics;
 using DistributedConfiguration.Domain.Handlers;
-using MessagingLibrary.TopicClient.Mqtt;
 using MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
 using MessagingLibrary.TopicClient.Mqtt.Definitions.Subscriptions;
 
@@ -13,7 +12,7 @@ public class DistributedConfigurationConsumerDefinition : IConsumerDefinition
         return new List<ISubscription>
         {
             new Subscription<PairDeviceMessageHandler>($"{DistributedConfigurationTopicConstants.PairDevice}"),
-            new Subscription<PairDeviceMessageHandler>($"{DistributedConfigurationTopicConstants.RequestUpdate}")
+            new Subscription<GetPairedDeviceMessageHandler>($"{DistributedConfigurationTopicConstants.RequestUpdate}")
         };
     }
 }
