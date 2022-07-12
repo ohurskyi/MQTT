@@ -1,5 +1,7 @@
 ﻿using DistributedConfiguration.Client.IntegrationEvents.PairedDevicesConfigurationChanged;
 using DistributedConfiguration.Contracts.Topics;
+using MessagingLibrary.Core.Definitions;
+using MessagingLibrary.Core.Definitions.Consumers;
 using MessagingLibrary.Core.Definitions.Subscriptions;
 using MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
 

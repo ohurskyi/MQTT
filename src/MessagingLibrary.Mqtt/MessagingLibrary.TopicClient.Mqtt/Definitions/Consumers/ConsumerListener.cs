@@ -1,5 +1,7 @@
 ﻿using MessagingLibrary.Client.Mqtt.Configuration;
 using MessagingLibrary.Core.Clients;
+using MessagingLibrary.Core.Definitions;
+using MessagingLibrary.Core.Definitions.Consumers;
 
 namespace MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
 

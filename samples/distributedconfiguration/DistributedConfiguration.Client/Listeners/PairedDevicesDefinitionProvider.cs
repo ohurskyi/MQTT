@@ -1,4 +1,6 @@
-﻿using MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
+﻿using MessagingLibrary.Core.Definitions;
+using MessagingLibrary.Core.Definitions.Consumers;
+using MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
 
 namespace DistributedConfiguration.Client.Listeners;
 

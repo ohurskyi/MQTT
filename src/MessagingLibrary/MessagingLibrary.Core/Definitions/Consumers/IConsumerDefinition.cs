@@ -1,6 +1,6 @@
 ﻿using MessagingLibrary.Core.Definitions.Subscriptions;
 
-namespace MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
+namespace MessagingLibrary.Core.Definitions.Consumers;
 
 public interface IConsumerDefinition
 {
