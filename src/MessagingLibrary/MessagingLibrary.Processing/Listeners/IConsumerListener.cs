@@ -1,4 +1,4 @@
-﻿namespace MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
+﻿namespace MessagingLibrary.Processing.Listeners;
 
 public interface IConsumerListener
 {

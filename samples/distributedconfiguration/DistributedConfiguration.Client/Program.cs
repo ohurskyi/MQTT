@@ -1,10 +1,10 @@
 using DistributedConfiguration.Client;
 using DistributedConfiguration.Client.IntegrationEvents.PairedDevicesConfigurationChanged;
 using DistributedConfiguration.Client.Listeners;
+using MessagingLibrary.Processing.Configuration.DependencyInjection;
 using MessagingLibrary.Processing.Mqtt;
 using MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;
 using MessagingLibrary.RequestResponse.Mqtt;
-using MessagingLibrary.TopicClient.Mqtt;
 using Mqtt.Library.Client.Infrastructure;
 using Serilog;
 

@@ -1,7 +1,6 @@
-﻿using MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 
-namespace MessagingLibrary.TopicClient.Mqtt;
+namespace MessagingLibrary.Processing.Listeners;
 
 public class MessageConsumersHostedService : IHostedService
 {

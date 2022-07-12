@@ -1,12 +1,11 @@
-﻿using MessagingLibrary.Client.Mqtt.Configuration;
-using MessagingLibrary.Core.Clients;
-using MessagingLibrary.Core.Definitions;
+﻿using MessagingLibrary.Core.Clients;
+using MessagingLibrary.Core.Configuration;
 using MessagingLibrary.Core.Definitions.Consumers;
 
-namespace MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
+namespace MessagingLibrary.Processing.Listeners;
 
 public class ConsumerListener<TMessagingClientOptions> : IConsumerListener
-    where TMessagingClientOptions : class, IMqttMessagingClientOptions
+    where TMessagingClientOptions : class, IMessagingClientOptions
 {
     private readonly IEnumerable<IConsumerDefinition> _consumerDefinitions;
     private readonly ITopicClient<TMessagingClientOptions> _topicClient;
