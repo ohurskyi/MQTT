@@ -4,14 +4,6 @@ using Mqtt.Library.Client.Infrastructure;
 
 namespace DistributedConfiguration.Client.Listeners;
 
-public class ConsumerDefinitionProvider : IConsumerDefinitionProvider
-{
-    public IEnumerable<IConsumerDefinition> Definitions => new List<IConsumerDefinition>
-    {
-        new PairedDevicesConsumerDefinition()
-    };
-}
-
 public class ConsumerDefinitionListenerProvider : IConsumerDefinitionListenerProvider
 {
     private readonly ITopicClient<InfrastructureMqttMessagingClientOptions> _topicClient;
@@ -23,6 +15,6 @@ public class ConsumerDefinitionListenerProvider : IConsumerDefinitionListenerPro
 
     public IEnumerable<IDefinitionListener> Listeners => new List<IDefinitionListener>
     {
-        new DefinitionListener<InfrastructureMqttMessagingClientOptions>(new ConsumerDefinitionProvider().Definitions ,_topicClient)
+        new DefinitionListener<InfrastructureMqttMessagingClientOptions>(new PairedDevicesDefinitionProvider().Definitions, _topicClient)
     };
 }

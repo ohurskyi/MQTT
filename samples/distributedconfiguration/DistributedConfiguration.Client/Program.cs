@@ -5,6 +5,7 @@ using MessagingLibrary.Processing.Mqtt;
 using MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;
 using MessagingLibrary.RequestResponse.Mqtt;
 using MessagingLibrary.TopicClient.Mqtt;
+using MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
 using Mqtt.Library.Client.Infrastructure;
 using Serilog;
 
@@ -20,8 +21,9 @@ IHost host = Host.CreateDefaultBuilder(args)
         serviceCollection.AddMqttRequestClient<InfrastructureMqttMessagingClientOptions>();
 
         serviceCollection.AddMqttMessagingPipeline<InfrastructureMqttMessagingClientOptions>(typeof(UpdateLocalConfigurationMessageHandler).Assembly);
-        serviceCollection.AddConsumerDefinitionProvider<InfrastructureMqttMessagingClientOptions, ConsumerDefinitionProvider>();
-        serviceCollection.AddConsumerListener<InfrastructureMqttMessagingClientOptions>();
+        serviceCollection.AddConsumerDefinitionProvider<PairedDevicesDefinitionProvider>();
+        serviceCollection.AddSingleton<IConsumerDefinitionListenerProvider, ConsumerDefinitionListenerProvider>();
+        serviceCollection.AddConsumerListener();
 
         serviceCollection.AddHostedService<BackgroundPublisher>();
 
