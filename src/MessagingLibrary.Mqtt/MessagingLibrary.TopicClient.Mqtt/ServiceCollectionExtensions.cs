@@ -31,7 +31,7 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddConsumerListener(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddHostedService<ConsumerListener>();
+        serviceCollection.AddHostedService<MessageConsumersHostedService>();
         return serviceCollection;
     }
 }

@@ -1,25 +1,29 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using MessagingLibrary.Client.Mqtt.Configuration;
+using MessagingLibrary.Core.Clients;
 
 namespace MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
 
-public class ConsumerListener : IHostedService
+public class ConsumerListener<TMessagingClientOptions> : IConsumerListener
+    where TMessagingClientOptions : class, IMqttMessagingClientOptions
 {
-    private readonly IConsumerDefinitionListenerProvider _consumerDefinitionListenerProvider;
+    private readonly IEnumerable<IConsumerDefinition> _consumerDefinitions;
+    private readonly ITopicClient<TMessagingClientOptions> _topicClient;
+
+    public ConsumerListener(IEnumerable<IConsumerDefinition> consumerDefinitions, ITopicClient<TMessagingClientOptions> topicClient)
+    {
+        _consumerDefinitions = consumerDefinitions;
+        _topicClient = topicClient;
+    }
+
+    public async Task StartListening()
+    {
+        var definitions = _consumerDefinitions.SelectMany(c => c.Definitions());
+        await Task.WhenAll(definitions.Select(d => _topicClient.Subscribe(d)));
+    }
     
-    public ConsumerListener(IConsumerDefinitionListenerProvider consumerDefinitionListenerProvider)
+    public async Task StopListening()
     {
-        _consumerDefinitionListenerProvider = consumerDefinitionListenerProvider;
-    }
-
-    public async Task StartAsync(CancellationToken cancellationToken)
-    {
-        var listeners = _consumerDefinitionListenerProvider.Listeners;
-        await Task.WhenAll(listeners.Select(listener => listener.StartListening()));
-    }
-
-    public async Task StopAsync(CancellationToken cancellationToken)
-    {
-        var listeners = _consumerDefinitionListenerProvider.Listeners;
-        await Task.WhenAll(listeners.Select(listener => listener.StopListening()));
+        var definitions = _consumerDefinitions.SelectMany(c => c.Definitions());
+        await Task.WhenAll(definitions.Select(d => _topicClient.Unsubscribe(d)));
     }
 }

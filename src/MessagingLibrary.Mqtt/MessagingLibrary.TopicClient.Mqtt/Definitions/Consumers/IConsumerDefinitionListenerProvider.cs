@@ -2,5 +2,5 @@
 
 public interface IConsumerDefinitionListenerProvider
 {
-    IEnumerable<IDefinitionListener> Listeners { get; }
+    IEnumerable<IConsumerListener> Listeners { get; }
 }
