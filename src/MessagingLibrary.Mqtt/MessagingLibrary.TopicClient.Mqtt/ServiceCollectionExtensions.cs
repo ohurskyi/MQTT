@@ -21,6 +21,13 @@ public static class ServiceCollectionExtensions
         serviceCollection.TryAddSingleton<IConsumerDefinitionProvider, TConsumerDefinitionProvider>();
         return serviceCollection;
     }
+    
+    public static IServiceCollection AddConsumerDefinitionListenerProvider<TConsumerDefinitionListenerProvider>(this IServiceCollection serviceCollection)
+        where TConsumerDefinitionListenerProvider: class, IConsumerDefinitionListenerProvider
+    {
+        serviceCollection.TryAddSingleton<IConsumerDefinitionListenerProvider, TConsumerDefinitionListenerProvider>();
+        return serviceCollection;
+    }
 
     public static IServiceCollection AddConsumerListener(this IServiceCollection serviceCollection)
     {
