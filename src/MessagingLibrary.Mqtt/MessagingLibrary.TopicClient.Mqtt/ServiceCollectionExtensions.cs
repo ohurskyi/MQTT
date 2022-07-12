@@ -15,18 +15,16 @@ public static class ServiceCollectionExtensions
         return serviceCollection;
     }
     
-    public static IServiceCollection AddConsumerDefinitionProvider<TMessagingClientOptions, TConsumerDefinitionProvider>(this IServiceCollection serviceCollection)
-        where TMessagingClientOptions: class, IMqttMessagingClientOptions
-        where TConsumerDefinitionProvider: class, IConsumerDefinitionProvider<TMessagingClientOptions>
+    public static IServiceCollection AddConsumerDefinitionProvider<TConsumerDefinitionProvider>(this IServiceCollection serviceCollection)
+        where TConsumerDefinitionProvider: class, IConsumerDefinitionProvider
     {
-        serviceCollection.TryAddSingleton<IConsumerDefinitionProvider<TMessagingClientOptions>, TConsumerDefinitionProvider>();
+        serviceCollection.TryAddSingleton<IConsumerDefinitionProvider, TConsumerDefinitionProvider>();
         return serviceCollection;
     }
 
-    public static IServiceCollection AddConsumerListener<TMessagingClientOptions>(this IServiceCollection serviceCollection)
-        where TMessagingClientOptions: class, IMqttMessagingClientOptions
+    public static IServiceCollection AddConsumerListener(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddHostedService<ConsumerListener<TMessagingClientOptions>>();
+        serviceCollection.AddHostedService<ConsumerListener>();
         return serviceCollection;
     }
 }

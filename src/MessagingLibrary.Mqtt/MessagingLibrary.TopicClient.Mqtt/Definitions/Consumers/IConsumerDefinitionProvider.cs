@@ -1,9 +1,6 @@
-﻿using MessagingLibrary.Client.Mqtt.Configuration;
+﻿namespace MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
 
-namespace MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
-
-public interface IConsumerDefinitionProvider<TMessagingClientOptions>
-    where TMessagingClientOptions : class, IMqttMessagingClientOptions
+public interface IConsumerDefinitionProvider
 {
     IEnumerable<IConsumerDefinition> Definitions { get; }
 }

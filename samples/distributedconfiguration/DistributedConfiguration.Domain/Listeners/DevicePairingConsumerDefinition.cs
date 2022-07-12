@@ -5,7 +5,7 @@ using MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
 
 namespace DistributedConfiguration.Domain.Listeners;
 
-public class DistributedConfigurationConsumerDefinition : IConsumerDefinition
+public class DevicePairingConsumerDefinition : IConsumerDefinition
 {
     public IEnumerable<ISubscription> Definitions()
     {

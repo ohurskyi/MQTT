@@ -1,32 +1,25 @@
-﻿using MessagingLibrary.Client.Mqtt.Configuration;
-using MessagingLibrary.Core.Clients;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 
 namespace MessagingLibrary.TopicClient.Mqtt.Definitions.Consumers;
 
-public class ConsumerListener<TMessagingClientOptions> : IHostedService
-    where TMessagingClientOptions : class, IMqttMessagingClientOptions
+public class ConsumerListener : IHostedService
 {
-    private readonly IConsumerDefinitionProvider<TMessagingClientOptions> _consumerDefinitionProvider;
-    private readonly ITopicClient<TMessagingClientOptions> _topicClient;
-
-    public ConsumerListener(IConsumerDefinitionProvider<TMessagingClientOptions> consumerDefinitionProvider, ITopicClient<TMessagingClientOptions> topicClient)
+    private readonly IConsumerDefinitionListenerProvider _consumerDefinitionListenerProvider;
+    
+    public ConsumerListener(IConsumerDefinitionListenerProvider consumerDefinitionListenerProvider)
     {
-        _consumerDefinitionProvider = consumerDefinitionProvider;
-        _topicClient = topicClient;
+        _consumerDefinitionListenerProvider = consumerDefinitionListenerProvider;
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        var consumerDefinitions = _consumerDefinitionProvider.Definitions;
-        var subs = consumerDefinitions.SelectMany(c => c.Definitions()).ToList();
-        await Task.WhenAll(subs.Select(s => _topicClient.Subscribe(s)));
+        var listeners = _consumerDefinitionListenerProvider.Listeners;
+        await Task.WhenAll(listeners.Select(listener => listener.StartListening()));
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)
     {
-        var consumerDefinitions = _consumerDefinitionProvider.Definitions;
-        var subs = consumerDefinitions.SelectMany(c => c.Definitions()).ToList();
-        await Task.WhenAll(subs.Select(s => _topicClient.Unsubscribe(s)));
+        var listeners = _consumerDefinitionListenerProvider.Listeners;
+        await Task.WhenAll(listeners.Select(listener => listener.StopListening()));
     }
 }
