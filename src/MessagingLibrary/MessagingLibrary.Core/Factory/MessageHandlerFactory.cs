@@ -42,6 +42,7 @@ public class MessageHandlerFactory<TMessagingClientOptions> : IMessageHandlerFac
             .Where(k => _topicFilterComparer.IsMatch(topic, k.Key))
             .SelectMany(k => k.Value.Keys)
             .Select(serviceFactory.GetInstance<IMessageHandler>)
+            .Where(handler => handler != null)
             .ToList();
         
         return instances;
