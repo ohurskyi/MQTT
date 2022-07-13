@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using MessagingLibrary.Core.Configuration.DependencyInjection;
 using MessagingLibrary.Core.Extensions;
 using MessagingLibrary.Core.Factory;
 using MessagingLibrary.Core.Messages;
@@ -114,8 +115,9 @@ public class ScopedMessageExecutorTests
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddSingleton<ILoggerFactory, NullLoggerFactory>();
         serviceCollection.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
-        
-        serviceCollection.AddMessagingPipeline<TestMessagingClientOptions>(typeof(HandlerForDeviceNumber1).Assembly);
+
+        serviceCollection.AddMessageHandlers(typeof(HandlerForDeviceNumber1).Assembly);
+        serviceCollection.AddMessagingPipeline<TestMessagingClientOptions>();
         serviceCollection.AddMqttTopicComparer();
         serviceCollection.AddSingleton(textWriter);
         return serviceCollection.BuildServiceProvider();

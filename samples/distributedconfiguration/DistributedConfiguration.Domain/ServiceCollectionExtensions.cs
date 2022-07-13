@@ -1,5 +1,6 @@
 ﻿using DistributedConfiguration.Domain.Handlers;
 using DistributedConfiguration.Domain.Listeners;
+using MessagingLibrary.Core.Configuration.DependencyInjection;
 using MessagingLibrary.Processing.Configuration.DependencyInjection;
 using MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,8 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddPairingDomainServices(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddMqttMessagingPipeline<InfrastructureMqttMessagingClientOptions>(typeof(PairDeviceMessageHandler).Assembly);
+        serviceCollection.AddMessageHandlers(typeof(PairDeviceMessageHandler).Assembly);
+        serviceCollection.AddMqttMessagingPipeline<InfrastructureMqttMessagingClientOptions>();
         serviceCollection.AddConsumerDefinitionProvider<PairingConsumerDefinitionProvider>();
         serviceCollection.AddConsumerDefinitionListenerProvider<ConsumerDefinitionListenerProvider>();
         serviceCollection.AddConsumerListener();

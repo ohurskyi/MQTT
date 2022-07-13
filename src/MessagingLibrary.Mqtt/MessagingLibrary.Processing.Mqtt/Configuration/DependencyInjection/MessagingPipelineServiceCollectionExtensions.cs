@@ -8,11 +8,11 @@ namespace MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;
 
 public static class MessagingPipelineServiceCollectionExtensions
 {
-    public static IServiceCollection AddMqttMessagingPipeline<TMessagingClientOptions>(this IServiceCollection serviceCollection, params Assembly[] assemblies)
+    public static IServiceCollection AddMqttMessagingPipeline<TMessagingClientOptions>(this IServiceCollection serviceCollection)
         where TMessagingClientOptions : class, IMqttMessagingClientOptions
     {
         return serviceCollection
-            .AddMessagingPipeline<TMessagingClientOptions>(assemblies)
+            .AddMessagingPipeline<TMessagingClientOptions>()
             .AddMqttTopicComparer()
             .AddInternalMiddlewares()
             .AddMqttApplicationMessageReceivedHandler<TMessagingClientOptions>();

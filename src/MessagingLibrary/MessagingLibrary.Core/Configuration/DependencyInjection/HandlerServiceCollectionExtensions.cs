@@ -13,8 +13,10 @@ public static class HandlerServiceCollectionExtensions
         return serviceCollection;
     }
 
-    public static IServiceCollection AddMessageHandlers(this IServiceCollection serviceCollection, Assembly[] assemblies)
+    public static IServiceCollection AddMessageHandlers(this IServiceCollection serviceCollection, params Assembly[] assemblies)
     {
+        assemblies = assemblies.Distinct().ToArray();
+        
         var implementationTypes = assemblies
             .SelectMany(a => a.DefinedTypes)
             .Where(t => typeof(IMessageHandler).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract)
