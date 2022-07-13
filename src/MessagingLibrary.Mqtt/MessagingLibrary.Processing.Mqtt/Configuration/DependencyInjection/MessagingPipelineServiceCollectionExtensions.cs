@@ -20,6 +20,7 @@ public static class MessagingPipelineServiceCollectionExtensions
 
     private static IServiceCollection AddInternalMiddlewares(this IServiceCollection serviceCollection)
     {
+        serviceCollection.AddMiddleware<UnhandledExceptionMiddleware>();
         serviceCollection.AddMiddleware<LoggingMiddleware>();
         serviceCollection.AddMiddleware<PublishMiddleware>();
         serviceCollection.AddMiddleware<ReplyMiddleware>();
