@@ -9,7 +9,7 @@ public static class HandlerFactoryServiceCollectionExtensions
     public static IServiceCollection AddMessageHandlerFactory<TMessagingClientOptions>(this IServiceCollection serviceCollection) 
         where TMessagingClientOptions: IMessagingClientOptions
     {
-        serviceCollection.TryAddTransient<HandlerFactory>(p => p.GetRequiredService);
+        serviceCollection.TryAddTransient<ServiceFactory>(p => p.GetRequiredService);
         serviceCollection.TryAddSingleton<IMessageHandlerFactory<TMessagingClientOptions>, MessageHandlerFactory<TMessagingClientOptions>>();
         return serviceCollection;
     }

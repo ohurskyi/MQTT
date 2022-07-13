@@ -10,25 +10,25 @@ public class MessageHandlingStrategy<TMessagingClientOptions> : IMessageHandling
     where TMessagingClientOptions: IMessagingClientOptions
 {
     private readonly IMessageHandlerFactory<TMessagingClientOptions> _messageHandlerFactory;
-    private readonly HandlerFactory _handlerFactory;
+    private readonly ServiceFactory _serviceFactory;
 
     public MessageHandlingStrategy(
         IMessageHandlerFactory<TMessagingClientOptions> messageHandlerFactory, 
-        HandlerFactory handlerFactory)
+        ServiceFactory serviceFactory)
     {
         _messageHandlerFactory = messageHandlerFactory;
-        _handlerFactory = handlerFactory;
+        _serviceFactory = serviceFactory;
     }
 
     public async Task Handle(IMessage message)
     {
-        var handlers = _messageHandlerFactory.GetHandlers(message.Topic, _handlerFactory);
+        var handlers = _messageHandlerFactory.GetHandlers(message.Topic, _serviceFactory);
 
         var funcs = handlers.Select(h => new Func<IMessage, Task<IExecutionResult>>(h.Handle));
 
         Task<HandlerResult> HandlerFunc() => HandleCore(funcs, message);
 
-        var result = _handlerFactory
+        var result = _serviceFactory
             .GetInstances<IMessageMiddleware>()
             .Reverse()
             .Aggregate((MessageHandlerDelegate)HandlerFunc, 
