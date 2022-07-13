@@ -14,7 +14,7 @@ public static class MqttApplicationMessageExtensions
             Topic = mqttApplicationMessage.Topic, 
             Payload = payloadStr, 
             ReplyTopic = mqttApplicationMessage.ResponseTopic,
-            CorrelationId = new Guid(mqttApplicationMessage.CorrelationData)
+            CorrelationId = mqttApplicationMessage.CorrelationData == null ? Guid.Empty : new Guid(mqttApplicationMessage.CorrelationData)
         };
         return message;
     }
