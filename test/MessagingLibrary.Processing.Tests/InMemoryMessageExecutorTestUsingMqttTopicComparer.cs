@@ -90,12 +90,13 @@ public class InMemoryMessageExecutorTestUsingMqttTopicComparer
         var builder = new StringBuilder();
         await using var writer = new StringWriter(builder);
         var serviceProvider = BuildContainer(writer);
-        
-        const int deviceNumberOne = 1;
 
+        const int deviceNumberOne = 1;
+        const int deviceNumberTwo = 2;
+        
         var factory = serviceProvider.GetRequiredService<IMessageHandlerFactory<TestMessagingClientOptions>>();
-        factory.RegisterHandler<HandlerForDeviceNumber1>($"{DeviceTopicConstants.DeviceTopic}/{1}/brightness");
-        factory.RegisterHandler<HandlerForDeviceNumber2>($"{DeviceTopicConstants.DeviceTopic}/{2}/brightness");
+        factory.RegisterHandler<HandlerForDeviceNumber1>($"{DeviceTopicConstants.DeviceTopic}/+/temperature/{deviceNumberOne}");
+        factory.RegisterHandler<HandlerForDeviceNumber2>($"{DeviceTopicConstants.DeviceTopic}/+/temperature/{deviceNumberTwo}");
         factory.RegisterHandler<HandlerForAllDeviceNumbers>($"{DeviceTopicConstants.DeviceTopic}/+/temperature");
 
         var contract =  new DeviceMessageContract { Name = "Device" };
