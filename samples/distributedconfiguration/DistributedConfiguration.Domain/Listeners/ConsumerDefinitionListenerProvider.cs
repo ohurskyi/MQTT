@@ -15,6 +15,6 @@ public class ConsumerDefinitionListenerProvider : IConsumerDefinitionListenerPro
 
     public IEnumerable<IConsumerListener> Listeners => new List<IConsumerListener>
     {
-        new ConsumerListener<InfrastructureMqttMessagingClientOptions>(new PairingConsumerDefinitionProvider().Definitions, _topicClient)
+        new ConsumerListener<InfrastructureMqttMessagingClientOptions>(_topicClient, new PairingConsumerDefinitionProvider())
     };
 }
