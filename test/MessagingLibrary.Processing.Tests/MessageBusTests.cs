@@ -23,8 +23,11 @@ namespace MessagingLibrary.Processing.Tests;
 
 public class MessageBusTests
 {
-    [Fact]
-    public async Task Test()
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(420)]
+    public async Task ExecuteAsync_MultiWildCardDeviceTopic_CallHandlerForAllDevices(int deviceNumber)
     {
         // arrange
         var builder = new StringBuilder();

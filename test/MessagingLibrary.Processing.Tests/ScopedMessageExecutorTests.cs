@@ -24,7 +24,7 @@ public class ScopedMessageExecutorTests
 {
     [Theory]
     [InlineData(1)]
-    [InlineData(2)]
+    [InlineData(69)]
     [InlineData(420)]
     public async Task ExecuteAsync_MultiWildCardDeviceTopic_CallHandlerForAllDevices(int deviceNumber)
     {
