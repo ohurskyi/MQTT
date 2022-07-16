@@ -1,5 +1,16 @@
-# Simple MQTT messaging processing library
-MQTT messaging using [MQTTnet](https://github.com/chkr1011/MQTTnet) under the hood with MessagingLibrary Core integration.
+# Simple MQTT message processing library
+
+MQTT message processing is done using [MessagingLibrary Core/Processing](https://github.com/ohurskyi/MQTT/tree/main/src/MessagingLibrary) with integration of [MQTTnet](https://github.com/chkr1011/MQTTnet).
+
+MessagingLibrary Core has no dependencies. Integration with MQTT done in separate proj [MessagingLibrary Mqtt](https://github.com/ohurskyi/MQTT/tree/main/src/MessagingLibrary.Mqtt).
+
+## Create Message Contract
+```csharp
+public class DeviceMessageContract : IMessageContract
+{
+    public string Name { get; set; }
+}
+```
 
 ## Create handler
 ```csharp
@@ -22,27 +33,20 @@ public class HandlerForDeviceNumber1 : MessageHandlerBase<DeviceMessageContract>
 
 ## Define messaging options
 ```csharp
-public class InfrastructureMqttMessagingClientOptions : IMqttMessagingClientOptions
+public class InMemoryClientOptions : IMessagingClientOptions
 {
-    public MqttBrokerConnectionOptions MqttBrokerConnectionOptions { get; set; } = new() { Host = "infrastructure.com", Port = 1883 };
 }
 ```
 
 ## Subscribe
 ```csharp
 var deviceNumberOneTopic = "device/1";
-IMessageHandlerFactory<InfrastructureMqttMessagingClientOptions>.RegisterHandler<HandlerForDeviceNumber1>(deviceNumberOneTopic);
+IMessageHandlerFactory<InMemoryClientOptions>.RegisterHandler<HandlerForDeviceNumber1>(deviceNumberOneTopic);
 ```
 
 ## Register in DI
 ```csharp
-serviceCollection.AddMqttMessagingPipeline<InfrastructureMqttMessagingClientOptions>(typeof(HandlerForDeviceNumber1).Assembly);
+serviceCollection.AddMessagingPipeline<InMemoryClientOptions>(typeof(HandlerForDeviceNumber1).Assembly);
 ```
 
-## Add MqttClient and Connect with MQTT Messaging Pipeline
-```csharp
-serviceCollection.AddMqttMessagingClient<InfrastructureMqttMessagingClientOptions>();
-serviceProvider.UseMqttMessageReceivedHandler<InfrastructureMqttMessagingClientOptions>();
-```
-
-To get easy started please check the samples folder using Distributed Config as an example with multiple handlers and integration events.
+To get started please check the samples folder using Distributed Config as an example with multiple handlers and integration events.
