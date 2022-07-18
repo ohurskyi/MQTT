@@ -4,12 +4,10 @@
     {
         private FailedResult(string failureReason): this(failureReason, null)
         {
-            FailureReason = failureReason;
         }
 
         private FailedResult(Exception ex) : this(string.Empty, ex)
         {
-            
         }
 
         private FailedResult(string failureReason, Exception ex)
