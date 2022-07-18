@@ -39,7 +39,7 @@ public class InMemoryMessageExecutorTestUsingMqttTopicComparer
         factory.RegisterHandler<HandlerForAllDeviceNumbers>(multiWildCardDeviceTopic);
         
         var contract =  new DeviceMessageContract { Name = "Device" };
-        var publishTopic = $"{DeviceTopicConstants.DeviceTopic}/{1}";
+        var publishTopic = $"{DeviceTopicConstants.DeviceTopic}/{deviceNumber}";
         var message = new Message { Topic = publishTopic, Payload = contract.MessagePayloadToJson() };
 
         // act
