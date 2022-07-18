@@ -20,32 +20,28 @@ public class MessageHandlingStrategy<TMessagingClientOptions> : IMessageHandling
         _serviceFactory = serviceFactory;
     }
 
-    public async Task Handle(IMessage message)
+    public async Task<HandlerResult> Handle(IMessage message)
     {
-        var handlers = _messageHandlerFactory.GetHandlers(message.Topic, _serviceFactory);
+        var handlers = _messageHandlerFactory
+            .GetHandlers(message.Topic, _serviceFactory)
+            .Select(h => new Func<IMessage, Task<IExecutionResult>>(h.Handle));
 
-        var funcs = handlers.Select(h => new Func<IMessage, Task<IExecutionResult>>(h.Handle));
+        Task<HandlerResult> HandlerFunc() => HandleInner(handlers, message);
 
-        Task<HandlerResult> HandlerFunc() => HandleCore(funcs, message);
-
-        var result = _serviceFactory
+        var messageHandlerDelegate = _serviceFactory
             .GetInstances<IMessageMiddleware>()
             .Reverse()
             .Aggregate((MessageHandlerDelegate)HandlerFunc, 
                 (next, pipeline) => () => pipeline.Handle<TMessagingClientOptions>(message, next));
 
-        await result();
+        var handlerResult = await messageHandlerDelegate();
+
+        return handlerResult;
     }
 
-    protected virtual async Task<HandlerResult> HandleCore(IEnumerable<Func<IMessage, Task<IExecutionResult>>> handlers, IMessage message)
+    private async Task<HandlerResult> HandleInner(IEnumerable<Func<IMessage, Task<IExecutionResult>>> handlers, IMessage message)
     {
-        var executionResults = new List<IExecutionResult>();
-        
-        foreach (var handler in handlers)
-        {
-            var result = await handler(message);
-            executionResults.Add(result);
-        }
+        var executionResults = await HandleCore(handlers, message);
 
         var handlerResult = new HandlerResult();
 
@@ -55,5 +51,18 @@ public class MessageHandlingStrategy<TMessagingClientOptions> : IMessageHandling
         }
 
         return handlerResult;
+    }
+
+    protected virtual async Task<IEnumerable<IExecutionResult>> HandleCore(IEnumerable<Func<IMessage, Task<IExecutionResult>>> handlers, IMessage message)
+    {
+        var executionResults = new List<IExecutionResult>();
+
+        foreach (var handler in handlers)
+        {
+            var result = await handler(message);
+            executionResults.Add(result);
+        }
+
+        return executionResults;
     }
 }
