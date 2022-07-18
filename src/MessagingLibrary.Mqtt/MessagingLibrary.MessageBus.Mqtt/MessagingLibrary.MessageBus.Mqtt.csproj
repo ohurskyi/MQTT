@@ -3,11 +3,11 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+        <Nullable>disable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="MQTTnet" Version="3.0.13" />
+      <PackageReference Include="MQTTnet" Version="4.0.2.221" />
     </ItemGroup>
 
     <ItemGroup>

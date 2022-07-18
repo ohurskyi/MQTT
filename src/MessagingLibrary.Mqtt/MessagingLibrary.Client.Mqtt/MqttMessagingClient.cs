@@ -1,9 +1,6 @@
 ﻿using MessagingLibrary.Client.Mqtt.Configuration;
-using Mqtt.Library.Client;
 using MQTTnet;
-using MQTTnet.Client.Options;
-using MQTTnet.Client.Publishing;
-using MQTTnet.Client.Receiving;
+using MQTTnet.Client;
 using MQTTnet.Extensions.ManagedClient;
 using MQTTnet.Formatter;
 
@@ -33,9 +30,9 @@ public class MqttMessagingClient<TMessagingClientOptions> : IMqttMessagingClient
         _mqttClient = new MqttFactory().CreateManagedMqttClient();
     }
 
-    public void UseMqttMessageReceivedHandler(IMqttApplicationMessageReceivedHandler handler)
+    public void UseMqttMessageReceivedHandler(Func<MqttApplicationMessageReceivedEventArgs, Task> handler)
     {
-        _mqttClient.UseApplicationMessageReceivedHandler(handler);
+        _mqttClient.ApplicationMessageReceivedAsync += handler;
     }
 
     public async Task StartAsync()
@@ -53,9 +50,9 @@ public class MqttMessagingClient<TMessagingClientOptions> : IMqttMessagingClient
         return _mqttClient.SubscribeAsync(topic);
     }
 
-    public Task SubscribeAsync(IEnumerable<string> topic)
+    public Task SubscribeAsync(IEnumerable<string> topics)
     {
-        return _mqttClient.SubscribeAsync(topic.Select(t => new MqttTopicFilterBuilder().WithTopic(t).Build()));
+        return _mqttClient.SubscribeAsync(topics.Select(t => new MqttTopicFilterBuilder().WithTopic(t).Build()).ToList());
     }
         
     public Task UnsubscribeAsync(string topic)
@@ -65,14 +62,12 @@ public class MqttMessagingClient<TMessagingClientOptions> : IMqttMessagingClient
 
     public Task UnsubscribeAsync(IEnumerable<string> topics)
     {
-        return _mqttClient.UnsubscribeAsync(topics);
+        return _mqttClient.UnsubscribeAsync(topics.ToList());
     }
 
-    public async Task<MqttClientPublishResult> PublishAsync(MqttApplicationMessage mqttApplicationMessage)
+    public async Task PublishAsync(MqttApplicationMessage mqttApplicationMessage)
     {
-        // always will be mqttClientPublishResult.ReasonCode.Success
-        var result = await _mqttClient.PublishAsync(mqttApplicationMessage);
-        return result;
+        await _mqttClient.EnqueueAsync(mqttApplicationMessage);
     }
 
     public void Dispose()

@@ -4,7 +4,6 @@ using MessagingLibrary.Core.Clients;
 using MessagingLibrary.Core.Extensions;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.MessageBus.Mqtt.Extensions;
-using Mqtt.Library.Client;
 
 namespace MessagingLibrary.MessageBus.Mqtt;
 

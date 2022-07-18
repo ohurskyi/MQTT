@@ -1,6 +1,5 @@
 ﻿using MQTTnet;
-using MQTTnet.Client.Publishing;
-using MQTTnet.Client.Receiving;
+using MQTTnet.Client;
 
 namespace MessagingLibrary.Client.Mqtt;
 
@@ -12,13 +11,13 @@ public interface IMqttMessagingClient
 
     Task SubscribeAsync(string topic);
 
-    Task SubscribeAsync(IEnumerable<string> topic);
+    Task SubscribeAsync(IEnumerable<string> topics);
         
     Task UnsubscribeAsync(string topic);
         
     Task UnsubscribeAsync(IEnumerable<string> topics);
-        
-    Task<MqttClientPublishResult> PublishAsync(MqttApplicationMessage mqttApplicationMessage);
 
-    void UseMqttMessageReceivedHandler(IMqttApplicationMessageReceivedHandler handler);
+    Task PublishAsync(MqttApplicationMessage mqttApplicationMessage);
+
+    void UseMqttMessageReceivedHandler(Func<MqttApplicationMessageReceivedEventArgs, Task> handler);
 }
