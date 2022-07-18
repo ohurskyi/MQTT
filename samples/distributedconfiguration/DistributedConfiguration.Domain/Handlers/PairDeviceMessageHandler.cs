@@ -25,7 +25,7 @@ public class PairDeviceMessageHandler : MessageHandlerBase<PairDeviceContract>
         
         if (_pairedDevicesStorage.ContainsKey(payload.MacAddress))
         {
-            return ExecutionResult.Ok();
+            return new SuccessfulResult();
         }
         
         _logger.LogInformation("Paired with device {value}", payload.MacAddress);

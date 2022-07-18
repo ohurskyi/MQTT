@@ -2,7 +2,7 @@
 
 namespace MessagingLibrary.Core.Results
 {
-    public class IntegrationEventResult : ExecutionResult
+    public class IntegrationEventResult : SuccessfulResult
     {
         public string Topic { get; }
         public IMessageContract Contract { get; }

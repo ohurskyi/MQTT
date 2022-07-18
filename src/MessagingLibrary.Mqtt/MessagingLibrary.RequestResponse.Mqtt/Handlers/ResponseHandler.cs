@@ -20,11 +20,11 @@ public class ResponseHandler : IMessageHandler
 
         if (taskCompletionSource == null)
         {
-            return await Task.FromResult(ExecutionResult.Fail($"Cannot complete the response. Non existing correlation id {message.CorrelationId}"));
+            return await Task.FromResult(FailedResult.Create($"Cannot complete the response. Non existing correlation id {message.CorrelationId}"));
         }
 
         taskCompletionSource.SetResult(message.Payload);
             
-        return await Task.FromResult(ExecutionResult.Ok());
+        return await Task.FromResult(new SuccessfulResult());
     }
 }

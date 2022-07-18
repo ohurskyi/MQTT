@@ -17,6 +17,6 @@ public class NotifyUsersMessageHandler : MessageHandlerBase<PairedDevicesConfigu
     protected override async Task<IExecutionResult> HandleAsync(MessagingContext<PairedDevicesConfigurationChangedEventContract> messagingContext)
     {
         _logger.LogInformation("Notify users about distributed config change");
-        return await Task.FromResult(ExecutionResult.Ok());
+        return await Task.FromResult(new SuccessfulResult());
     }
 }

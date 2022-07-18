@@ -2,7 +2,7 @@
 
 namespace MessagingLibrary.Core.Results;
 
-public class ReplyResult : ExecutionResult
+public class ReplyResult : SuccessfulResult
 {
     public ReplyResult(IMessageResponse messagePayload, string replyTopic, Guid correlationId)
     {

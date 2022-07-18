@@ -20,6 +20,6 @@ public class HandlerForAllDeviceNumbers : MessageHandlerBase<DeviceMessageContra
     {
         var payload = messagingContext.Payload;
         await _textWriter.WriteLineAsync(payload.Name + " " + nameof(HandlerForAllDeviceNumbers));
-        return ExecutionResult.Ok();
+        return new SuccessfulResult();
     }
 }
