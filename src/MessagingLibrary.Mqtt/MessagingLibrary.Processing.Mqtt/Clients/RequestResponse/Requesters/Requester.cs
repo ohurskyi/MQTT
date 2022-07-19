@@ -5,7 +5,7 @@ using MessagingLibrary.Processing.Mqtt.Clients.RequestResponse.Completion;
 using MessagingLibrary.Processing.Mqtt.Clients.RequestResponse.Handlers;
 using MessagingLibrary.Processing.Mqtt.Configuration.Configuration;
 
-namespace MessagingLibrary.RequestResponse.Mqtt.Requesters;
+namespace MessagingLibrary.Processing.Mqtt.Clients.RequestResponse.Requesters;
 
 public class Requester<TMessagingClientOptions> : IRequester<TMessagingClientOptions>
     where TMessagingClientOptions : IMqttMessagingClientOptions

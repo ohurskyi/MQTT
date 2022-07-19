@@ -2,7 +2,7 @@
 using MessagingLibrary.Processing.Mqtt.Configuration.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MessagingLibrary.Processing.Mqtt;
+namespace MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;
 
 public static class ServiceProviderExtensions
 {
