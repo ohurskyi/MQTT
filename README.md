@@ -33,6 +33,7 @@ public class DeviceHandler : MessageHandlerBase<DeviceMessageContract>
 ```
 
 ## Define messaging options
+each new client should have its own implementation of ```IMqttMessagingClientOptions```
 ```csharp
 public class InfrastructureMqttMessagingClientOptions : IMqttMessagingClientOptions
 {
@@ -47,7 +48,7 @@ public class DeviceConsumerDefinition : IConsumerDefinition
 {
     private readonly List<int> _availableDeviceNumbers;
 
-    public TestConsumerDefinition(List<int> availableDeviceNumbers)
+    public DeviceConsumerDefinition(List<int> availableDeviceNumbers)
     {
         _availableDeviceNumbers = availableDeviceNumbers;
     }
@@ -64,14 +65,14 @@ public class ConsumerDefinitionProvider : IConsumerDefinitionProvider
 {
     private readonly IAvailableDevicesConfig _availableDevicesConfig;
 
-    public PairingConsumerDefinitionProvider(IAvailableDevicesConfig availableDevicesConfig)
+    public ConsumerDefinitionProvider(IAvailableDevicesConfig availableDevicesConfig)
     {
         _availableDevicesConfig = availableDevicesConfig;
     }
 
     public IEnumerable<IConsumerDefinition> Definitions => new List<IConsumerDefinition>
     {
-        new TestConsumerDefinition(_availableDevicesConfig.GetDevices())
+        new DeviceConsumerDefinition(_availableDevicesConfig.GetDevices())
     };
 }
 ```
@@ -114,4 +115,4 @@ serviceCollection.AddConsumerDefinitionListenerProvider<ConsumerDefinitionListen
 serviceCollection.AddConsumerListener();
 ```
 
-To get started please check the samples folder using Distributed Config as an example with multiple handlers and integration events.
+To get started please check the [samples](https://github.com/ohurskyi/MQTT/tree/main/samples/distributedconfiguration) as an example with multiple handlers and integration events.
