@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 
-namespace MessagingLibrary.RequestResponse.Mqtt.Completion;
+namespace MessagingLibrary.Processing.Mqtt.Clients.RequestResponse.Completion;
 
 public class PendingResponseTracker
 {

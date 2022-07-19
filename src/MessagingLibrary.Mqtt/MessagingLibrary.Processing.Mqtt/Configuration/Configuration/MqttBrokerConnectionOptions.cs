@@ -1,4 +1,4 @@
-﻿namespace MessagingLibrary.Client.Mqtt.Configuration
+﻿namespace MessagingLibrary.Processing.Mqtt.Configuration.Configuration
 {
     public class MqttBrokerConnectionOptions
     {

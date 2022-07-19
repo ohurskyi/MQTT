@@ -9,6 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\src\MessagingLibrary.Mqtt\MessagingLibrary.Client.Mqtt\MessagingLibrary.Client.Mqtt.csproj" />
       <ProjectReference Include="..\..\..\src\MessagingLibrary.Mqtt\MessagingLibrary.MessageBus.Mqtt\MessagingLibrary.MessageBus.Mqtt.csproj" />
+      <ProjectReference Include="..\..\..\src\MessagingLibrary.Mqtt\MessagingLibrary.Processing.Mqtt\MessagingLibrary.Processing.Mqtt.csproj" />
       <ProjectReference Include="..\..\..\src\MessagingLibrary.Mqtt\MessagingLibrary.TopicClient.Mqtt\MessagingLibrary.TopicClient.Mqtt.csproj" />
     </ItemGroup>
 

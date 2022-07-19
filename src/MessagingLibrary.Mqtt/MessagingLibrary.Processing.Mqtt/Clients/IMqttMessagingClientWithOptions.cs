@@ -1,9 +1,10 @@
-﻿using MQTTnet;
+﻿using MessagingLibrary.Processing.Mqtt.Configuration.Configuration;
+using MQTTnet;
 using MQTTnet.Client;
 
-namespace MessagingLibrary.Client.Mqtt;
+namespace MessagingLibrary.Processing.Mqtt.Clients;
 
-public interface IMqttMessagingClient
+public interface IMqttMessagingClient<in TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
 {
     Task StartAsync();
 

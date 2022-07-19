@@ -1,6 +1,4 @@
-﻿using MessagingLibrary.Client.Mqtt;
-using MessagingLibrary.MessageBus.Mqtt;
-using MessagingLibrary.TopicClient.Mqtt;
+﻿using MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

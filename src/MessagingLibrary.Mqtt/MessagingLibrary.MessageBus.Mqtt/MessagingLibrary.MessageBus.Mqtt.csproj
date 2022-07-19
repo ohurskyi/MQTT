@@ -15,4 +15,8 @@
       <ProjectReference Include="..\MessagingLibrary.Client.Mqtt\MessagingLibrary.Client.Mqtt.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Extensions" />
+    </ItemGroup>
+
 </Project>

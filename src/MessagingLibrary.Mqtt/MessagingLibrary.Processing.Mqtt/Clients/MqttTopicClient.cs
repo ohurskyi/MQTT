@@ -1,11 +1,10 @@
-using MessagingLibrary.Client.Mqtt;
-using MessagingLibrary.Client.Mqtt.Configuration;
 using MessagingLibrary.Core.Clients;
 using MessagingLibrary.Core.Definitions.Subscriptions;
 using MessagingLibrary.Core.Factory;
 using MessagingLibrary.Core.Handlers;
+using MessagingLibrary.Processing.Mqtt.Configuration.Configuration;
 
-namespace MessagingLibrary.TopicClient.Mqtt;
+namespace MessagingLibrary.Processing.Mqtt.Clients;
 
 public class MqttTopicClient<TMessagingClientOptions> : ITopicClient<TMessagingClientOptions> where TMessagingClientOptions : class, IMqttMessagingClientOptions
 {

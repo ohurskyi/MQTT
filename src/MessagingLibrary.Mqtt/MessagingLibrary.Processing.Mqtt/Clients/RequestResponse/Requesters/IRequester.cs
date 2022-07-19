@@ -1,5 +1,5 @@
-﻿using MessagingLibrary.Client.Mqtt.Configuration;
-using MessagingLibrary.Core.Messages;
+﻿using MessagingLibrary.Core.Messages;
+using MessagingLibrary.Processing.Mqtt.Configuration.Configuration;
 
 namespace MessagingLibrary.RequestResponse.Mqtt.Requesters;
 

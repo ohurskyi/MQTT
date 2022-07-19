@@ -1,9 +1,9 @@
-﻿using MessagingLibrary.Client.Mqtt;
-using MessagingLibrary.Client.Mqtt.Configuration;
+﻿using MessagingLibrary.Processing.Mqtt.Clients;
+using MessagingLibrary.Processing.Mqtt.Configuration.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Mqtt.Library.Client.Services
+namespace MessagingLibrary.Processing.Mqtt.Services
 {
     public class MqttMessagingHostedService<TMessagingClientOptions> : IHostedService
         where TMessagingClientOptions : IMqttMessagingClientOptions

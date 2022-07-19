@@ -1,13 +1,14 @@
-﻿using MessagingLibrary.Client.Mqtt.Configuration;
+﻿using MessagingLibrary.Processing.Mqtt.Clients;
+using MessagingLibrary.Processing.Mqtt.Configuration.Configuration;
+using MessagingLibrary.Processing.Mqtt.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using Mqtt.Library.Client.Services;
 
-namespace MessagingLibrary.Client.Mqtt
+namespace MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection
 {
-    public static class ServiceCollectionExtensions
+    public static class MqttMessagingClientServiceCollectionExtensions
     {
         public static IServiceCollection AddMqttMessagingClient<TMessagingClientOptions>(this IServiceCollection serviceCollection, IConfiguration configuration)
             where TMessagingClientOptions : class, IMqttMessagingClientOptions, new()

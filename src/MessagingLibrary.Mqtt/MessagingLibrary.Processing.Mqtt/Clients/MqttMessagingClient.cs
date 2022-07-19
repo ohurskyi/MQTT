@@ -1,10 +1,10 @@
-﻿using MessagingLibrary.Client.Mqtt.Configuration;
+﻿using MessagingLibrary.Processing.Mqtt.Configuration.Configuration;
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Extensions.ManagedClient;
 using MQTTnet.Formatter;
 
-namespace MessagingLibrary.Client.Mqtt;
+namespace MessagingLibrary.Processing.Mqtt.Clients;
 
 public class MqttMessagingClient<TMessagingClientOptions> : IMqttMessagingClient<TMessagingClientOptions>, IDisposable
     where TMessagingClientOptions : IMqttMessagingClientOptions
@@ -15,7 +15,6 @@ public class MqttMessagingClient<TMessagingClientOptions> : IMqttMessagingClient
     public MqttMessagingClient(TMessagingClientOptions messagingClientOptions)
     {
         var clientOptions = new MqttClientOptionsBuilder()
-            // for addition props this protocol should be used
             .WithProtocolVersion(MqttProtocolVersion.V500)
             .WithClientId($"Client_{typeof(TMessagingClientOptions).Name}_{Guid.NewGuid()}")
             .WithTcpServer(messagingClientOptions.MqttBrokerConnectionOptions.Host,

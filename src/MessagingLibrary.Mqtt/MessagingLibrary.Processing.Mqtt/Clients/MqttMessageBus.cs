@@ -1,11 +1,10 @@
-using MessagingLibrary.Client.Mqtt;
-using MessagingLibrary.Client.Mqtt.Configuration;
 using MessagingLibrary.Core.Clients;
 using MessagingLibrary.Core.Extensions;
 using MessagingLibrary.Core.Messages;
-using MessagingLibrary.MessageBus.Mqtt.Extensions;
+using MessagingLibrary.Processing.Mqtt.Configuration.Configuration;
+using MessagingLibrary.Processing.Mqtt.Extensions;
 
-namespace MessagingLibrary.MessageBus.Mqtt;
+namespace MessagingLibrary.Processing.Mqtt.Clients;
 
 public class MqttMessageBus<TMessagingClientOptions> : IMessageBus<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
 {

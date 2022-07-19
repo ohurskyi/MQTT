@@ -1,5 +1,5 @@
-﻿using MessagingLibrary.Client.Mqtt.Configuration;
-using MessagingLibrary.Processing.Executor;
+﻿using MessagingLibrary.Processing.Executor;
+using MessagingLibrary.Processing.Mqtt.Configuration.Configuration;
 using MessagingLibrary.Processing.Mqtt.Extensions;
 using MQTTnet.Client;
 
