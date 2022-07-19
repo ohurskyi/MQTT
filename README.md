@@ -108,11 +108,21 @@ if (configurationSource == "external")
 
 ## Register in DI
 ```csharp
-serviceCollection.AddMessageHandlers(typeof(DeviceHandler).Assembly);
-serviceCollection.AddMqttMessagingPipeline<InfrastructureMqttMessagingClientOptions>();
-serviceCollection.AddConsumerDefinitionProvider<ConsumerDefinitionProvider>();
-serviceCollection.AddConsumerDefinitionListenerProvider<ConsumerDefinitionListenerProvider>();
-serviceCollection.AddConsumerListener();
+public static IServiceCollection AddDeviceDomainServices(this IServiceCollection serviceCollection)
+{
+    serviceCollection.AddMessageHandlers(typeof(DeviceHandler).Assembly);
+    serviceCollection.AddMqttMessagingPipeline<InfrastructureMqttMessagingClientOptions>();
+    serviceCollection.AddConsumerDefinitionProvider<ConsumerDefinitionProvider>();
+    serviceCollection.AddConsumerDefinitionListenerProvider<ConsumerDefinitionListenerProvider>();
+    serviceCollection.AddConsumerListener();
+}
+```
+## Append message processing to specific client
+```csharp
+IHost host = Host.CreateDefaultBuilder(args)
+...
+
+host.Services.UseMqttMessageReceivedHandler<InfrastructureMqttMessagingClientOptions>();
 ```
 
 To get started please check the [samples](https://github.com/ohurskyi/MQTT/tree/main/samples/distributedconfiguration) as an example with multiple handlers and integration events.
