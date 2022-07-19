@@ -2,10 +2,10 @@
 
 namespace MessagingLibrary.Core.Definitions.Subscriptions;
 
-public class Subscription<T> : ISubscription
+public class SubscriptionDefinition<T> : ISubscriptionDefinition
     where T: IMessageHandler
 {
-    public Subscription(string topic)
+    public SubscriptionDefinition(string topic)
     {
         HandlerType = typeof(T);
         Topic = topic;

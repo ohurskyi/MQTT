@@ -8,12 +8,12 @@ namespace DistributedConfiguration.Domain.Listeners;
 
 public class DevicePairingConsumerDefinition : IConsumerDefinition
 {
-    public IEnumerable<ISubscription> Definitions()
+    public IEnumerable<ISubscriptionDefinition> Definitions()
     {
-        return new List<ISubscription>
+        return new List<ISubscriptionDefinition>
         {
-            new Subscription<PairDeviceMessageHandler>($"{DistributedConfigurationTopicConstants.PairDevice}"),
-            new Subscription<GetPairedDeviceMessageHandler>($"{DistributedConfigurationTopicConstants.RequestUpdate}")
+            new SubscriptionDefinition<PairDeviceMessageHandler>($"{DistributedConfigurationTopicConstants.PairDevice}"),
+            new SubscriptionDefinition<GetPairedDeviceMessageHandler>($"{DistributedConfigurationTopicConstants.RequestUpdate}")
         };
     }
 }

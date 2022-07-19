@@ -4,5 +4,5 @@ namespace MessagingLibrary.Core.Definitions.Consumers;
 
 public interface IConsumerDefinition
 {
-    IEnumerable<ISubscription> Definitions();
+    IEnumerable<ISubscriptionDefinition> Definitions();
 }

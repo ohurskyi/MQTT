@@ -7,12 +7,12 @@ namespace DistributedConfiguration.Client.Listeners;
 
 public class PairedDevicesConsumerDefinition : IConsumerDefinition
 {
-    public IEnumerable<ISubscription> Definitions()
+    public IEnumerable<ISubscriptionDefinition> Definitions()
     {
-        return new List<ISubscription>
+        return new List<ISubscriptionDefinition>
         {
-            new Subscription<UpdateLocalConfigurationMessageHandler>($"{DistributedConfigurationTopicConstants.CurrentConfiguration}"),
-            new Subscription<NotifyUsersMessageHandler>($"{DistributedConfigurationTopicConstants.CurrentConfiguration}")
+            new SubscriptionDefinition<UpdateLocalConfigurationMessageHandler>($"{DistributedConfigurationTopicConstants.CurrentConfiguration}"),
+            new SubscriptionDefinition<NotifyUsersMessageHandler>($"{DistributedConfigurationTopicConstants.CurrentConfiguration}")
         };
     }
 }

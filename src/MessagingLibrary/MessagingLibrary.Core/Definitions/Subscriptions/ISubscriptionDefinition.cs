@@ -1,6 +1,6 @@
 ﻿namespace MessagingLibrary.Core.Definitions.Subscriptions;
 
-public interface ISubscription
+public interface ISubscriptionDefinition
 {
     Type HandlerType { get; }
     string Topic { get;}

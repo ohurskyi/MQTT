@@ -18,27 +18,27 @@ public class MqttTopicClient<TMessagingClientOptions> : ITopicClient<TMessagingC
         _messageHandlerFactory = messageHandlerFactory;
     }
 
-    public async Task<ISubscription> Subscribe<T>(string topic) where T : class, IMessageHandler
+    public async Task<ISubscriptionDefinition> Subscribe<T>(string topic) where T : class, IMessageHandler
     {
         await SubscribeInner<T>(topic);
-        return new Subscription<T>(topic);
+        return new SubscriptionDefinition<T>(topic);
     }
 
-    public async Task Subscribe(ISubscription subscription)
+    public async Task Subscribe(ISubscriptionDefinition subscriptionDefinition)
     {
-        await SubscribeInner(subscription);
+        await SubscribeInner(subscriptionDefinition);
     }
 
-    public async Task Unsubscribe(ISubscription subscription)
+    public async Task Unsubscribe(ISubscriptionDefinition subscriptionDefinition)
     {
-        await UnsubscribeInner(subscription);
+        await UnsubscribeInner(subscriptionDefinition);
     }
 
-    private async Task UnsubscribeInner(ISubscription subscription)
+    private async Task UnsubscribeInner(ISubscriptionDefinition subscriptionDefinition)
     {
-        if (_messageHandlerFactory.RemoveHandler(subscription.HandlerType, subscription.Topic) == 0)
+        if (_messageHandlerFactory.RemoveHandler(subscriptionDefinition.HandlerType, subscriptionDefinition.Topic) == 0)
         {
-            await _mqttMessagingClient.UnsubscribeAsync(subscription.Topic);
+            await _mqttMessagingClient.UnsubscribeAsync(subscriptionDefinition.Topic);
         }
     }
 
@@ -50,11 +50,11 @@ public class MqttTopicClient<TMessagingClientOptions> : ITopicClient<TMessagingC
         }
     }
     
-    private async Task SubscribeInner(ISubscription subscription)
+    private async Task SubscribeInner(ISubscriptionDefinition subscriptionDefinition)
     {
-        if (_messageHandlerFactory.RegisterHandler(subscription.HandlerType, subscription.Topic) == 1)
+        if (_messageHandlerFactory.RegisterHandler(subscriptionDefinition.HandlerType, subscriptionDefinition.Topic) == 1)
         {
-            await _mqttMessagingClient.SubscribeAsync(subscription.Topic);
+            await _mqttMessagingClient.SubscribeAsync(subscriptionDefinition.Topic);
         }
     }
 }
