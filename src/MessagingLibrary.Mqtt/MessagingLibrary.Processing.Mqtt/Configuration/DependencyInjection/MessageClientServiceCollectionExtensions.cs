@@ -31,7 +31,6 @@ public static class MessageClientServiceCollectionExtensions
     {
         serviceCollection.TryAddSingleton<PendingResponseTracker>();
         serviceCollection.AddMessageHandler<ResponseHandler>();
-        serviceCollection.TryAddSingleton<IRequester<TMessagingClientOptions>, Requester<TMessagingClientOptions>>();
         serviceCollection.TryAddSingleton<IRequestClient<TMessagingClientOptions>, RequestClient<TMessagingClientOptions>>();
         return serviceCollection;
     }

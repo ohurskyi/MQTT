@@ -7,8 +7,7 @@ using MessagingLibrary.Processing.Mqtt.Configuration.Configuration;
 
 namespace MessagingLibrary.Processing.Mqtt.Clients.RequestResponse.Requesters;
 
-public class Requester<TMessagingClientOptions> : IRequester<TMessagingClientOptions>
-    where TMessagingClientOptions : IMqttMessagingClientOptions
+public class Requester<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
 {
     private readonly IMessageBus<TMessagingClientOptions> _mqttMessageBus;
     private readonly ITopicClient<TMessagingClientOptions> _mqttTopicClient;
