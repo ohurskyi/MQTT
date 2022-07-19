@@ -5,7 +5,6 @@ using MessagingLibrary.Core.Configuration.DependencyInjection;
 using MessagingLibrary.Processing.Configuration.DependencyInjection;
 using MessagingLibrary.Processing.Mqtt;
 using MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;
-using MessagingLibrary.RequestResponse.Mqtt;
 using Mqtt.Library.Client.Infrastructure;
 using Serilog;
 
