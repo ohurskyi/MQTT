@@ -53,9 +53,9 @@ public class DeviceConsumerDefinition : IConsumerDefinition
         _availableDeviceNumbers = availableDeviceNumbers;
     }
 
-    public IEnumerable<ISubscription> Definitions()
+    public IEnumerable<ISubscriptionDefinition> Definitions()
     {
-        return _availableDeviceNumbers.Select(deviceNumber => new Subscription<DeviceHandler>($"device/{deviceNumber}"));
+        return _availableDeviceNumbers.Select(deviceNumber => new SubscriptionDefinition<DeviceHandler>($"device/{deviceNumber}"));
     }
 }
 ```
@@ -101,7 +101,7 @@ private readonly ITopicClient<InfrastructureMqttMessagingClientOptions> _topicCl
 if (configurationSource == "external")
 {
     var deviceTopicName = $"devices/remote/{remoteDeviceNumber}";
-    _topicClient.Subscribe(new Subscription<DeviceHandler>(deviceTopicName));
+    _topicClient.Subscribe(new SubscriptionDefinition<DeviceHandler>(deviceTopicName));
 }
 ...
 ```
