@@ -4,7 +4,6 @@ using MessagingLibrary.Processing.Mqtt.Clients;
 using MessagingLibrary.Processing.Mqtt.Clients.RequestResponse;
 using MessagingLibrary.Processing.Mqtt.Clients.RequestResponse.Completion;
 using MessagingLibrary.Processing.Mqtt.Clients.RequestResponse.Handlers;
-using MessagingLibrary.Processing.Mqtt.Clients.RequestResponse.Requesters;
 using MessagingLibrary.Processing.Mqtt.Configuration.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;

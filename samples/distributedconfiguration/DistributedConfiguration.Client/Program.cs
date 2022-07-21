@@ -1,8 +1,4 @@
 using DistributedConfiguration.Client;
-using DistributedConfiguration.Client.IntegrationEvents.PairedDevicesConfigurationChanged;
-using DistributedConfiguration.Client.Listeners;
-using MessagingLibrary.Core.Configuration.DependencyInjection;
-using MessagingLibrary.Processing.Configuration.DependencyInjection;
 using MessagingLibrary.Processing.Mqtt;
 using MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;
 using Mqtt.Library.Client.Infrastructure;
@@ -19,12 +15,7 @@ IHost host = Host.CreateDefaultBuilder(args)
 
         serviceCollection.AddMqttRequestClient<InfrastructureMqttMessagingClientOptions>();
 
-        serviceCollection.AddMessageHandler<UpdateLocalConfigurationMessageHandler>();
-        serviceCollection.AddMessageHandler<NotifyUsersMessageHandler>();
-        serviceCollection.AddMqttMessagingPipeline<InfrastructureMqttMessagingClientOptions>();
-        serviceCollection.AddConsumerDefinitionProvider<PairedDevicesDefinitionProvider>();
-        serviceCollection.AddConsumerDefinitionListenerProvider<ConsumerDefinitionListenerProvider>();
-        serviceCollection.AddConsumerListener();
+        serviceCollection.AddDomainServices();
 
         serviceCollection.AddHostedService<BackgroundPublisher>();
 
