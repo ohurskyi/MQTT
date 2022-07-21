@@ -10,7 +10,9 @@ namespace MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection
 {
     public static class MqttMessagingClientServiceCollectionExtensions
     {
-        public static IServiceCollection AddMqttMessagingClient<TMessagingClientOptions>(this IServiceCollection serviceCollection, IConfiguration configuration)
+        public static IServiceCollection AddMqttMessagingClient<TMessagingClientOptions>(
+            this IServiceCollection serviceCollection, 
+            IConfiguration configuration)
             where TMessagingClientOptions : class, IMqttMessagingClientOptions, new()
         {
             serviceCollection.ConfigureMessagingClientOptions<TMessagingClientOptions>(configuration);
@@ -33,7 +35,8 @@ namespace MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection
             where TMessagingClientOptions : class, IMqttMessagingClientOptions, new()
         {
             var sectionName = typeof(TMessagingClientOptions).Name;
-            serviceCollection.Configure<TMessagingClientOptions>(configuration.GetSection(sectionName));
+            var configurationSection = configuration.GetSection(sectionName);
+            serviceCollection.Configure<TMessagingClientOptions>(configurationSection);
             serviceCollection.AddSingleton(sp => sp.GetRequiredService<IOptions<TMessagingClientOptions>>().Value);
 
             return serviceCollection;
