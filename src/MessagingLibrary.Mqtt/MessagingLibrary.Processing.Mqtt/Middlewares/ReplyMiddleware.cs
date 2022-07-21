@@ -27,7 +27,7 @@ public class ReplyMiddleware : IMessageMiddleware
         var replyTasks = new List<Task>(replyResults.Count);
         foreach (var replyResult in replyResults)
         {
-            _logger.LogInformation("Sending reply to topic {topicValue} of payload {type}", replyResult.ReplyTopic,  replyResult.Payload.GetType().Name);
+            _logger.LogDebug("Sending reply to topic {topicValue} of payload {type}", replyResult.ReplyTopic,  replyResult.Payload.GetType().Name);
             var messageBus = _serviceProvider.GetRequiredService<IMessageBus<TMessagingClientOptions>>();
             var replyMessage = new Message { Topic = replyResult.ReplyTopic, CorrelationId = replyResult.CorrelationId, Payload = replyResult.Payload.MessagePayloadToJson() };
             replyTasks.Add(messageBus.Publish(replyMessage));

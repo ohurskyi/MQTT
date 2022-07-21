@@ -17,9 +17,9 @@ public class LoggingMiddleware : IMessageMiddleware
 
     public async Task<HandlerResult> Handle<TMessagingClientOptions>(IMessage message, MessageHandlerDelegate next) where TMessagingClientOptions : IMessagingClientOptions
     {
-        _logger.LogInformation("Begin message handling on topic {value}", message.Topic);
+        _logger.LogDebug("Begin message handling on topic {value}", message.Topic);
         var result = await next();
-        _logger.LogInformation("End message handling on topic {value}", message.Topic);
+        _logger.LogDebug("End message handling on topic {value}", message.Topic);
         return result;
     }
 }
