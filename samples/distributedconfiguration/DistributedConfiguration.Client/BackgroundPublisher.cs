@@ -8,7 +8,7 @@ namespace DistributedConfiguration.Client
 {
     public class BackgroundPublisher : BackgroundService
     {
-        private int _msgSendCount = 0;
+        private int _msgSendCount;
         
         private readonly IMessageBus<InfrastructureMqttMessagingClientOptions> _mqttMessageBusLocal;
 
