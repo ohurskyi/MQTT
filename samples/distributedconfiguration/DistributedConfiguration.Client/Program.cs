@@ -19,7 +19,7 @@ IHost host = Host.CreateDefaultBuilder(args)
 
         serviceCollection.AddHostedService<BackgroundPublisher>();
 
-        //serviceCollection.AddHostedService<BackgroundRequestSender>();
+        serviceCollection.AddHostedService<BackgroundRequestSender>();
     })
     .UseSerilog((hostingContext, _, loggerConfiguration) => loggerConfiguration
         .ReadFrom.Configuration(hostingContext.Configuration)

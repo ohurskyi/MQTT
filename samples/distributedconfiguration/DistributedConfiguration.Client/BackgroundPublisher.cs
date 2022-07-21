@@ -28,7 +28,7 @@ namespace DistributedConfiguration.Client
                 
                 await _mqttMessageBusLocal.Publish(message, topic);
 
-                await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(3), stoppingToken);
             }
         }
     }

@@ -23,7 +23,9 @@ public class BackgroundRequestSender : BackgroundService
         {
             try
             {
-                var payload = new GetPairedDeviceContract { DeviceId = $"Device: {++_requestCount}"};
+                var deviceId = $"Device: {++_requestCount}";
+                _logger.LogInformation("Try to get a device with id {value}", deviceId);
+                var payload = new GetPairedDeviceContract { DeviceId = deviceId};
                 var response = await _requestClient.SendAndWaitAsync<GetPairedDeviceResponse>(
                     DistributedConfigurationTopicConstants.RequestUpdate,
                     DistributedConfigurationTopicConstants.ResponseUpdate, payload,
@@ -34,8 +36,8 @@ public class BackgroundRequestSender : BackgroundService
             {
                 _logger.LogWarning(ex, "Error while sending sending {type} request.", typeof(GetPairedDeviceContract));
             }
-            
-            await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
+
+            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
         }
     }
 }
