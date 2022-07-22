@@ -9,7 +9,7 @@ public static class ConsumerServiceCollectionExtensions
     public static IServiceCollection AddConsumerDefinitionListenerProvider<TConsumerDefinitionListenerProvider>(this IServiceCollection serviceCollection)
         where TConsumerDefinitionListenerProvider: class, IConsumerDefinitionListenerProvider
     {
-        serviceCollection.TryAddSingleton<IConsumerDefinitionListenerProvider, TConsumerDefinitionListenerProvider>();
+        serviceCollection.TryAddEnumerable(ServiceDescriptor.Singleton<IConsumerDefinitionListenerProvider, TConsumerDefinitionListenerProvider>());
         return serviceCollection;
     }
 
