@@ -16,7 +16,7 @@ public static class ServiceCollectionExtensions
         serviceCollection.AddConsumerDefinitionListenerProvider<ConsumerDefinitionListenerProvider>();
         
         serviceCollection.AddMqttPipe<InfrastructureMqttMessagingClientOptions>();
-        serviceCollection.AddConsumerListener();
+        serviceCollection.AddMessageConsumersHostedService();
         return serviceCollection;
     }
 }

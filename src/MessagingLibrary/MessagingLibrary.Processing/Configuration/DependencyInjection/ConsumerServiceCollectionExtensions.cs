@@ -13,7 +13,7 @@ public static class ConsumerServiceCollectionExtensions
         return serviceCollection;
     }
 
-    public static IServiceCollection AddConsumerListener(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddMessageConsumersHostedService(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddHostedService<MessageConsumersHostedService>();
         return serviceCollection;
