@@ -2,8 +2,7 @@
 
 namespace MessagingLibrary.Core.Definitions.Subscriptions;
 
-public class SubscriptionDefinition<T> : ISubscriptionDefinition
-    where T: IMessageHandler
+public class SubscriptionDefinition<T> : ISubscriptionDefinition where T: class, IMessageHandler
 {
     public SubscriptionDefinition(string topic)
     {

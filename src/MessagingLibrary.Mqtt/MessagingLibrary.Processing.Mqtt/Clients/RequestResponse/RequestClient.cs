@@ -2,7 +2,6 @@ using MessagingLibrary.Core.Clients;
 using MessagingLibrary.Core.Extensions;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Processing.Mqtt.Clients.RequestResponse.Completion;
-using MessagingLibrary.Processing.Mqtt.Clients.RequestResponse.Requesters;
 using MessagingLibrary.Processing.Mqtt.Configuration.Configuration;
 
 namespace MessagingLibrary.Processing.Mqtt.Clients.RequestResponse;

@@ -1,11 +1,12 @@
 using MessagingLibrary.Core.Clients;
+using MessagingLibrary.Core.Definitions.Subscriptions;
 using MessagingLibrary.Core.Extensions;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Processing.Mqtt.Clients.RequestResponse.Completion;
 using MessagingLibrary.Processing.Mqtt.Clients.RequestResponse.Handlers;
 using MessagingLibrary.Processing.Mqtt.Configuration.Configuration;
 
-namespace MessagingLibrary.Processing.Mqtt.Clients.RequestResponse.Requesters;
+namespace MessagingLibrary.Processing.Mqtt.Clients.RequestResponse;
 
 public class Requester<TMessagingClientOptions> where TMessagingClientOptions : IMqttMessagingClientOptions
 {
@@ -27,7 +28,8 @@ public class Requester<TMessagingClientOptions> where TMessagingClientOptions : 
     {
         var correlationId = Guid.NewGuid();
         var replyTopic = $"{responseTopic}/{correlationId}";
-        var subscription = await _mqttTopicClient.Subscribe<ResponseHandler>(replyTopic);
+        var subscription = new SubscriptionDefinition<ResponseHandler>(replyTopic);
+        await _mqttTopicClient.Subscribe(subscription);
         
         try
         {
