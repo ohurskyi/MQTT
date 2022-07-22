@@ -21,6 +21,11 @@ public static class ServiceCollectionExtensions
         return serviceCollection.AddMqttTopicClient<InfrastructureMqttMessagingClientOptions>();
     }
 
+    public static IServiceCollection AddInfrastructureMqttRequestClient(this IServiceCollection serviceCollection)
+    {
+        return serviceCollection.AddMqttRequestClient<InfrastructureMqttMessagingClientOptions>();
+    }
+
     public static IServiceCollection AddInfrastructureMqttPipe(this IServiceCollection serviceCollection)
     {
         return serviceCollection.AddMqttPipe<InfrastructureMqttMessagingClientOptions>();
