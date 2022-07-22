@@ -111,15 +111,28 @@ if (configurationSource == "external")
 public static IServiceCollection AddDeviceDomainServices(this IServiceCollection serviceCollection)
 {
     serviceCollection.AddMessageHandlers(typeof(DeviceHandler).Assembly);
-    serviceCollection.AddMqttMessagingPipeline<InfrastructureMqttMessagingClientOptions>();
-    serviceCollection.AddConsumerDefinitionProvider<ConsumerDefinitionProvider>();
     serviceCollection.AddConsumerDefinitionListenerProvider<ConsumerDefinitionListenerProvider>();
-    serviceCollection.AddConsumerListener();
+    serviceCollection.AddMessageConsumersHostedService();
 }
 ```
 ## Append message processing to specific client
 ```csharp
 IHost host = Host.CreateDefaultBuilder(args)
+    .ConfigureServices((hostContext, serviceCollection) =>
+        {
+            var configuration = hostContext.Configuration;
+            
+            serviceCollection.AddMqttMessagingClient<InfrastructureMqttMessagingClientOptions>(configuration);
+
+            serviceCollection.AddMqttTopicClient<InfrastructureMqttMessagingClientOptions>();
+
+            serviceCollection.AddMqttMessageBus<InfrastructureMqttMessagingClientOptions>();
+
+            serviceCollection.AddMqttPipe<InfrastructureMqttMessagingClientOptions>();
+
+            serviceCollection.AddDeviceDomainServices();
+
+        })
 ...
 
 host.Services.UseMqttMessageReceivedHandler<InfrastructureMqttMessagingClientOptions>();
