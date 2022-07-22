@@ -8,10 +8,10 @@ namespace DistributedConfiguration.Client;
 public class BackgroundRequestSender : BackgroundService
 {
     private int _requestCount = 0;
-    private readonly IRequestClient<InfrastructureMqttMessagingClientOptions> _requestClient;
+    private readonly IRequestClient<InfrastructureClientOptions> _requestClient;
     private readonly ILogger<BackgroundRequestSender> _logger;
 
-    public BackgroundRequestSender(IRequestClient<InfrastructureMqttMessagingClientOptions> requestClient, ILogger<BackgroundRequestSender> logger)
+    public BackgroundRequestSender(IRequestClient<InfrastructureClientOptions> requestClient, ILogger<BackgroundRequestSender> logger)
     {
         _requestClient = requestClient;
         _logger = logger;

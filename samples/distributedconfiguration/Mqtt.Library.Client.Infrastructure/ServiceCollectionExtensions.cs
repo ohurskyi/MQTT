@@ -8,26 +8,26 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddInfrastructureMqttMessagingClient(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
-        return serviceCollection.AddMqttMessagingClient<InfrastructureMqttMessagingClientOptions>(configuration);
+        return serviceCollection.AddMqttMessagingClient<InfrastructureClientOptions>(configuration);
     }
     
     public static IServiceCollection AddInfrastructureMqttMessageBus(this IServiceCollection serviceCollection)
     {
-        return serviceCollection.AddMqttMessageBus<InfrastructureMqttMessagingClientOptions>();
+        return serviceCollection.AddMqttMessageBus<InfrastructureClientOptions>();
     }
 
     public static IServiceCollection AddInfrastructureMqttTopicClient(this IServiceCollection serviceCollection)
     {
-        return serviceCollection.AddMqttTopicClient<InfrastructureMqttMessagingClientOptions>();
+        return serviceCollection.AddMqttTopicClient<InfrastructureClientOptions>();
     }
 
     public static IServiceCollection AddInfrastructureMqttRequestClient(this IServiceCollection serviceCollection)
     {
-        return serviceCollection.AddMqttRequestClient<InfrastructureMqttMessagingClientOptions>();
+        return serviceCollection.AddMqttRequestClient<InfrastructureClientOptions>();
     }
 
     public static IServiceCollection AddInfrastructureMqttPipe(this IServiceCollection serviceCollection)
     {
-        return serviceCollection.AddMqttPipe<InfrastructureMqttMessagingClientOptions>();
+        return serviceCollection.AddMqttPipe<InfrastructureClientOptions>();
     }
 }

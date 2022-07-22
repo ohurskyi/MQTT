@@ -2,7 +2,7 @@
 
 namespace Mqtt.Library.Client.Infrastructure;
 
-public class InfrastructureMqttMessagingClientOptions : IMqttMessagingClientOptions
+public class InfrastructureClientOptions : IMqttMessagingClientOptions
 {
     public MqttBrokerConnectionOptions MqttBrokerConnectionOptions { get; set; } = new() { Host = "localhost", Port = 1883 };
 }

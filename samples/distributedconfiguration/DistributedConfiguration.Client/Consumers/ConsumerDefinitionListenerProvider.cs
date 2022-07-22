@@ -6,15 +6,15 @@ namespace DistributedConfiguration.Client.Consumers;
 
 public class ConsumerDefinitionListenerProvider : IConsumerDefinitionListenerProvider
 {
-    private readonly ITopicClient<InfrastructureMqttMessagingClientOptions> _topicClient;
+    private readonly ITopicClient<InfrastructureClientOptions> _topicClient;
 
-    public ConsumerDefinitionListenerProvider(ITopicClient<InfrastructureMqttMessagingClientOptions> topicClient)
+    public ConsumerDefinitionListenerProvider(ITopicClient<InfrastructureClientOptions> topicClient)
     {
         _topicClient = topicClient;
     }
 
     public IEnumerable<IConsumerListener> Listeners => new List<IConsumerListener>
     {
-        new ConsumerListener<InfrastructureMqttMessagingClientOptions>(_topicClient, new PairedDevicesDefinitionProvider())
+        new ConsumerListener<InfrastructureClientOptions>(_topicClient, new PairedDevicesDefinitionProvider())
     };
 }

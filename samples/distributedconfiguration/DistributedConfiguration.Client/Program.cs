@@ -28,6 +28,6 @@ IHost host = Host.CreateDefaultBuilder(args)
         .WriteTo.Console())
     .Build();
 
-host.Services.UseMqttMessageReceivedHandler<InfrastructureMqttMessagingClientOptions>();
+host.Services.UseMqttMessageReceivedHandler<InfrastructureClientOptions>();
 
 await host.RunAsync();

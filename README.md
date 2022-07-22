@@ -35,7 +35,7 @@ public class DeviceHandler : MessageHandlerBase<DeviceMessageContract>
 ## Define messaging options
 each new client should have its own implementation of ```IMqttMessagingClientOptions```
 ```csharp
-public class InfrastructureMqttMessagingClientOptions : IMqttMessagingClientOptions
+public class InfrastructureClientOptions : IMqttMessagingClientOptions
 {
     public MqttBrokerConnectionOptions MqttBrokerConnectionOptions { get; set; } = new() { Host = "infrastructure.dev.com", Port = 1883 };
 }
@@ -80,22 +80,22 @@ create listener, so subscriptions will be created on startup and removed on tear
 ```csharp
 public class ConsumerDefinitionListenerProvider : IConsumerDefinitionListenerProvider
 {
-    private readonly ITopicClient<InfrastructureMqttMessagingClientOptions> _topicClient;
+    private readonly ITopicClient<InfrastructureClientOptions> _topicClient;
 
-    public ConsumerDefinitionListenerProvider(ITopicClient<InfrastructureMqttMessagingClientOptions> topicClient)
+    public ConsumerDefinitionListenerProvider(ITopicClient<InfrastructureClientOptions> topicClient)
     {
         _topicClient = topicClient;
     }
 
     public IEnumerable<IConsumerListener> Listeners => new List<IConsumerListener>
     {
-        new ConsumerListener<InfrastructureMqttMessagingClientOptions>(_topicClient, new ConsumerDefinitionProvider())
+        new ConsumerListener<InfrastructureClientOptions>(_topicClient, new ConsumerDefinitionProvider())
     };
 }
 ```
 if you want dynamically map the handler to the topic
 ```csharp
-private readonly ITopicClient<InfrastructureMqttMessagingClientOptions> _topicClient;
+private readonly ITopicClient<InfrastructureClientOptions> _topicClient;
 ...
 
 if (configurationSource == "external")
@@ -122,20 +122,20 @@ IHost host = Host.CreateDefaultBuilder(args)
         {
             var configuration = hostContext.Configuration;
             
-            serviceCollection.AddMqttMessagingClient<InfrastructureMqttMessagingClientOptions>(configuration);
+            serviceCollection.AddMqttMessagingClient<InfrastructureClientOptions>(configuration);
 
-            serviceCollection.AddMqttTopicClient<InfrastructureMqttMessagingClientOptions>();
+            serviceCollection.AddMqttTopicClient<InfrastructureClientOptions>();
 
-            serviceCollection.AddMqttMessageBus<InfrastructureMqttMessagingClientOptions>();
+            serviceCollection.AddMqttMessageBus<InfrastructureClientOptions>();
 
-            serviceCollection.AddMqttPipe<InfrastructureMqttMessagingClientOptions>();
+            serviceCollection.AddMqttPipe<InfrastructureClientOptions>();
 
             serviceCollection.AddDeviceDomainServices();
 
         })
 ...
 
-host.Services.UseMqttMessageReceivedHandler<InfrastructureMqttMessagingClientOptions>();
+host.Services.UseMqttMessageReceivedHandler<InfrastructureClientOptions>();
 ```
 
 To get started please check the [samples](https://github.com/ohurskyi/MQTT/tree/main/samples/distributedconfiguration) as an example with multiple handlers and integration events.
