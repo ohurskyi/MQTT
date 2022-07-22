@@ -13,8 +13,8 @@ IHost host = Host.CreateDefaultBuilder(args)
         serviceCollection.AddInfrastructureMqttTopicClient();
 
         serviceCollection.AddInfrastructureMqttMessageBus();
-        
-        serviceCollection.AddMqttPipe<InfrastructureMqttMessagingClientOptions>();
+
+        serviceCollection.AddInfrastructureMqttPipe();
 
         serviceCollection.AddPairingDomainServices();
 
