@@ -1,5 +1,5 @@
-﻿using DistributedConfiguration.Client.IntegrationEvents.PairedDevicesConfigurationChanged;
-using DistributedConfiguration.Client.Listeners;
+﻿using DistributedConfiguration.Client.Consumers;
+using DistributedConfiguration.Client.IntegrationEvents.PairedDevicesConfigurationChanged;
 using MessagingLibrary.Core.Configuration.DependencyInjection;
 using MessagingLibrary.Processing.Configuration.DependencyInjection;
 using MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;

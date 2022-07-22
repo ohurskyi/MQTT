@@ -1,8 +1,6 @@
-﻿using MessagingLibrary.Core.Definitions;
-using MessagingLibrary.Core.Definitions.Consumers;
-using MessagingLibrary.Processing.Listeners;
+﻿using MessagingLibrary.Core.Definitions.Consumers;
 
-namespace DistributedConfiguration.Client.Listeners;
+namespace DistributedConfiguration.Client.Consumers;
 
 public class PairedDevicesDefinitionProvider : IConsumerDefinitionProvider
 {

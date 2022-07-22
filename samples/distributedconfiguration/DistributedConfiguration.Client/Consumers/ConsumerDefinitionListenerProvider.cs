@@ -2,7 +2,7 @@
 using MessagingLibrary.Processing.Listeners;
 using Mqtt.Library.Client.Infrastructure;
 
-namespace DistributedConfiguration.Client.Listeners;
+namespace DistributedConfiguration.Client.Consumers;
 
 public class ConsumerDefinitionListenerProvider : IConsumerDefinitionListenerProvider
 {

@@ -3,7 +3,7 @@ using DistributedConfiguration.Contracts.Topics;
 using MessagingLibrary.Core.Definitions.Consumers;
 using MessagingLibrary.Core.Definitions.Subscriptions;
 
-namespace DistributedConfiguration.Client.Listeners;
+namespace DistributedConfiguration.Client.Consumers;
 
 public class PairedDevicesConsumerDefinition : IConsumerDefinition
 {
