@@ -1,6 +1,4 @@
-﻿using MessagingLibrary.Core.Definitions.Consumers;
-
-namespace MessagingLibrary.Processing.Listeners;
+﻿namespace MessagingLibrary.Core.Definitions.Consumers;
 
 public interface IConsumerDefinitionProvider
 {

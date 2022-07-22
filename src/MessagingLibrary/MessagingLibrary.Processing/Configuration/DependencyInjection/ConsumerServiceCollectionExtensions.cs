@@ -1,4 +1,5 @@
-﻿using MessagingLibrary.Processing.Listeners;
+﻿using MessagingLibrary.Core.Definitions.Consumers;
+using MessagingLibrary.Processing.Listeners;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 

@@ -1,5 +1,6 @@
 ﻿using MessagingLibrary.Core.Clients;
 using MessagingLibrary.Core.Configuration;
+using MessagingLibrary.Core.Definitions.Consumers;
 
 namespace MessagingLibrary.Processing.Listeners;
 
