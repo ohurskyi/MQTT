@@ -13,8 +13,8 @@ public static class HandlerFactoryServiceCollectionExtensions
         serviceCollection.TryAddSingleton<IMessageHandlerFactory<TMessagingClientOptions>, MessageHandlerFactory<TMessagingClientOptions>>();
         return serviceCollection;
     }
-    
-    public static IServiceCollection AddRequiredServiceResolvingFactory(this IServiceCollection serviceCollection)
+
+    private static IServiceCollection AddRequiredServiceResolvingFactory(this IServiceCollection serviceCollection)
     {
         serviceCollection.TryAddTransient<ServiceFactory>(p => p.GetRequiredService);
         return serviceCollection;

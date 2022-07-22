@@ -1,7 +1,6 @@
 ﻿using MessagingLibrary.Core.Definitions.Consumers;
-using MessagingLibrary.Processing.Listeners;
 
-namespace DistributedConfiguration.Domain.Listeners;
+namespace DistributedConfiguration.Domain.Consumers;
 
 public class PairingConsumerDefinitionProvider : IConsumerDefinitionProvider
 {

@@ -13,7 +13,7 @@ public static class ServiceCollectionExtensions
     {
         serviceCollection.AddMessageHandler<UpdateLocalConfigurationMessageHandler>();
         serviceCollection.AddMessageHandler<NotifyUsersMessageHandler>();
-        serviceCollection.AddMqttMessagingPipeline<InfrastructureMqttMessagingClientOptions>();
+        serviceCollection.AddMqttPipe<InfrastructureMqttMessagingClientOptions>();
         serviceCollection.AddConsumerDefinitionListenerProvider<ConsumerDefinitionListenerProvider>();
         serviceCollection.AddConsumerListener();
         return serviceCollection;
