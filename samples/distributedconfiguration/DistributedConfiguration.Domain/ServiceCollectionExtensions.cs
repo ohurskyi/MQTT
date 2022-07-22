@@ -14,7 +14,6 @@ public static class ServiceCollectionExtensions
     {
         serviceCollection.AddMessageHandlers(typeof(PairDeviceMessageHandler).Assembly);
         serviceCollection.AddMqttMessagingPipeline<InfrastructureMqttMessagingClientOptions>();
-        serviceCollection.AddConsumerDefinitionProvider<PairingConsumerDefinitionProvider>();
         serviceCollection.AddConsumerDefinitionListenerProvider<ConsumerDefinitionListenerProvider>();
         serviceCollection.AddConsumerListener();
         return serviceCollection;

@@ -14,7 +14,6 @@ public static class ServiceCollectionExtensions
         serviceCollection.AddMessageHandler<UpdateLocalConfigurationMessageHandler>();
         serviceCollection.AddMessageHandler<NotifyUsersMessageHandler>();
         serviceCollection.AddMqttMessagingPipeline<InfrastructureMqttMessagingClientOptions>();
-        serviceCollection.AddConsumerDefinitionProvider<PairedDevicesDefinitionProvider>();
         serviceCollection.AddConsumerDefinitionListenerProvider<ConsumerDefinitionListenerProvider>();
         serviceCollection.AddConsumerListener();
         return serviceCollection;
