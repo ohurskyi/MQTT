@@ -1,5 +1,4 @@
 using DistributedConfiguration.Domain;
-using MessagingLibrary.Processing.Mqtt;
 using MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection;
 using Mqtt.Library.Client.Infrastructure;
 using Serilog;
@@ -14,6 +13,8 @@ IHost host = Host.CreateDefaultBuilder(args)
         serviceCollection.AddInfrastructureMqttTopicClient();
 
         serviceCollection.AddInfrastructureMqttMessageBus();
+        
+        serviceCollection.AddMqttPipe<InfrastructureMqttMessagingClientOptions>();
 
         serviceCollection.AddPairingDomainServices();
 
