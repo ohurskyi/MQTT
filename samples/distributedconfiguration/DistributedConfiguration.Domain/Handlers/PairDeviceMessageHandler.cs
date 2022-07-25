@@ -1,7 +1,7 @@
-﻿using System.Collections.Concurrent;
-using DistributedConfiguration.Contracts.Models;
+﻿using DistributedConfiguration.Contracts.Models;
 using DistributedConfiguration.Contracts.Pairing;
 using DistributedConfiguration.Contracts.Topics;
+using DistributedConfiguration.Domain.Infrastructure;
 using MessagingLibrary.Core.Handlers;
 using MessagingLibrary.Core.Messages;
 using MessagingLibrary.Core.Results;
@@ -12,29 +12,31 @@ namespace DistributedConfiguration.Domain.Handlers;
 public class PairDeviceMessageHandler : MessageHandlerBase<PairDeviceContract>
 {
     private readonly ILogger<PairDeviceMessageHandler> _logger;
-    private static readonly ConcurrentDictionary<string, Device> _pairedDevicesStorage = new();
 
-    public PairDeviceMessageHandler(ILogger<PairDeviceMessageHandler> logger)
+    private readonly DevicesStorage _devicesStorage;
+
+    public PairDeviceMessageHandler(ILogger<PairDeviceMessageHandler> logger, DevicesStorage devicesStorage)
     {
         _logger = logger;
+        _devicesStorage = devicesStorage;
     }
 
     protected override async Task<IExecutionResult> HandleAsync(MessagingContext<PairDeviceContract> messagingContext)
     {
         var payload = messagingContext.Payload;
         
-        if (_pairedDevicesStorage.ContainsKey(payload.MacAddress))
+        if (_devicesStorage.Exists(payload.MacAddress))
         {
             return new SuccessfulResult();
         }
         
         _logger.LogInformation("Paired with device {value}", payload.MacAddress);
 
-        _pairedDevicesStorage.TryAdd(payload.MacAddress, new Device { MacAddress = payload.MacAddress });
+        _devicesStorage.Add(new Device { MacAddress = payload.MacAddress });
 
-        var eventPayload = new PairedDevicesConfigurationChangedEventContract
+        var eventPayload = new DevicesConfigurationChangedContract
         {
-            PairedDevicesModel = new PairedDevicesModel {Devices = _pairedDevicesStorage.Values.ToList() }
+            PairedDevicesModel = new PairedDevicesModel { Devices = _devicesStorage.GetAll() }
         };
         
         var integrationEventResult = new IntegrationEventResult(eventPayload, DistributedConfigurationTopicConstants.CurrentConfiguration);

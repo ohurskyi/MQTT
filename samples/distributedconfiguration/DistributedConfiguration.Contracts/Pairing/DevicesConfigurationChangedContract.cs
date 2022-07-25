@@ -3,7 +3,7 @@ using MessagingLibrary.Core.Messages;
 
 namespace DistributedConfiguration.Contracts.Pairing;
 
-public class PairedDevicesConfigurationChangedEventContract : IMessageContract
+public class DevicesConfigurationChangedContract : IMessageContract
 {
     public PairedDevicesModel PairedDevicesModel { get; set; }
 }

@@ -5,7 +5,7 @@ using MessagingLibrary.Core.Results;
 
 namespace DistributedConfiguration.Client.IntegrationEvents.PairedDevicesConfigurationChanged;
 
-public class UpdateLocalConfigurationMessageHandler : MessageHandlerBase<PairedDevicesConfigurationChangedEventContract>
+public class UpdateLocalConfigurationMessageHandler : MessageHandlerBase<DevicesConfigurationChangedContract>
 {
     private readonly ILogger<UpdateLocalConfigurationMessageHandler> _logger;
 
@@ -14,7 +14,7 @@ public class UpdateLocalConfigurationMessageHandler : MessageHandlerBase<PairedD
         _logger = logger;
     }
 
-    protected override async Task<IExecutionResult> HandleAsync(MessagingContext<PairedDevicesConfigurationChangedEventContract> messagingContext)
+    protected override async Task<IExecutionResult> HandleAsync(MessagingContext<DevicesConfigurationChangedContract> messagingContext)
     {
         var payload = messagingContext.Payload;
         var newConfiguration = payload.PairedDevicesModel;

@@ -5,7 +5,7 @@ using MessagingLibrary.Core.Results;
 
 namespace DistributedConfiguration.Client.IntegrationEvents.PairedDevicesConfigurationChanged;
 
-public class NotifyUsersMessageHandler : MessageHandlerBase<PairedDevicesConfigurationChangedEventContract>
+public class NotifyUsersMessageHandler : MessageHandlerBase<DevicesConfigurationChangedContract>
 {
     private readonly ILogger<NotifyUsersMessageHandler> _logger;
 
@@ -14,7 +14,7 @@ public class NotifyUsersMessageHandler : MessageHandlerBase<PairedDevicesConfigu
         _logger = logger;
     }
 
-    protected override async Task<IExecutionResult> HandleAsync(MessagingContext<PairedDevicesConfigurationChangedEventContract> messagingContext)
+    protected override async Task<IExecutionResult> HandleAsync(MessagingContext<DevicesConfigurationChangedContract> messagingContext)
     {
         _logger.LogInformation("Notify users about distributed config change");
         return await Task.FromResult(new SuccessfulResult());
