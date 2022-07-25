@@ -6,13 +6,13 @@ using Serilog;
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, serviceCollection) =>
     {
-        serviceCollection.AddInfrastructureMqttMessagingClient(hostContext.Configuration);
+        serviceCollection.AddInfrastructureMessagingClient(hostContext.Configuration);
 
-        serviceCollection.AddInfrastructureMqttMessageBus();
+        serviceCollection.AddInfrastructureMessageBus();
 
-        serviceCollection.AddInfrastructureMqttTopicClient();
+        serviceCollection.AddInfrastructureTopicClient();
 
-        serviceCollection.AddInfrastructureMqttRequestClient();
+        serviceCollection.AddInfrastructureRequestClient();
 
         serviceCollection.AddInfrastructureMqttPipe();
 

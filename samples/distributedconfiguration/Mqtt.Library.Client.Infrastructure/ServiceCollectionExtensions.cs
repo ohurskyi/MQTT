@@ -6,22 +6,22 @@ namespace Mqtt.Library.Client.Infrastructure;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddInfrastructureMqttMessagingClient(this IServiceCollection serviceCollection, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructureMessagingClient(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
         return serviceCollection.AddMqttMessagingClient<InfrastructureClientOptions>(configuration);
     }
     
-    public static IServiceCollection AddInfrastructureMqttMessageBus(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddInfrastructureMessageBus(this IServiceCollection serviceCollection)
     {
         return serviceCollection.AddMqttMessageBus<InfrastructureClientOptions>();
     }
 
-    public static IServiceCollection AddInfrastructureMqttTopicClient(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddInfrastructureTopicClient(this IServiceCollection serviceCollection)
     {
         return serviceCollection.AddMqttTopicClient<InfrastructureClientOptions>();
     }
 
-    public static IServiceCollection AddInfrastructureMqttRequestClient(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddInfrastructureRequestClient(this IServiceCollection serviceCollection)
     {
         return serviceCollection.AddMqttRequestClient<InfrastructureClientOptions>();
     }

@@ -8,11 +8,11 @@ IHost host = Host.CreateDefaultBuilder(args)
     {
         var configuration = hostContext.Configuration;
         
-        serviceCollection.AddInfrastructureMqttMessagingClient(configuration);
+        serviceCollection.AddInfrastructureMessagingClient(configuration);
 
-        serviceCollection.AddInfrastructureMqttTopicClient();
+        serviceCollection.AddInfrastructureTopicClient();
 
-        serviceCollection.AddInfrastructureMqttMessageBus();
+        serviceCollection.AddInfrastructureMessageBus();
 
         serviceCollection.AddInfrastructureMqttPipe();
 
