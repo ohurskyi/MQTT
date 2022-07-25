@@ -17,6 +17,8 @@ namespace MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection
         {
             serviceCollection.ConfigureMessagingClientOptions<TMessagingClientOptions>(configuration);
 
+            serviceCollection.TryAddSingleton<IClientOptionsBuilder<TMessagingClientOptions>, DefaultClientOptionsBuilder<TMessagingClientOptions>>();
+            
             serviceCollection.TryAddSingleton<IMqttMessagingClient<TMessagingClientOptions>, MqttMessagingClient<TMessagingClientOptions>>();
             
             serviceCollection.AddMqttMessagingStartupServices<TMessagingClientOptions>();

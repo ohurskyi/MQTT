@@ -2,7 +2,6 @@
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Extensions.ManagedClient;
-using MQTTnet.Formatter;
 
 namespace MessagingLibrary.Processing.Mqtt.Clients;
 
@@ -12,19 +11,9 @@ public class MqttMessagingClient<TMessagingClientOptions> : IMqttMessagingClient
     private readonly IManagedMqttClient _mqttClient;
     private readonly ManagedMqttClientOptions _mqttClientOptions;
 
-    public MqttMessagingClient(TMessagingClientOptions messagingClientOptions)
+    public MqttMessagingClient(IClientOptionsBuilder<TMessagingClientOptions> clientOptionsBuilder)
     {
-        var clientOptions = new MqttClientOptionsBuilder()
-            .WithProtocolVersion(MqttProtocolVersion.V500)
-            .WithClientId($"Client_{typeof(TMessagingClientOptions).Name}_{Guid.NewGuid()}")
-            .WithTcpServer(messagingClientOptions.MqttBrokerConnectionOptions.Host,
-                messagingClientOptions.MqttBrokerConnectionOptions.Port)
-            .Build();
-
-        _mqttClientOptions = new ManagedMqttClientOptionsBuilder()
-            .WithAutoReconnectDelay(TimeSpan.FromSeconds(5))
-            .WithClientOptions(clientOptions)
-            .Build();
+        _mqttClientOptions = clientOptionsBuilder.BuildClientOptions();
 
         _mqttClient = new MqttFactory().CreateManagedMqttClient();
     }
