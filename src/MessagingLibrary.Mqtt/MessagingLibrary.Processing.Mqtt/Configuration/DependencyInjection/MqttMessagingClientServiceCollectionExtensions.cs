@@ -25,6 +25,23 @@ namespace MessagingLibrary.Processing.Mqtt.Configuration.DependencyInjection
 
             return serviceCollection;
         }
+        
+        public static IServiceCollection AddMqttMessagingClient<TMessagingClientOptions, TClientOptionsBuilder>(
+            this IServiceCollection serviceCollection, 
+            IConfiguration configuration)
+            where TMessagingClientOptions : class, IMqttMessagingClientOptions, new()
+            where TClientOptionsBuilder: class, IClientOptionsBuilder<TMessagingClientOptions>
+        {
+            serviceCollection.ConfigureMessagingClientOptions<TMessagingClientOptions>(configuration);
+
+            serviceCollection.TryAddSingleton<IClientOptionsBuilder<TMessagingClientOptions>, TClientOptionsBuilder>();
+            
+            serviceCollection.TryAddSingleton<IMqttMessagingClient<TMessagingClientOptions>, MqttMessagingClient<TMessagingClientOptions>>();
+            
+            serviceCollection.AddMqttMessagingStartupServices<TMessagingClientOptions>();
+
+            return serviceCollection;
+        }
 
         private static IServiceCollection AddMqttMessagingStartupServices<TMessagingClientOptions>(this IServiceCollection serviceCollection)
             where TMessagingClientOptions : class, IMqttMessagingClientOptions, new()

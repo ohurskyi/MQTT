@@ -8,7 +8,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddInfrastructureMessagingClient(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
-        return serviceCollection.AddMqttMessagingClient<InfrastructureClientOptions>(configuration);
+        return serviceCollection.AddMqttMessagingClient<InfrastructureClientOptions, InfrastructureClientOptionsBuilder>(configuration);
     }
     
     public static IServiceCollection AddInfrastructureMessageBus(this IServiceCollection serviceCollection)
